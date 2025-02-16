@@ -6,10 +6,12 @@ export default class extends Controller {
   }
 
   open() {
+    document.body.style.overflow = 'hidden'
     this.dialog.showModal()
   }
 
   close() {
+    document.body.style.overflow = 'auto'
     this.dialog.close()
   }
 
