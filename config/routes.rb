@@ -3,9 +3,13 @@ Rails.application.routes.draw do
 
   root to: redirect("/shop")
 
-  resources :products, only: %i[index show], path: "shop"
+  resources :products, only: %i[index show], path: "shop" do
+    collection do
+      get :search
+      get :qr
+    end
+  end
 
-  get "qr", to: "shop#qr"
   post "add_to_cart/:product_id", to: "shop#add_to_cart", as: :add_to_cart
 
   get "queue", to: "queue#index"

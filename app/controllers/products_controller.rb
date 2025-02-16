@@ -12,6 +12,14 @@ class ProductsController < ApplicationController
     @grouped_products = products.group_by(&:category)
   end
 
+  def search
+    @products = if params[:query].length > 2
+                  Product.search(params[:query])
+    else
+                  Product.none
+    end
+  end
+
   def show; end
 
   private

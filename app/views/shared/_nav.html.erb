@@ -1,4 +1,6 @@
 <nav id="nav">
+  <%= render "products/search_dialog" %>
+
   <%= active_link_to products_path do %>
     <i class="fa-solid fa-list"></i>
     <%= t("products.index.title") %>

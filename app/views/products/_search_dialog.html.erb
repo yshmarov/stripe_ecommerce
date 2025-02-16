@@ -1,0 +1,15 @@
+<button data-controller="dialog" data-action="click->dialog#open keydown.meta+k@window->dialog#open keydown.ctrl+k@window->dialog#open">
+  <i class="fa-solid fa-search"></i>
+</button>
+
+<dialog id="search-dialog">
+  <form method="dialog">
+    <button>&times</button>
+  </form>
+
+  <%= form_with url: search_products_path, method: :get, data: { turbo_frame: :search_results } do |f| %>
+    <%= f.text_field :query, autofocus: true, autocomplete: "off", autocorrect: "off", autocapitalize: "off", spellcheck: "false", oninput: "this.form.requestSubmit()" %>
+  <% end %>
+
+  <%= turbo_frame_tag :search_results, target: "_top" %>
+</dialog>

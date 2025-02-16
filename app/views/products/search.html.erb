@@ -1,0 +1,10 @@
+<%= turbo_frame_tag :search_results do %>
+  <% @products.each do |product| %>
+    <div>
+      <%= link_to product_path(product) do %>
+        <%= image_tag product.image_url, width: 100 %>
+        <%= highlight(product.name, params[:query]) %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
