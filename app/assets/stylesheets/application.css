@@ -10,7 +10,7 @@
  */
 
 .active {
-  background-color: burlywood;
+  background-color: var(--primary);
 }
 
 .grid-cols-auto-fit {

@@ -13,7 +13,7 @@
     <% end %>
   <% end %>
 
-  <%= active_link_to orders_path do %>
+  <%= active_link_to orders_path, active: :exact do %>
     <i class="fa-solid fa-clock-rotate-left"></i>
     <%= t("orders.index.title") %>
   <% end %>
