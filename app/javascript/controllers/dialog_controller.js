@@ -12,4 +12,10 @@ export default class extends Controller {
   close() {
     this.dialog.close()
   }
+
+  clickOutside(event) {
+    if (event.target === this.dialog) {
+      this.close()
+    }
+  }
 }
