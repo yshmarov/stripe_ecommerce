@@ -46,4 +46,11 @@ class ShopControllerTest < ActionDispatch::IntegrationTest
     assert_equal 99, order.order_items.second.price
     assert_equal 198, order.order_items.second.total_price
   end
+
+  test "search products" do
+    get search_products_path, params: { query: "monster" }
+    assert_response :success
+    assert_match "Monster", response.body
+    assert_no_match "Rafaello", response.body
+  end
 end
