@@ -1,6 +1,6 @@
 class ShopController < ApplicationController
   # the default url to open from QR
-  # /qr?table_delivery=3
+  # http://localhost:3000/qr?table_delivery=3
   def qr
     session[:table_delivery] = params[:table_delivery]
     redirect_to products_path
