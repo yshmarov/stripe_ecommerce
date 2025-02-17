@@ -2,6 +2,9 @@ class CheckoutController < ApplicationController
   def create
     @order = @my_orders.find(params[:order_id])
 
+    return redirect_to @order, notice: "Order must have at least one item" if @order.order_items.empty?
+    return redirect_to @order, notice: "Order is not in draft status" unless @order.draft?
+
     session = Stripe::Checkout::Session.create(
       payment_method_types: [ "card" ],
       line_items: @order.order_items.map { |item|

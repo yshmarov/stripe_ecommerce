@@ -3,6 +3,8 @@ class OrderItemsController < ApplicationController
 
   # increment or decrement the quantity of an order item
   def update
+    return unless @order_item.order.draft?
+
     @order_item.update(order_item_params)
     @order_item.calculate_total_price
     redirect_to @order_item.order, notice: t(".update.notice")

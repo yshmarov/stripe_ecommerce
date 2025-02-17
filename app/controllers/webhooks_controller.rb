@@ -24,6 +24,10 @@ class WebhooksController < ApplicationController
       session = event.data.object
       order = Order.find(session.client_reference_id)
       order.submitted! if order.draft?
+      # when "payment_intent.succeeded"
+      #   payment_intent = event.data.object
+      #   order = Order.find(payment_intent.client_reference_id)
+      #   order.paid!
     end
 
     render json: { status: "success" }
