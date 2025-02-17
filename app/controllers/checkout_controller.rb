@@ -1,0 +1,32 @@
+class CheckoutController < ApplicationController
+  def create
+    @order = @my_orders.find(params[:order_id])
+
+    session = Stripe::Checkout::Session.create(
+      payment_method_types: [ "card" ],
+      line_items: @order.order_items.map { |item|
+        {
+          price_data: {
+            currency: Setting.currency.downcase,
+            product_data: {
+              name: item.product.name,
+              description: item.product.description,
+              images: [ item.product.image_url ]
+            },
+            unit_amount: item.price
+          },
+          quantity: item.quantity
+        }
+      },
+      mode: "payment",
+      success_url: order_url(@order),
+      cancel_url: order_url(@order),
+      client_reference_id: @order.id,
+      metadata: {
+        order_id: @order.id
+      }
+    )
+
+    redirect_to session.url, allow_other_host: true, status: :see_other
+  end
+end

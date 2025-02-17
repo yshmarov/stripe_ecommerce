@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :orders, only: %i[index show update] do
     resources :order_items, only: %i[destroy update]
+    resources :checkout, only: [ :create ]
   end
 
   namespace :admin do
@@ -24,4 +25,6 @@ Rails.application.routes.draw do
     resources :orders, only: %i[index show update]
     resources :stats, only: :index
   end
+
+  resources :webhooks, only: [ :create ]
 end
