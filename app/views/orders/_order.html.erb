@@ -27,7 +27,7 @@
   <% end %>
 
   <% if order.draft? %>
-    <%= button_to order_checkout_index_path(order), method: :post, data: { turbo: false } do %>
+    <%= button_to order_checkout_index_path(order), method: :post, data: { turbo: false }, disabled: order.order_items.empty? do %>
       <i class="fa-solid fa-credit-card"></i>
       <%= order_pay_label(order) %>
       <%= order.total_price / 100.to_d %>

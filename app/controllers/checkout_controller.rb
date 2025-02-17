@@ -7,20 +7,7 @@ class CheckoutController < ApplicationController
 
     session = Stripe::Checkout::Session.create(
       payment_method_types: [ "card" ],
-      line_items: @order.order_items.map { |item|
-        {
-          price_data: {
-            currency: Setting.currency.downcase,
-            product_data: {
-              name: item.product.name,
-              description: item.product.description,
-              images: [ item.product.image_url ]
-            },
-            unit_amount: item.price
-          },
-          quantity: item.quantity
-        }
-      },
+      line_items:,
       mode: "payment",
       success_url: order_url(@order),
       cancel_url: order_url(@order),
@@ -31,5 +18,22 @@ class CheckoutController < ApplicationController
     )
 
     redirect_to session.url, allow_other_host: true, status: :see_other
+  end
+
+  def line_items
+    @order.order_items.map do |item|
+      {
+        price_data: {
+          currency: Setting.currency.downcase,
+          product_data: {
+            name: item.product.name,
+            description: item.product.description,
+            images: [ item.product.image_url ]
+          },
+          unit_amount: item.price
+        },
+        quantity: item.quantity
+      }
+    end
   end
 end
