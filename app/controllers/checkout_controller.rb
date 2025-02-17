@@ -20,18 +20,28 @@ class CheckoutController < ApplicationController
     redirect_to session.url, allow_other_host: true, status: :see_other
   end
 
+  # Approach without having to define Stripe products:
+  # def line_items
+  #   @order.order_items.map do |item|
+  #     {
+  #       price_data: {
+  #         currency: Setting.currency.downcase,
+  #         product_data: {
+  #           name: item.product.name,
+  #           description: item.product.description,
+  #           images: [ item.product.image_url ]
+  #         },
+  #         unit_amount: item.price
+  #       },
+  #       quantity: item.quantity
+  #     }
+  #   end
+  # end
+
   def line_items
     @order.order_items.map do |item|
       {
-        price_data: {
-          currency: Setting.currency.downcase,
-          product_data: {
-            name: item.product.name,
-            description: item.product.description,
-            images: [ item.product.image_url ]
-          },
-          unit_amount: item.price
-        },
+        price: item.product.stripe_price_id,
         quantity: item.quantity
       }
     end
