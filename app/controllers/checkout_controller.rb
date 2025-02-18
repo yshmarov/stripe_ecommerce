@@ -5,16 +5,29 @@ class CheckoutController < ApplicationController
     return redirect_to @order, notice: "Order must have at least one item" if @order.order_items.empty?
     return redirect_to @order, notice: "Order is not in draft status" unless @order.draft?
 
+    # https://docs.stripe.com/api/checkout/sessions/object
     session = Stripe::Checkout::Session.create(
+      # allow_promotion_codes: true,
+      # automatic_tax: { enabled: true },
+      # billing_address_collection: "auto", # "required"
+      # shipping_address_collection: {
+      #   allowed_countries: [ "US", "CA" ]
+      # },
+      # phone_number_collection: {
+      #   enabled: true
+      # },
+      # consent_collection: {
+      # terms_of_service: "required",
+      # },
+      # adaptive_pricing: {
+      #   enabled: true
+      # },
       payment_method_types: [ "card" ],
       line_items:,
       mode: "payment",
       success_url: order_url(@order),
       cancel_url: order_url(@order),
-      client_reference_id: @order.id,
-      metadata: {
-        order_id: @order.id
-      }
+      client_reference_id: @order.id
     )
 
     redirect_to session.url, allow_other_host: true, status: :see_other
