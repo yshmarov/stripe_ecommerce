@@ -22,11 +22,40 @@ class WebhooksController < ApplicationController
     case event.type
     when "checkout.session.completed"
       session = event.data.object
-      order = Order.find(session.client_reference_id)
       return unless session.payment_status == "paid"
+
+      order = Order.find(session.client_reference_id)
+
+      rebuild_order_items(order, session)
+
       order.submitted! if order.draft?
     end
 
     render json: { status: "success" }
+  end
+
+  private
+
+  # if customer chooses upsells/cross-sells during checkout
+  def rebuild_order_items(order, session)
+    # Fetch the line items and rebuild the order
+    line_items = Stripe::Checkout::Session.list_line_items(session.id)
+    # Remove existing items
+    order.order_items.destroy_all
+
+    # Create new order items based on what was actually purchased
+    line_items.data.each do |item|
+      product = Product.find_by(stripe_price_id: item.price.id)
+      next unless product
+
+      order.order_items.create!(
+        product: product,
+        quantity: item.quantity,
+        price: item.price.unit_amount,
+        total_price: item.amount_total
+      )
+    end
+
+    order.calculate_total_price
   end
 end
