@@ -22,8 +22,12 @@
 
   <body>
     <header style="position: sticky; top: 0; z-index: 100;">
-      <h1>
-        <i class="fa-solid fa-utensils"></i>
+      <h1 style="display: flex; align-items: center; gap: 0.5em; width: 100%; justify-content: center;">
+        <% if Setting.logo_url.present? %>
+          <%= image_tag Setting.logo_url, style: "height: 60px; width: auto; max-width: 6em" %>
+        <% else %>
+          <i class="fa-solid fa-utensils"></i>
+        <% end %>
         <%= Setting.app_name %>
       </h1>
       <p>

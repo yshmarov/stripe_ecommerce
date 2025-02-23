@@ -5,6 +5,7 @@ class Setting < RailsSettings::Base
   scope :business do
     field :public_order_queue, default: true, type: :boolean
     field :app_name, default: "Snack Bar by Yaro", type: :string, validates: { presence: true, length: { in: 2..20 } }
+    field :logo_url, type: :string, default: "https://superails.com/logo.png"
     field :description, default: "Self checkout snack bar", type: :text, validates: { presence: true, length: { in: 2..200 } }
   end
 
