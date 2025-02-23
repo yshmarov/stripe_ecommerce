@@ -9,10 +9,16 @@ class OrderItemsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 1, order.order_items.count
     assert_equal 1, order.order_items_quantity
 
+    # can edit draft order items
     put order_order_item_url(order, order.order_items.first), params: { order_item: { quantity: 20 } }
     assert_redirected_to order_path(order)
     assert_equal 1, order.order_items.count
     assert_equal 20, order.reload.order_items_quantity
+
+    # can't edit submitted order items
+    order.submitted!
+    put order_order_item_url(order, order.order_items.first), params: { order_item: { quantity: 21 } }
+    assert_response :not_found
   end
 
   test "destroy" do

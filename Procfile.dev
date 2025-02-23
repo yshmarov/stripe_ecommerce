@@ -1,0 +1,2 @@
+web: bin/rails server -p 3000
+stripe: stripe listen --forward-to localhost:3000/webhooks

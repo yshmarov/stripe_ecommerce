@@ -75,6 +75,7 @@ jobs:
       - name: Run tests
         env:
           RAILS_ENV: test
+          STRIPE_SECRET_KEY: sk_foobar
           # REDIS_URL: redis://localhost:6379/0
         run: bin/rails db:test:prepare test test:system
 

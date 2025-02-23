@@ -9,8 +9,6 @@ class OrderItemsController < ApplicationController
   end
 
   def destroy
-    return unless @order_item.order.draft?
-
     @order_item.destroy
     @order_item.order.calculate_total_price
     redirect_to @order_item.order, notice: t(".destroy.notice")
@@ -19,8 +17,10 @@ class OrderItemsController < ApplicationController
   private
 
   def set_order_item
-    @order = @my_orders.find(params[:order_id])
+    @order = @my_orders.draft.find(params[:order_id])
     @order_item = @order.order_items.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, status: :not_found
   end
 
   def order_item_params
