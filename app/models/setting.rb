@@ -8,6 +8,14 @@ class Setting < RailsSettings::Base
     field :description, default: "Self checkout snack bar", type: :text, validates: { presence: true, length: { in: 2..200 } }
   end
 
+  BILLING_ADDRESS_COLLECTION_OPTIONS = %w[auto required]
+
+  scope :checkout do
+    field :allow_promotion_codes, default: false, type: :boolean
+    field :phone_number_collection, default: false, type: :boolean
+    field :billing_address_collection, default: "auto", type: :string, validates: { presence: true, inclusion: { in: BILLING_ADDRESS_COLLECTION_OPTIONS } }, option_values: BILLING_ADDRESS_COLLECTION_OPTIONS
+  end
+
   ENABLED_CURRENCIES = %w[USD EUR PLN]
 
   scope :payments do

@@ -7,14 +7,12 @@ class CheckoutController < ApplicationController
 
     # https://docs.stripe.com/api/checkout/sessions/object
     session = Stripe::Checkout::Session.create(
-      # allow_promotion_codes: true,
+      allow_promotion_codes: Setting.allow_promotion_codes,
+      phone_number_collection: { enabled: Setting.phone_number_collection },
+      billing_address_collection: Setting.billing_address_collection,
       # automatic_tax: { enabled: true },
-      # billing_address_collection: "auto", # "required"
       # shipping_address_collection: {
       #   allowed_countries: [ "US", "CA" ]
-      # },
-      # phone_number_collection: {
-      #   enabled: true
       # },
       # consent_collection: {
       # terms_of_service: "required",
