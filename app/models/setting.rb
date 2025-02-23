@@ -4,7 +4,7 @@ class Setting < RailsSettings::Base
 
   scope :business do
     field :app_name, default: "Snack Bar by Yaro", type: :string, validates: { presence: true, length: { in: 2..20 } }
-    field :logo_url, type: :string, help_text: "https://superails.com/logo.png"
+    field :logo_url, type: :string, default: "https://superails.com/logo.png"
     field :description, default: "Self checkout snack bar", type: :text, validates: { presence: true, length: { in: 2..200 } }
     field :address, default: "ul. Kowalska 123, 00-000 Warszawa", type: :string, validates: { presence: true, length: { in: 2..200 } }
     field :email, default: "info@snackbarbyyaro.com", type: :string, validates: { presence: true, length: { in: 2..100 } }
