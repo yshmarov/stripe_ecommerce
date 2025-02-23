@@ -49,6 +49,7 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+  gem "dotenv-rails"
 end
 
 group :development do
@@ -70,4 +71,3 @@ gem "friendly_id", "~> 5.5"
 gem "rails-settings-cached"
 gem "active_link_to"
 gem "stripe"
-gem "dotenv-rails"
