@@ -24,8 +24,8 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
     get products_url(query: "monster")
     assert_response :success
-    assert_match product_drink.description, response.body
-    assert_no_match product_food.description, response.body
+    assert_match product_drink.name, response.body
+    assert_no_match product_food.name, response.body
   end
 
   test "show" do
