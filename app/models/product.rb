@@ -7,6 +7,7 @@ class Product < ApplicationRecord
   has_many :order_items, dependent: :restrict_with_error
   has_many :orders, through: :order_items
 
+  scope :with_default_price, -> { where.not(stripe_product: nil).where("stripe_product->>'default_price' IS NOT NULL") }
   scope :search, ->(query) {
     if ActiveRecord::Base.connection.adapter_name.downcase == "postgresql"
       where("name ILIKE ?", "%#{query}%")

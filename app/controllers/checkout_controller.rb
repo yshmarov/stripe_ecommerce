@@ -50,10 +50,10 @@ class CheckoutController < ApplicationController
   # end
 
   def line_items
-    @order.order_items.map do |item|
+    @order.order_items.map do |order_item|
       {
-        price: item.product.stripe_price_id,
-        quantity: item.quantity
+        price: order_item.product.stripe_product["default_price"],
+        quantity: order_item.quantity
       }
     end
   end
