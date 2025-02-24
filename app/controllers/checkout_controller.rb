@@ -39,7 +39,7 @@ class CheckoutController < ApplicationController
   #         currency: Setting.currency.downcase,
   #         product_data: {
   #           name: item.product.name,
-  #           description: item.product.description,
+  #           description: item.product.stripe_product["description"],
   #           images: [ item.product.image_url ]
   #         },
   #         unit_amount: item.price

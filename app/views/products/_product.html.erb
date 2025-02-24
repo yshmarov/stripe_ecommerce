@@ -11,7 +11,7 @@
     <%= Setting.currency %>
   </p>
 
-  <p><%= product.description %></p>
+  <p><%= product.stripe_product["description"] %></p>
 
   <%= button_to add_to_cart_path(product) do %>
     <i class="fa-solid fa-cart-arrow-down"></i>

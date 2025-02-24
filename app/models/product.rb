@@ -27,4 +27,8 @@ class Product < ApplicationRecord
   def items_in_cart(current_order)
     order_items.find_by(order: current_order)&.quantity
   end
+
+  def image_url
+    stripe_product["images"].first
+  end
 end
