@@ -1,7 +1,6 @@
 monster_classic:
   name: Monster classic
   price: 599
-  category: drinks
   stripe_product:
     id: prod_RpGK0GkH6oVX4m
     default_price: price_1QZQZQZQZQZQZQZQZQZQZQZQ
@@ -10,7 +9,6 @@ monster_classic:
 rafaello:
   name: Rafaello
   price: 99
-  category: food
   stripe_product:
     id: prod_RpGK0GkH6oVX4m
     default_price: price_1QZQZQZQZQZQZQZQZQZQZQZQ

@@ -20,10 +20,6 @@ class Product < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: [ :finders, :slugged ]
 
-  def self.categories
-    I18n.t("activerecord.attributes.product.categories")
-  end
-
   def items_in_cart(current_order)
     order_items.find_by(order: current_order)&.quantity
   end
