@@ -3,16 +3,8 @@
   <%= t(".title") %>
 </h1>
 
-<%= render "products/filters" %>
-<%#= render "products/search_form" %>
-
 <div>
-  <% @grouped_products.each do |category, products| %>
-    <h3><%= link_to t("activerecord.attributes.product.categories.#{category}"), "##{category.parameterize}" %></h3>
-    <div id="<%= category.parameterize %>">
-      <div class="grid-cols-auto-fit">
-        <%= render collection: products, partial: "products/product", as: :product %>
-      </div>
-    </div>
-  <% end %>
+  <div class="grid-cols-auto-fit">
+    <%= render collection: @products, partial: "products/product", as: :product %>
+  </div>
 </div>

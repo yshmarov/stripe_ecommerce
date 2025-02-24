@@ -10,12 +10,6 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
     assert_match product_drink.name, response.body
     assert_match product_food.name, response.body
-
-    # filter by category
-    get products_url(category: "food")
-    assert_response :success
-    assert_match product_food.name, response.body
-    assert_no_match product_drink.name, response.body
   end
 
   test "search" do
@@ -24,8 +18,8 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
     get products_url(query: "monster")
     assert_response :success
-    assert_match product_drink.description, response.body
-    assert_no_match product_food.description, response.body
+    assert_match product_drink.name, response.body
+    assert_no_match product_food.name, response.body
   end
 
   test "show" do

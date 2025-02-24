@@ -4,12 +4,7 @@ en:
       product:
         name: Name
         price: Price
-        category: Category
         image_url: Image URL
-        categories:
-          food: Food
-          drinks: Drinks
-          other: Other
       order:
         delivery_details: Delivery
         status: Status
