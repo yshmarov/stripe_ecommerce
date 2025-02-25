@@ -19,7 +19,7 @@ product_objects = [
 if Stripe::Product.list.empty?
   product_objects.each do |product_object|
     stripe_product = Stripe::Product.create(name: product_object[:name], images: [ product_object[:image_url] ], description: product_object[:description])
-    stripe_price = Stripe::Price.create(product: stripe_product.id, unit_amount: product_object[:price], currency: Setting.currency)
+    stripe_price = Stripe::Price.create(product: stripe_product.id, unit_amount: product_object[:price], currency: "usd")
     stripe_product.default_price = stripe_price.id
     stripe_product.save
 
@@ -29,14 +29,34 @@ if Stripe::Product.list.empty?
   end
 else
   Product.destroy_all
+  SyncStripeProductsJob.perform_now
+end
 
-  stripe_products = Stripe::Product.list
-  stripe_products.each do |stripe_product|
-    if stripe_product.default_price.present?
-      stripe_price = Stripe::Price.retrieve(stripe_product.default_price)
-      product = Product.find_or_initialize_by(name: stripe_product.name, price: stripe_price.unit_amount)
-      product.stripe_product = stripe_product
-      product.save!
-    end
-  end
+if Stripe::ShippingRate.list.empty?
+  Stripe::ShippingRate.create(
+    display_name: "Standard International Shipping",
+    delivery_estimate: {
+      minimum: {
+        unit: "business_day",
+        value: 7
+      },
+      maximum: {
+        unit: "business_day",
+        value: 10
+      }
+    }
+  )
+  Stripe::ShippingRate.create(
+    display_name: "Pickup in Warsaw",
+    delivery_estimate: {
+      minimum: {
+        unit: "business_day",
+        value: 0
+      },
+      maximum: {
+        unit: "business_day",
+        value: 0
+      }
+    }
+  )
 end

@@ -1,6 +1,5 @@
 class Product < ApplicationRecord
   validates :name, presence: true
-  validates :price, presence: true
 
   has_many :order_items, dependent: :restrict_with_error
   has_many :orders, through: :order_items
@@ -25,5 +24,13 @@ class Product < ApplicationRecord
 
   def image_url
     stripe_product["images"].first
+  end
+
+  def default_price
+    stripe_product["default_price"]["unit_amount"]
+  end
+
+  def default_currency
+    stripe_product["default_price"]["currency"]
   end
 end

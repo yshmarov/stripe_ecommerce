@@ -29,16 +29,13 @@
   <% if order.draft? %>
     <%= button_to order_checkout_index_path(order), method: :post, data: { turbo: false }, disabled: order.order_items.empty? do %>
       <i class="fa-solid fa-credit-card"></i>
-      <%= order_pay_label(order) %>
-      <%= order.total_price / 100.to_d %>
-      <%= Setting.currency %>
+      Complete order
+      <%= number_to_currency(order.total_price / 100.0, unit: order.order_items.first.product.default_currency) %>
     <% end %>
   <% else %>
     <button disabled>
       <i class="fa-solid fa-credit-card"></i>
-      <%= order_pay_label(order) %>
-      <%= order.total_price / 100.to_d %>
-      <%= Setting.currency %>
+      <%= number_to_currency(order.total_price / 100.0, unit: order.order_items.first.product.default_currency) %>
     </button>
   <% end %>
 

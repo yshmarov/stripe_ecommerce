@@ -1,16 +1,20 @@
 monster_classic:
   name: Monster classic
-  price: 599
   stripe_product:
     id: prod_RpGK0GkH6oVX4m
-    default_price: price_1QZQZQZQZQZQZQZQZQZQZQZQ
+    default_price:
+      id: price_1QZQZQZQZQZQZQZQZQZQZQZQ
+      currency: usd
+      unit_amount: 599
     description: Caffeinated energy drink that contains 160mg of caffeine per 16oz can.
     images: ['https://i.imgur.com/WEDXcDi.png']
 rafaello:
   name: Rafaello
-  price: 99
   stripe_product:
     id: prod_RpGK0GkH6oVX4m
-    default_price: price_1QZQZQZQZQZQZQZQZQZQZQZQ
+    default_price:
+      id: price_1QZQZQZQZQZQZQZQZQZQZQZQ
+      currency: usd
+      unit_amount: 99
     description: Chocolate wafer bar with a crunchy outer layer and a creamy filling.
     images: ['https://i.imgur.com/XwLtkud.png']

@@ -7,8 +7,7 @@
     <h5>
       <%= link_to_unless_current highlight(product.name, params[:query]), product %>
     </h5>
-    <%= product.price / 100.to_d %>
-    <%= Setting.currency %>
+    <%= price_label(product) %>
   </p>
 
   <p><%= product.stripe_product["description"] %></p>

@@ -12,11 +12,9 @@
       <%= order_item.quantity %>
     <% end %>
     X
-    <%= order_item.product.price / 100.to_d %>
-    <%= Setting.currency %>
+    <%= price_label(order_item.product) %>
     =
-    <%= order_item.total_price / 100.to_d %>
-    <%= Setting.currency %>
+    <%= number_to_currency(order_item.total_price / 100.0, unit: order_item.product.default_currency) %>
   </p>
 
   <%= button_to [order_item.order, order_item], method: :delete, disabled: !@order.draft? do %>
