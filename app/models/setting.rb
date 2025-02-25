@@ -17,12 +17,6 @@ class Setting < RailsSettings::Base
     field :billing_address_collection, default: "auto", type: :string, validates: { presence: true, inclusion: { in: BILLING_ADDRESS_COLLECTION_OPTIONS } }, option_values: BILLING_ADDRESS_COLLECTION_OPTIONS
   end
 
-  ENABLED_CURRENCIES = %w[USD EUR PLN]
-
-  scope :payments do
-    field :currency, default: "USD", type: :string, validates: { presence: true, inclusion: { in: ENABLED_CURRENCIES } }, option_values: ENABLED_CURRENCIES
-  end
-
   scope :legal do
     field :address, default: "ul. Kowalska 123, 00-000 Warszawa", type: :string, validates: { presence: true, length: { in: 2..200 } }
     field :email, default: "info@snackbarbyyaro.com", type: :string, validates: { presence: true, length: { in: 2..100 } }
