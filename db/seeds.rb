@@ -29,14 +29,5 @@ if Stripe::Product.list.empty?
   end
 else
   Product.destroy_all
-
-  stripe_products = Stripe::Product.list
-  stripe_products.each do |stripe_product|
-    if stripe_product.default_price.present?
-      stripe_price = Stripe::Price.retrieve(stripe_product.default_price)
-      product = Product.find_or_initialize_by(name: stripe_product.name, price: stripe_price.unit_amount)
-      product.stripe_product = stripe_product
-      product.save!
-    end
-  end
+  SyncStripeProductsJob.perform_now
 end

@@ -14,14 +14,7 @@ class CheckoutController < ApplicationController
       shipping_address_collection: {
         allowed_countries: [ "US", "CA", "PL" ]
       },
-      shipping_options: [
-        {
-          shipping_rate: "shr_1QwBsEARthMHcnCXrkieuKGh"
-        },
-        {
-          shipping_rate: "shr_1QwKtcARthMHcnCXwvDeUzZv"
-        }
-      ],
+      shipping_options: fetch_shipping_rates,
       # consent_collection: {
       # terms_of_service: "required",
       # },
@@ -39,30 +32,21 @@ class CheckoutController < ApplicationController
     redirect_to session.url, allow_other_host: true, status: :see_other
   end
 
-  # Approach without having to define Stripe products:
-  # def line_items
-  #   @order.order_items.map do |item|
-  #     {
-  #       price_data: {
-  #         currency: Setting.currency.downcase,
-  #         product_data: {
-  #           name: item.product.name,
-  #           description: item.product.stripe_product["description"],
-  #           images: [ item.product.image_url ]
-  #         },
-  #         unit_amount: item.price
-  #       },
-  #       quantity: item.quantity
-  #     }
-  #   end
-  # end
-
   def line_items
     @order.order_items.map do |order_item|
       {
         price: order_item.product.stripe_product["default_price"]["id"],
         quantity: order_item.quantity
       }
+    end
+  end
+
+  private
+
+  def fetch_shipping_rates
+    rates = Stripe::ShippingRate.list(limit: 5, active: true)
+    rates.data.map do |rate|
+      { shipping_rate: rate.id }
     end
   end
 end
