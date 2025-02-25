@@ -12,6 +12,16 @@
 
   <p><%= product.stripe_product["description"] %></p>
 
+  <% if marketing_features(product).any? %>
+    <p>
+      <% marketing_features(product).each do |feature| %>
+        <li>
+          <%= feature %>
+        </li>
+      <% end %>
+    </p>
+  <% end %>
+
   <%= button_to add_to_cart_path(product) do %>
     <i class="fa-solid fa-cart-arrow-down"></i>
     <%= t(".add_to_cart") %>
