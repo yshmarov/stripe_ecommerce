@@ -32,6 +32,8 @@ class CheckoutController < ApplicationController
     redirect_to session.url, allow_other_host: true, status: :see_other
   end
 
+  private
+
   def line_items
     @order.order_items.map do |order_item|
       {
@@ -40,8 +42,6 @@ class CheckoutController < ApplicationController
       }
     end
   end
-
-  private
 
   def fetch_shipping_rates
     rates = Stripe::ShippingRate.list(limit: 5, active: true)
