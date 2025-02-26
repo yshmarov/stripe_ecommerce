@@ -15,8 +15,14 @@
 
 .grid-cols-auto-fit {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .grid-cols-auto-fit {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 mark:empty {
