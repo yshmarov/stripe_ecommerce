@@ -4,4 +4,9 @@
 
 <%= render @order %>
 
-<%= render @order_items %>
+<details open>
+  <summary>
+    <%= t("orders.order.items").capitalize %>
+  </summary>
+  <%= render @order_items %>
+</details>
