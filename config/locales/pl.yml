@@ -30,6 +30,7 @@ pl:
     order:
       items: produkty
       rating: Oceń zamówienie
+      complete: Zamów
     update:
       submitted: Zamówienie złożone! Przygotowujemy je dla Ciebie.
       rating: Dziękujemy za opinię!

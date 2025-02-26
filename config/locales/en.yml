@@ -31,6 +31,7 @@ en:
     order:
       items: items
       rating: Rate the order
+      complete: Complete order
     update:
       submitted: Order submitted! We are preparing it for you.
       rating: Thanks for the feedback!
