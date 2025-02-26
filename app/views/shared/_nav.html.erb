@@ -37,6 +37,6 @@
   <% end %>
 
   <%= form_tag request.path, method: :get, style: "display: inline-block;" do %>
-    <%= select_tag :locale, options_for_select(I18n.available_locales.map { |l| [l.to_s.upcase, l] }, I18n.locale), onchange: "this.form.requestSubmit()" %>
+    <%= select_tag :locale, options_for_select(I18n.available_locales.map { |l| [flag(l), l] }, I18n.locale), onchange: "this.form.requestSubmit()" %>
   <% end %>
 </nav>

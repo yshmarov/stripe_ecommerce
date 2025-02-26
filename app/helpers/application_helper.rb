@@ -25,4 +25,12 @@ module ApplicationHelper
       tags.join("\n").html_safe
     end
   end
+
+  def flag(locale)
+    case locale
+    when :en then "🇬🇧"
+    when :pl then "🇵🇱"
+    when :ua then "🇺🇦"
+    end
+  end
 end
