@@ -10,6 +10,13 @@
     <%= price_label(product) %>
   </p>
 
+  <%= button_to add_to_cart_path(product) do %>
+    <i class="fa-solid fa-cart-arrow-down"></i>
+    <%= t(".add_to_cart") %>
+    <mark><%= product.items_in_cart(@current_order) %></mark>
+  <% end %>
+  <%#= @current_order&.products&.include?(product) %>
+
   <p><%= product.stripe_product["description"] %></p>
 
   <% if marketing_features(product).any? %>
@@ -22,10 +29,4 @@
     </p>
   <% end %>
 
-  <%= button_to add_to_cart_path(product) do %>
-    <i class="fa-solid fa-cart-arrow-down"></i>
-    <%= t(".add_to_cart") %>
-    <mark><%= product.items_in_cart(@current_order) %></mark>
-  <% end %>
-  <%#= @current_order&.products&.include?(product) %>
 </article>
