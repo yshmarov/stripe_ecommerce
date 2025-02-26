@@ -7,16 +7,11 @@ class ShopController < ApplicationController
   end
 
   def add_to_cart
-    # set delivery delivery
-    delivery_details = session[:table_delivery].presence || "To go"
     # find or create order
     order = @current_order.presence || Order.create(
       status: Order.statuses[:draft],
-      delivery_details:,
       user_id: current_guest_id
     )
-    # clear table for next order creation
-    session[:table_delivery] = nil
 
     # add to cart
     product = Product.find(params[:product_id])

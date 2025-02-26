@@ -11,11 +11,6 @@
     <%= render partial: "orders/status", locals: { order: order } %>
   </p>
 
-  <p>
-    <strong><%= t("activerecord.attributes.order.delivery_details") %></strong>
-    <kbd><%= order.delivery_details %></kbd>
-  </p>
-
   <% if action_name != "show" %>
     <p>
       <%= link_to [:admin, order] do %>

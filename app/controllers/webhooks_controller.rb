@@ -22,11 +22,10 @@ class WebhooksController < ApplicationController
     case event.type
     when "checkout.session.completed"
       session = event.data.object
-      return unless session.payment_status == "paid"
-
       order = Order.find(session.client_reference_id)
-
+      order.update(checkout_session: session)
       rebuild_order_items(order, session)
+      return unless session.payment_status == "paid"
 
       order.submitted! if order.draft?
     end

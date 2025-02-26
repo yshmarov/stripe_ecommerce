@@ -12,11 +12,6 @@
   </p>
   <%# TODO: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress#describing_a_particular_region %>
 
-  <p>
-    <strong><%= t("activerecord.attributes.order.delivery_details") %></strong>
-    <kbd><%= order.delivery_details %></kbd>
-  </p>
-
   <% if action_name != "show" %>
     <p>
       <%= link_to order do %>

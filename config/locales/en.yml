@@ -6,7 +6,6 @@ en:
         price: Price
         image_url: Image URL
       order:
-        delivery_details: Delivery
         status: Status
         statuses:
           draft: Draft

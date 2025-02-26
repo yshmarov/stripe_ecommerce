@@ -1,5 +1,4 @@
 <article id="<%= dom_id(order) %>">
   <strong>#<%= order.id %></strong>
-  <kbd><%= order.delivery_details %></kbd>
   <%= render partial: "orders/status", locals: { order: } %>
 </article>
