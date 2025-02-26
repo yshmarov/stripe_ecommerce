@@ -51,3 +51,10 @@ pl:
     settings:
       index:
         title: Ustawienia
+  order_items:
+    destroy:
+      notice: Produkt usunięty z zamówienia
+    order_item:
+      remove: Usuń z zamówienia
+    update:
+      notice: Ilość zaktualizowana

@@ -29,7 +29,7 @@ ua:
       title: Мої замовлення
     order:
       items: товари
-      rating: Оцініть замовлення
+      rating: Оцінити замовлення
     update:
       submitted: Замовлення відправлено! Ми готуємо його для вас.
       rating: Дякуємо за відгук!
@@ -38,6 +38,13 @@ ua:
   queue:
     index:
       title: Замовлення в процесі
+  order_items:
+    destroy:
+      notice: Товар видалено з замовлення
+    order_item:
+      remove: Видалити з замовлення
+    update:
+      notice: Кількість оновлено
   admin:
     orders:
       index:
@@ -47,7 +54,7 @@ ua:
         title: Статистика
     products:
       index:
-        title: Редагувати товари
+        title: Редагування товарів
     settings:
       index:
         title: Налаштування
