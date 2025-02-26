@@ -16,6 +16,7 @@ class Setting < RailsSettings::Base
     field :allow_promotion_codes, default: false, type: :boolean
     field :phone_number_collection, default: false, type: :boolean
     field :billing_address_collection, default: "auto", type: :string, validates: { presence: true, inclusion: { in: BILLING_ADDRESS_COLLECTION_OPTIONS } }, option_values: BILLING_ADDRESS_COLLECTION_OPTIONS
+    field :shipping_countries, default: [ "US", "FR", "PL" ], type: :array, help_text: "Allow customers to provide shipping address in these countries"
   end
 
   scope :legal do

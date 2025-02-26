@@ -12,8 +12,9 @@ class CheckoutController < ApplicationController
       billing_address_collection: Setting.billing_address_collection,
       # automatic_tax: { enabled: true },
       shipping_address_collection: {
-        allowed_countries: [ "US", "CA", "PL" ]
+        allowed_countries: Setting.shipping_countries
       },
+      # customer_creation: "always",
       shipping_options: fetch_shipping_rates,
       # consent_collection: {
       # terms_of_service: "required",
