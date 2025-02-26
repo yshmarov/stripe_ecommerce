@@ -1,3 +1,5 @@
+<%= meta_tags(title: "Order ##{@order.slug.upcase}") %>
+
 <%= turbo_stream_from @order %>
 
 <%= render @order %>

@@ -1,1 +1,3 @@
+<%= meta_tags(title: @product.name, description: @product.stripe_product["description"], image: @product.image_url) %>
+
 <%= render "products/product", product: @product %>
