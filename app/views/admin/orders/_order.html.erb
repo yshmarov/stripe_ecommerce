@@ -1,11 +1,13 @@
 <article id="<%= dom_id order %>">
   <strong>
-    #<%= order.id %>
+    <%= link_to_unless_current "##{order.slug.upcase}", order %>
   </strong>
 
-  <p>
-    <%= order.created_at.strftime("%d %h %Y, %H:%M") %>
-  </p>
+  <% if order.checkout_session.present? && !order.draft? %>
+    <p>
+      <%= Time.at(order.checkout_session["created"]).strftime("%d %h %Y, %H:%M") %>
+    </p>
+  <% end %>
 
   <p id="order_status">
     <%= render partial: "orders/status", locals: { order: order } %>

@@ -17,7 +17,7 @@
   <% end %>
   <%#= @current_order&.products&.include?(product) %>
 
-  <p><%= product.stripe_product["description"] %></p>
+  <small><%= product.stripe_product["description"] %></small>
 
   <% if marketing_features(product).any? %>
     <p>
