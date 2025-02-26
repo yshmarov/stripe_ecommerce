@@ -22,7 +22,7 @@ module Admin
 
       assert_redirected_to admin_settings_path
       assert_equal "Settings updated successfully", flash[:notice]
-      assert_equal "New App Name", Setting.app_name
+      assert_equal "New App Name", @stripe_account.settings.dashboard.display_name
     end
 
     # Setting.field :user_limit, type: :integer, default: 10, validates: { numericality: true }

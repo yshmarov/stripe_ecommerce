@@ -1,12 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for?(:title) ? "#{content_for(:title)} | #{Setting.app_name}" : Setting.app_name %></title>
+    <title><%= content_for?(:title) ? "#{content_for(:title)} | #{@stripe_account.settings.dashboard.display_name}" : @stripe_account.settings.dashboard.display_name %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <% if @stripe_account&.settings&.branding&.primary_color.present? %>
+      <style>
+        :root {
+          --accent: <%= @stripe_account.settings.branding.primary_color %>;
+          --accent-hover: <%= @stripe_account.settings.branding.secondary_color %>;
+        }
+        @media (prefers-color-scheme: dark) {
+          :root {
+            --accent: <%= @stripe_account.settings.branding.primary_color %>;
+            --accent-hover: <%= @stripe_account.settings.branding.secondary_color %>;
+          }
+        }
+      </style>
+    <% end %>
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
