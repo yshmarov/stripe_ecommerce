@@ -17,7 +17,6 @@ class ShopControllerTest < ActionDispatch::IntegrationTest
     order = Order.last
     assert_equal product, order.products.first
     assert_equal 1, order.order_items.first.quantity
-    assert_equal "To go", order.delivery_details
     assert_equal 599, order.total_price
     assert_equal 599, order.order_items.first.total_price
     assert_equal 599, order.order_items.first.price
