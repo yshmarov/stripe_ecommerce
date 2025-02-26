@@ -1,6 +1,8 @@
 ua:
   activerecord:
     attributes:
+      order_item:
+        quantity: Кількість
       product:
         name: Назва
         price: Ціна

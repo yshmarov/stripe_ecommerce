@@ -27,7 +27,9 @@
     <%= button_to order_checkout_index_path(order), method: :post, data: { turbo: false }, disabled: order.order_items.empty? do %>
       <i class="fa-solid fa-credit-card"></i>
       <%= t(".complete") %>
-      <%= number_to_currency(order.total_price / 100.0, unit: currency_code_to_symbol(order.order_items.first.product.default_currency)) %>
+      <% if order.order_items.any? %>
+        <%= number_to_currency(order.total_price / 100.0, unit: currency_code_to_symbol(order.order_items.first.product.default_currency)) %>
+      <% end %>
     <% end %>
   <% else %>
     <button disabled>

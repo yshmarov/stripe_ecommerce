@@ -1,6 +1,8 @@
 en:
   activerecord:
     attributes:
+      order_item:
+        quantity: Quantity
       product:
         name: Name
         price: Price

@@ -1,24 +1,24 @@
-<blockquote id="<%= dom_id order_item %>">
-  <%= image_tag order_item.product.image_url, style: "max-width: 100px;" if order_item.product.image_url.present? %>
+<blockquote id="<%= dom_id order_item %>" style="display: flex; flex-direction: row; gap: 1rem;">
+  <%= image_tag order_item.product.image_url, style: "max-width: 100px; max-height: 100px; object-fit: cover;" if order_item.product.image_url.present? %>
 
-  <p>
-    <%= order_item.product.name %>,
-  </p>
+  <div>
+    <%= order_item.product.name %>
 
-  <p>
-    <% if @order.draft? %>
-      <%= render "order_items/form", order_item: %>
-    <% else %>
-      <%= order_item.quantity %>
+    <p>
+      <% if @order.draft? %>
+        <%= render "order_items/form", order_item: %>
+      <% else %>
+        <%= order_item.quantity %>
+      <% end %>
+      X
+      <%= price_label(order_item.product) %>
+      =
+      <%= number_to_currency(order_item.total_price / 100.0, unit: currency_code_to_symbol(order_item.product.default_currency)) %>
+    </p>
+
+    <%= button_to [order_item.order, order_item], method: :delete, disabled: !@order.draft? do %>
+      <i class="fa-solid fa-trash"></i>
+      <%= t(".remove") %>
     <% end %>
-    X
-    <%= price_label(order_item.product) %>
-    =
-    <%= number_to_currency(order_item.total_price / 100.0, unit: currency_code_to_symbol(order_item.product.default_currency)) %>
-  </p>
-
-  <%= button_to [order_item.order, order_item], method: :delete, disabled: !@order.draft? do %>
-    <i class="fa-solid fa-trash"></i>
-    <%= t(".remove") %>
-  <% end %>
+  </div>
 </blockquote>
