@@ -1,6 +1,6 @@
 module ProductHelper
   def price_label(product)
-    number_to_currency(product.default_price / 100.0, unit: product.default_currency)
+    number_to_currency(product.default_price / 100.0, unit: currency_code_to_symbol(product.default_currency))
   end
 
   def marketing_features(product)

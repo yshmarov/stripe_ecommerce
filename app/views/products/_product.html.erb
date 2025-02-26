@@ -3,12 +3,10 @@
     <%= image_tag product.image_url, style: "max-width: 300px; max-height: 300px;" if product.image_url.present? %>
   <% end %>
 
-  <p>
-    <h5>
-      <%= link_to_unless_current highlight(product.name, params[:query]), product %>
-    </h5>
+  <h5>
+    <%= link_to_unless_current highlight(product.name, params[:query]), product %>,
     <%= price_label(product) %>
-  </p>
+  </h5>
 
   <%= button_to add_to_cart_path(product) do %>
     <i class="fa-solid fa-cart-arrow-down"></i>

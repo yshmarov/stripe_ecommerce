@@ -33,4 +33,14 @@ module ApplicationHelper
     when :ua then "🇺🇦"
     end
   end
+
+  def currency_code_to_symbol(code)
+    case code
+    when "usd" then "$"
+    when "eur" then "€"
+    when "gbp" then "£"
+    when "uah" then "₴"
+    when "pln" then "zł"
+    end
+  end
 end
