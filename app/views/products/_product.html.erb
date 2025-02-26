@@ -1,6 +1,6 @@
 <article id="<%= dom_id product %>">
   <%= link_to product do %>
-    <%= image_tag product.image_url, style: "max-width: 300px; max-height: 300px;" if product.image_url.present? %>
+    <%= image_tag product.image_url, style: "height: 250px; object-fit: cover;" if product.image_url.present? %>
   <% end %>
 
   <h5>
