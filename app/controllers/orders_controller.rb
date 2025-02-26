@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
     return redirect_to @order, notice: "Order is not completed yet" unless @order.done?
 
     @order.update(order_params)
-    redirect_to @order, notice: t(".rating")
+    redirect_back fallback_location: @order, notice: t(".rating")
   end
 
   private
