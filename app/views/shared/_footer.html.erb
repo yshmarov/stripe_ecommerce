@@ -26,6 +26,24 @@
   </div>
 
   <div>
+    <%= link_to terms_of_service_path do %>
+      <%= t("terms_of_service") %>
+    <% end %>
+  </div>
+
+  <div>
+    <%= link_to privacy_policy_path do %>
+      <%= t("privacy_policy") %>
+    <% end %>
+  </div>
+
+  <div>
+    <%= link_to refund_policy_path do %>
+      <%= t("refund_policy") %>
+    <% end %>
+  </div>
+
+  <div>
     <%= link_to admin_orders_path do %>
       <i class="fa fa-lock"></i>
       <%= t("admin.orders.index.title") %>

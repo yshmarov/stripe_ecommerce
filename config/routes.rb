@@ -25,4 +25,8 @@ Rails.application.routes.draw do
   end
 
   resources :webhooks, only: [ :create ]
+
+  get "terms_of_service", to: "static#terms_of_service"
+  get "privacy_policy", to: "static#privacy_policy"
+  get "refund_policy", to: "static#refund_policy"
 end
