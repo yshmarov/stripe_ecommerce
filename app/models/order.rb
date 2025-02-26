@@ -10,7 +10,7 @@ class Order < ApplicationRecord
 
   validates :user_id, presence: true
   validates :status, presence: true
-  validates :rating, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 10 }, allow_blank: true
+  validates :rating, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }, allow_blank: true
 
   scope :queued, -> { where(status: %w[submitted processing delivery]) }
 

@@ -42,11 +42,11 @@
       <%= t(".rating") %>
     </p>
     <div style="display: flex; justify-content: space-between;">
-      <%= button_to order_path(order), params: {order: { id: order.id, rating: 1 }}, method: :put, disabled: order.rating.equal?(1) do %>
-        <i class="fa-solid fa-face-dizzy"></i>
-      <% end %>
-      <%= button_to order_path(order), params: {order: { id: order.id, rating: 10 }}, method: :put, disabled: order.rating.equal?(10) do %>
-        <i class="fa-solid fa-face-grin-stars"></i>
+      <% emojis = { 1 => "😡", 2 => "☹️", 3 => "😐", 4 => "😊", 5 => "🤩" } %>
+      <% emojis.each do |rating, emoji| %>
+        <%= button_to order_path(order), params: {order: { id: order.id, rating: rating }}, method: :put, disabled: order.rating.equal?(rating) do %>
+          <%= emoji %>
+        <% end %>
       <% end %>
     </div>
   <% end %>
