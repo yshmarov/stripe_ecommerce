@@ -3,9 +3,15 @@
     <%= render "products/search_dialog" %>
   <% end %>
 
-  <%= active_link_to products_path do %>
-    <i class="fa-solid fa-list"></i>
-    <%= t("products.index.title") %>
+  <%= active_link_to products_path, style: "display: inline-flex; align-items: center; gap: 0.75rem; text-decoration: none; font-weight: 500;" do %>
+    <% if Setting.logo_url.present? %>
+      <div>
+        <%= image_tag Setting.logo_url, style: "height: 1.5em; width: auto; vertical-align: middle;" %>
+      </div>
+    <% else %>
+      <i class="fa-solid fa-list" style="font-size: 1.25rem; vertical-align: middle;"></i>
+    <% end %>
+    <span style="font-size: 1.1rem; vertical-align: middle;"><%= Setting.app_name %></span>
   <% end %>
 
   <% if Setting.public_order_queue %>

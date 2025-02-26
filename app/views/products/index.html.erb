@@ -1,7 +1,10 @@
 <h1>
-  <i class="fa-solid fa-list"></i>
-  <%= t(".title") %>
+  <%= Setting.app_name %>
 </h1>
+
+<p>
+  <%= simple_format Setting.description %>
+</p>
 
 <div>
   <div class="grid-cols-auto-fit">
