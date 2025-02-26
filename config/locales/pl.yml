@@ -1,0 +1,53 @@
+pl:
+  activerecord:
+    attributes:
+      product:
+        name: Nazwa
+        price: Cena
+        image_url: URL obrazu
+      order:
+        status: Status
+        statuses:
+          draft: Szkic
+          submitted: Złożone
+          processing: Przetwarzanie
+          delivery: Dostawa
+          done: Zakończone
+  products:
+    index:
+      title: Sklep
+      all: Wszystkie
+    search_form:
+      placeholder: Szukaj produktów...
+      submit: Szukaj
+      all: Wszystkie
+      clear: Wyczyść wyszukiwanie
+    product:
+      add_to_cart: Dodaj do koszyka
+  orders:
+    index:
+      title: Moje zamówienia
+    order:
+      items: produkty
+      rating: Oceń zamówienie
+    update:
+      submitted: Zamówienie złożone! Przygotowujemy je dla Ciebie.
+      rating: Dziękujemy za opinię!
+    show:
+      title: Zamówienie №%{slug}
+  queue:
+    index:
+      title: Zamówienia w toku
+  admin:
+    orders:
+      index:
+        title: Zarządzaj zamówieniami
+    stats:
+      index:
+        title: Statystyki
+    products:
+      index:
+        title: Edytuj produkty
+    settings:
+      index:
+        title: Ustawienia

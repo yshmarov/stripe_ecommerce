@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include SetLocale
+
   before_action :current_guest_id
   helper_method :current_guest_id
 

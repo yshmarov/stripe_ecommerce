@@ -34,6 +34,8 @@ en:
     update:
       submitted: Order submitted! We are preparing it for you.
       rating: Thanks for the feedback!
+    show:
+      title: Order №%{slug}
   queue:
     index:
       title: Orders in progress

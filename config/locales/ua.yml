@@ -1,0 +1,53 @@
+ua:
+  activerecord:
+    attributes:
+      product:
+        name: Назва
+        price: Ціна
+        image_url: URL зображення
+      order:
+        status: Статус
+        statuses:
+          draft: Чернетка
+          submitted: Відправлено
+          processing: Обробляється
+          delivery: Доставка
+          done: Виконано
+  products:
+    index:
+      title: Магазин
+      all: Всі
+    search_form:
+      placeholder: Пошук товарів...
+      submit: Пошук
+      all: Всі
+      clear: Очистити пошук
+    product:
+      add_to_cart: Додати в кошик
+  orders:
+    index:
+      title: Мої замовлення
+    order:
+      items: товари
+      rating: Оцініть замовлення
+    update:
+      submitted: Замовлення відправлено! Ми готуємо його для вас.
+      rating: Дякуємо за відгук!
+    show:
+      title: Замовлення №%{slug}
+  queue:
+    index:
+      title: Замовлення в процесі
+  admin:
+    orders:
+      index:
+        title: Керування замовленнями
+    stats:
+      index:
+        title: Статистика
+    products:
+      index:
+        title: Редагувати товари
+    settings:
+      index:
+        title: Налаштування
