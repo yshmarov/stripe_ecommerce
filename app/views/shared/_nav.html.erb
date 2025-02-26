@@ -1,5 +1,7 @@
 <nav id="nav">
-  <%= render "products/search_dialog" %>
+  <% if Setting.search %>
+    <%= render "products/search_dialog" %>
+  <% end %>
 
   <%= active_link_to products_path do %>
     <i class="fa-solid fa-list"></i>

@@ -3,6 +3,7 @@ class Setting < RailsSettings::Base
   cache_prefix { "v1" }
 
   scope :general do
+    field :search, default: true, type: :boolean, help_text: "Enable search"
     field :public_order_queue, default: false, type: :boolean, help_text: "Like McDonalds order progress screen"
     field :app_name, default: "Snack Bar by Yaro", type: :string, validates: { presence: true, length: { in: 2..20 } }
     field :logo_url, type: :string, default: "https://superails.com/logo.png"
