@@ -60,3 +60,10 @@ en:
     settings:
       index:
         title: Settings
+  static:
+    terms_of_service:
+      title: Terms of Service
+    privacy_policy:
+      title: Privacy Policy
+    refund_policy:
+      title: Refund Policy

@@ -59,3 +59,10 @@ ua:
     settings:
       index:
         title: Налаштування
+  static:
+    terms_of_service:
+      title: Умови обслуговування
+    privacy_policy:
+      title: Політика конфіденційності
+    refund_policy:
+      title: Повернення товару

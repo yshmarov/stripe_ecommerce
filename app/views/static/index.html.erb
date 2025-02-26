@@ -1,0 +1,7 @@
+<h1>
+  <%= t("static.#{action_name}.title") %>
+</h1>
+
+<div>
+  <%= simple_format Setting.send(action_name) %>
+</div>

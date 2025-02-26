@@ -59,3 +59,10 @@ pl:
       remove: Usuń z zamówienia
     update:
       notice: Ilość zaktualizowana
+  static:
+    terms_of_service:
+      title: Warunki użytkowania
+    privacy_policy:
+      title: Polityka prywatności
+    refund_policy:
+      title: Polityka zwrotu
