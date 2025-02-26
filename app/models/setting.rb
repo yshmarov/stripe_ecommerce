@@ -2,8 +2,8 @@
 class Setting < RailsSettings::Base
   cache_prefix { "v1" }
 
-  scope :business do
-    field :public_order_queue, default: true, type: :boolean
+  scope :general do
+    field :public_order_queue, default: false, type: :boolean, help_text: "Like McDonalds order progress screen"
     field :app_name, default: "Snack Bar by Yaro", type: :string, validates: { presence: true, length: { in: 2..20 } }
     field :logo_url, type: :string, default: "https://superails.com/logo.png"
     field :description, default: "Self checkout snack bar", type: :text, validates: { presence: true, length: { in: 2..200 } }
@@ -23,6 +23,9 @@ class Setting < RailsSettings::Base
     field :phone, default: "+48 123 456 789", type: :string, validates: { presence: true, length: { in: 2..20 } }
     field :trade_name, default: "Snack Bar By Yaro LLC", type: :string, validates: { presence: true, length: { in: 2..40 } }
     field :trade_vat_number, default: "PL1234567890", type: :string, validates: { presence: true, length: { in: 2..20 } }
+    field :terms_of_service, type: :text
+    field :privacy_policy, type: :text
+    field :refund_policy, type: :text
   end
 
   scope :socials do
