@@ -30,6 +30,8 @@ class ApplicationController < ActionController::Base
       @stripe_logo_url = Rails.cache.fetch("stripe_logo_url_#{stripe_logo_id}", expires_in: 1.hour) do
         file = Stripe::File.retrieve(stripe_logo_id)
         file.links.first.url
+      rescue Stripe::InvalidRequestError
+        nil
       end
     end
   end
