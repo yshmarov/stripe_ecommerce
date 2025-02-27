@@ -7,6 +7,7 @@ class CheckoutController < ApplicationController
 
     # https://docs.stripe.com/api/checkout/sessions/object
     session = Stripe::Checkout::Session.create(
+      locale: I18n.locale == :ua ? :ru : I18n.locale,
       allow_promotion_codes: Setting.allow_promotion_codes,
       phone_number_collection: { enabled: Setting.phone_number_collection },
       billing_address_collection: Setting.billing_address_collection,
