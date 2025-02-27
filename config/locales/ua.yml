@@ -11,9 +11,9 @@ ua:
         status: Статус
         statuses:
           draft: Чернетка
-          submitted: Відправлено
+          submitted: Замовлено
           processing: Обробляється
-          delivery: Доставка
+          delivery: Доставляється
           done: Виконано
   products:
     index:
