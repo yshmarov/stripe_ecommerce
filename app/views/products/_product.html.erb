@@ -19,13 +19,11 @@
     <small><%= product.stripe_product["description"] %></small>
 
     <% if marketing_features(product).any? %>
-      <p>
-        <% marketing_features(product).each do |feature| %>
-          <li>
-            <small><%= feature %></small>
-          </li>
-        <% end %>
-      </p>
+      <% marketing_features(product).each do |feature| %>
+        <li>
+          <small><%= feature %></small>
+        </li>
+      <% end %>
     <% end %>
   </div>
 </article>
