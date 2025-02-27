@@ -45,7 +45,7 @@ ua:
     destroy:
       notice: Товар видалено з замовлення
     order_item:
-      remove: Видалити з замовлення
+      remove: Видалити
     update:
       notice: Кількість оновлено
   admin:

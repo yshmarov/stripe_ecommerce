@@ -46,7 +46,7 @@ en:
     destroy:
       notice: Item removed from order
     order_item:
-      remove: Remove from order
+      remove: Remove
     update:
       notice: Quantity updated
   admin:

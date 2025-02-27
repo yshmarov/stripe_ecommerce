@@ -58,7 +58,7 @@ pl:
     destroy:
       notice: Produkt usunięty z zamówienia
     order_item:
-      remove: Usuń z zamówienia
+      remove: Usuń
     update:
       notice: Ilość zaktualizowana
   static:
