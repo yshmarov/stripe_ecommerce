@@ -13,7 +13,7 @@
       X
       <%= price_label(order_item.product) %>
       =
-      <%= number_to_currency(order_item.total_price / 100.0, unit: currency_code_to_symbol(order_item.product.default_currency)) %>
+      <%= number_to_currency(order_item.total_amount / 100.0, unit: currency_code_to_symbol(order_item.product.default_currency)) %>
     </p>
 
     <%= button_to [order_item.order, order_item], method: :delete, disabled: !@order.draft? do %>

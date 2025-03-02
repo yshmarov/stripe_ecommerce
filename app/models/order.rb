@@ -32,9 +32,9 @@ class Order < ApplicationRecord
     broadcast_refresh
   end
 
-  def calculate_total_price
+  def calculate_total_amount
     update(
-      total_price: order_items.sum(&:total_price),
+      total_amount: order_items.sum(&:total_amount),
       order_items_quantity: order_items.sum(&:quantity)
     )
   end

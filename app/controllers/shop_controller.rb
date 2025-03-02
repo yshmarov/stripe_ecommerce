@@ -12,7 +12,7 @@ class ShopController < ApplicationController
     # add +1 item to cart
     order_item.increment!(:quantity)
     # balance calculation
-    order_item.calculate_total_price
+    order_item.calculate_total_amount
 
     notice = "#{product.name} added to cart"
 

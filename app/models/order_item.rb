@@ -9,8 +9,8 @@ class OrderItem < ApplicationRecord
   extend FriendlyId
   friendly_id :generate_random_slug, use: [ :finders, :slugged ]
 
-  def calculate_total_price
-    update(price: product.default_unit_amount, total_price: quantity * product.default_unit_amount)
-    order.calculate_total_price
+  def calculate_total_amount
+    update(unit_amount: product.default_unit_amount, total_amount: quantity * product.default_unit_amount)
+    order.calculate_total_amount
   end
 end

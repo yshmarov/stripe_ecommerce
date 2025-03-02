@@ -54,11 +54,11 @@ class WebhooksController < ApplicationController
       order.order_items.create!(
         product: product,
         quantity: item.quantity,
-        price: item.price.unit_amount,
-        total_price: item.amount_total
+        unit_amount: item.price.unit_amount,
+        total_amount: item.amount_total
       )
     end
 
-    order.calculate_total_price
+    order.calculate_total_amount
   end
 end

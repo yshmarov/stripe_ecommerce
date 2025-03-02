@@ -29,12 +29,12 @@ class OrderItemsControllerTest < ActionDispatch::IntegrationTest
     order = Order.last
     assert_equal 1, order.order_items.count
     assert_equal 2, order.order_items_quantity
-    assert_equal 1198, order.total_price
+    assert_equal 1198, order.total_amount
 
     delete order_order_item_url(order, order.order_items.first)
     assert_redirected_to order_path(order)
     assert_equal 0, order.order_items.count
     assert_equal 0, order.reload.order_items_quantity
-    assert_equal 0, order.total_price
+    assert_equal 0, order.total_amount
   end
 end

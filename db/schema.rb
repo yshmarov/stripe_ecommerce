@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_02_070707) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_02_081508) do
   create_table "order_items", force: :cascade do |t|
     t.integer "order_id", null: false
     t.integer "product_id", null: false
     t.integer "quantity", default: 0, null: false
-    t.bigint "total_price", default: 0, null: false
-    t.bigint "price", default: 0, null: false
+    t.bigint "total_amount", default: 0, null: false
+    t.bigint "unit_amount", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug"
@@ -29,7 +29,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_02_070707) do
     t.string "status", default: "draft", null: false
     t.string "user_id", null: false
     t.integer "rating"
-    t.bigint "total_price", default: 0, null: false
+    t.bigint "total_amount", default: 0, null: false
     t.integer "order_items_quantity", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
