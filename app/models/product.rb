@@ -3,7 +3,7 @@ class Product < ApplicationRecord
   validates :stripe_product_id, presence: true, uniqueness: true
   validates :stripe_product, presence: true
 
-  has_one :price, dependent: :destroy
+  has_many :prices, dependent: :destroy
   has_many :order_items, dependent: :restrict_with_error
   has_many :orders, through: :order_items
 
