@@ -25,7 +25,11 @@ class Product < ApplicationRecord
   end
 
   def default_price
-    default_price_id = stripe_product&.dig("default_price", "id")
+    default_price_id = if stripe_product["default_price"].is_a?(String)
+      stripe_product["default_price"]
+    else
+      stripe_product&.dig("default_price", "id")
+    end
     prices.detect { |price| price.stripe_price_id == default_price_id } || prices.first
   end
 
