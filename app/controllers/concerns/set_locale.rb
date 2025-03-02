@@ -8,7 +8,7 @@ module SetLocale
   private
 
   def set_locale
-    I18n.locale = extract_locale || cookies[:locale] || I18n.default_locale
+    I18n.locale = extract_locale || cookies[:locale] || Setting.default_language || I18n.default_locale
   end
 
   def extract_locale

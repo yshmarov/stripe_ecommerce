@@ -3,6 +3,7 @@ class Setting < RailsSettings::Base
   cache_prefix { "v1" }
 
   scope :general do
+    field :default_language, default: "en", type: :string, validates: { presence: true, inclusion: { in: I18n.available_locales.map(&:to_s) } }, option_values: I18n.available_locales.map(&:to_s)
     field :search, default: true, type: :boolean, help_text: "Enable search"
     field :public_order_queue, default: false, type: :boolean, help_text: "Like McDonalds order progress screen"
     field :description, default: "Best world literature in Ukrainian language", type: :text, validates: { presence: true, length: { in: 2..200 } }
