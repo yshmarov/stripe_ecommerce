@@ -14,6 +14,15 @@
       "description": "Secret key for decrypting Rails credentials. You can find it at: config/master.key",
       "required": true
     },
+    "ADMIN_USERNAME": {
+      "description": "Admin username",
+      "value": "admin",
+      "required": true
+    },
+    "ADMIN_PASSWORD": {
+      "description": "Admin password",
+      "required": true
+    },
     "STRIPE_WEBHOOK_SECRET": {
       "description": "Stripe webhook secret",
       "value": "whsec_foo",
