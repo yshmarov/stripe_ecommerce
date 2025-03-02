@@ -1,6 +1,6 @@
 require "test_helper"
 
-class SyncStripeProductsJobTest < ActiveJob::TestCase
+class Stripe::SyncProductJobTest < ActiveJob::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -29,7 +29,7 @@ if Stripe::Product.list.empty?
   end
 else
   Product.destroy_all
-  SyncStripeProductsJob.perform_now
+  Stripe::SyncProductsJob.perform_now
 end
 
 if Stripe::ShippingRate.list.empty?

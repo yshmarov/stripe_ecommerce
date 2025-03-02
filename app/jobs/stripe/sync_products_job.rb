@@ -1,4 +1,4 @@
-class SyncStripeProductsJob < ApplicationJob
+class Stripe::SyncProductsJob < ApplicationJob
   queue_as :default
 
   def perform(*args)

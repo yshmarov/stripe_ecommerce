@@ -20,8 +20,10 @@ class WebhooksController < ApplicationController
     end
 
     case event.type
-    when "product.updated", "product.created", "product.deleted", "price.created", "price.updated", "price.deleted"
-      SyncStripeProductsJob.perform_later
+    when "product.updated", "product.created", "product.deleted"
+      Stripe::SyncProductJob.perform_later(event.data.object.id)
+    when "price.created", "price.updated", "price.deleted"
+      Stripe::SyncProductJob.perform_later(event.data.object.product)
     when "checkout.session.completed"
       session = event.data.object
       order = Order.find(session.client_reference_id)
