@@ -121,6 +121,13 @@ GEM
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    good_job (4.9.0)
+      activejob (>= 6.1.0)
+      activerecord (>= 6.1.0)
+      concurrent-ruby (>= 1.3.1)
+      fugit (>= 1.11.0)
+      railties (>= 6.1.0)
+      thor (>= 1.0.0)
     groupdate (6.5.1)
       activesupport (>= 7)
     i18n (1.14.7)
@@ -306,22 +313,6 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    solid_cable (3.0.7)
-      actioncable (>= 7.2)
-      activejob (>= 7.2)
-      activerecord (>= 7.2)
-      railties (>= 7.2)
-    solid_cache (1.0.7)
-      activejob (>= 7.2)
-      activerecord (>= 7.2)
-      railties (>= 7.2)
-    solid_queue (1.1.3)
-      activejob (>= 7.1)
-      activerecord (>= 7.1)
-      concurrent-ruby (>= 1.3.1)
-      fugit (~> 1.11.0)
-      railties (>= 7.1)
-      thor (~> 1.3.1)
     sshkit (1.24.0)
       base64
       logger
@@ -385,6 +376,7 @@ DEPENDENCIES
   dotenv-rails
   erb-formatter (~> 0.7.3)
   friendly_id (~> 5.5)
+  good_job (~> 4.9)
   groupdate
   importmap-rails
   jbuilder
@@ -396,9 +388,6 @@ DEPENDENCIES
   rails-settings-cached
   rubocop-rails-omakase
   selenium-webdriver
-  solid_cable
-  solid_cache
-  solid_queue
   stimulus-rails
   stripe
   thruster

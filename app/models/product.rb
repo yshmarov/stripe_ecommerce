@@ -5,7 +5,7 @@ class Product < ApplicationRecord
 
   has_many :prices, dependent: :destroy
 
-  scope :sellable, -> { joins(:prices).merge(Price.sellable).where.not(stripe_product: nil).where("stripe_product->>'active' = ?", true) }
+  scope :sellable, -> { joins(:prices).merge(Price.sellable).where.not(stripe_product: nil).where("(stripe_product->>'active')::boolean = true") }
 
   default_scope { sellable }
 
