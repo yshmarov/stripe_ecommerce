@@ -3,10 +3,10 @@ require "test_helper"
 class QueueControllerTest < ActionDispatch::IntegrationTest
   test "index" do
     get queue_url
-    assert_response :success
-  end
+    assert_response :not_found
 
-  test "index when public_order_queue is false" do
-    skip
+    Setting.public_order_queue = true
+    get queue_url
+    assert_response :success
   end
 end
