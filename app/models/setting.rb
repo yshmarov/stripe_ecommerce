@@ -23,9 +23,9 @@ class Setting < RailsSettings::Base
     field :email, default: "info@snackbarbyyaro.com", type: :string, validates: { presence: true, length: { in: 2..100 } }
     field :trade_name, default: "Snack Bar By Yaro LLC", type: :string, validates: { presence: true, length: { in: 2..40 } }
     field :trade_vat_number, default: "PL1234567890", type: :string, validates: { presence: true, length: { in: 2..20 } }
-    field :terms_of_service, type: :text
-    field :privacy_policy, type: :text
-    field :refund_policy, type: :text
+    field :terms_of_service, type: :text, help_text: "Use Markdown syntax"
+    field :privacy_policy, type: :text, help_text: "Use Markdown syntax"
+    field :refund_policy, type: :text, help_text: "Use Markdown syntax"
   end
 
   scope :socials do

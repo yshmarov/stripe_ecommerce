@@ -43,4 +43,27 @@ module ApplicationHelper
     when "pln" then "zł"
     end
   end
+
+  def markdown(text)
+    return "" if text.blank?
+
+    renderer = Redcarpet::Render::HTML.new(
+      hard_wrap: true,
+      filter_html: true,
+      link_attributes: { target: "_blank", rel: "noopener noreferrer" }
+    )
+
+    markdown = Redcarpet::Markdown.new(
+      renderer,
+      autolink: true,
+      no_intra_emphasis: true,
+      fenced_code_blocks: true,
+      lax_spacing: true,
+      strikethrough: true,
+      superscript: true,
+      tables: true
+    )
+
+    markdown.render(text).html_safe
+  end
 end

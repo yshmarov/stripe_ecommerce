@@ -69,3 +69,4 @@ gem "active_link_to"
 gem "stripe"
 
 gem "good_job", "~> 4.9"
+gem "redcarpet"
