@@ -29,7 +29,7 @@ class Product < ApplicationRecord
     stripe_product["images"].first
   end
 
-  def default_price
+  def default_unit_amount
     stripe_product["default_price"]["unit_amount"]
   end
 

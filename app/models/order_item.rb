@@ -10,7 +10,7 @@ class OrderItem < ApplicationRecord
   friendly_id :generate_random_slug, use: [ :finders, :slugged ]
 
   def calculate_total_price
-    update(price: product.default_price, total_price: quantity * product.default_price)
+    update(price: product.default_unit_amount, total_price: quantity * product.default_unit_amount)
     order.calculate_total_price
   end
 end
