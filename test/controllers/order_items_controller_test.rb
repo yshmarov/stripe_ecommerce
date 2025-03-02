@@ -3,7 +3,8 @@ require "test_helper"
 class OrderItemsControllerTest < ActionDispatch::IntegrationTest
   test "update" do
     product = products(:monster_classic)
-    post add_to_cart_path(product.id)
+    price = product.default_price
+    post add_to_cart_path(price)
 
     order = Order.last
     assert_equal 1, order.order_items.count
@@ -23,8 +24,9 @@ class OrderItemsControllerTest < ActionDispatch::IntegrationTest
 
   test "destroy" do
     product = products(:monster_classic)
-    post add_to_cart_path(product.id)
-    post add_to_cart_path(product.id)
+    price = product.default_price
+    post add_to_cart_path(price)
+    post add_to_cart_path(price)
 
     order = Order.last
     assert_equal 1, order.order_items.count

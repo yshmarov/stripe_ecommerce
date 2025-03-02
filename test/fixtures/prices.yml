@@ -7,7 +7,7 @@ one:
     id: price_1QZQZQZQZQZQZQZQZQZQZQZQ
     currency: usd
     unit_amount: 599
-
+    active: true
 two:
   product: rafaello
   stripe_price_id: price_2QZQZQZQZQZQZQZQZQZQZQZQ
@@ -15,3 +15,4 @@ two:
     id: price_2QZQZQZQZQZQZQZQZQZQZQZQ
     currency: usd
     unit_amount: 299
+    active: true
