@@ -33,6 +33,10 @@
       "value": "sk_test_foo",
       "required": true
     },
+    "HONEYBADGER_API_KEY": {
+      "description": "Honeybadger API key",
+      "value": "hbp_foo"
+    },
     "SENSIBLE_DEFAULTS": "enabled"
   },
   "formation": {

@@ -70,3 +70,5 @@ gem "stripe"
 
 gem "good_job", "~> 4.9"
 gem "redcarpet"
+
+gem "honeybadger", "~> 5.26"
