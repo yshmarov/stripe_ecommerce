@@ -44,3 +44,5 @@ STRIPE_SECRET_KEY
 Create a stripe webhook endpoint:
 
 https://dashboard.stripe.com/webhooks/create?events=product.created%2Cproduct.deleted%2Cproduct.updated%2Cprice.created%2Cprice.deleted%2Cprice.updated%2Ccheckout.session.completed
+
+[One-click Heroku deploy](https://dashboard.heroku.com/new?template=https://github.com/yshmarov/superails)
