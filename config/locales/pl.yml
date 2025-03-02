@@ -1,6 +1,22 @@
 pl:
   activerecord:
     attributes:
+      setting:
+        default_language: Domyślny język
+        search: Szukaj
+        public_order_queue: Publiczna kolejka zamówień
+        description: Opis sklepu
+        allow_promotion_codes: Zezwól na kody promocyjne
+        phone_number_collection: Zbieranie numeru telefonu
+        billing_address_collection: Zbieranie adresu rozliczeniowego
+        shipping_countries: Kraje dostawy
+        address: Adres
+        email: Email
+        trade_name: Nazwa firmy
+        trade_vat_number: NIP firmy
+        terms_of_service: Warunki użytkowania
+        privacy_policy: Polityka prywatności
+        refund_policy: Polityka zwrotu
       order_item:
         quantity: Ilość
       product:

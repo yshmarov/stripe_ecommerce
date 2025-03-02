@@ -1,6 +1,22 @@
 en:
   activerecord:
     attributes:
+      setting:
+        default_language: Default language
+        search: Search
+        public_order_queue: Public order queue
+        description: Shop description
+        allow_promotion_codes: Allow promotion codes
+        phone_number_collection: Phone number collection
+        billing_address_collection: Billing address collection
+        shipping_countries: Shipping countries
+        address: Address
+        email: Email
+        trade_name: Trade name
+        trade_vat_number: Trade VAT number
+        terms_of_service: Terms of service
+        privacy_policy: Privacy policy
+        refund_policy: Refund policy
       order_item:
         quantity: Quantity
       product:

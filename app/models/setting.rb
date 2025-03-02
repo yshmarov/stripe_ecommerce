@@ -4,8 +4,8 @@ class Setting < RailsSettings::Base
 
   scope :general do
     field :default_language, default: "en", type: :string, validates: { presence: true, inclusion: { in: I18n.available_locales.map(&:to_s) } }, option_values: I18n.available_locales.map(&:to_s)
-    field :search, default: true, type: :boolean, help_text: "Enable search"
-    field :public_order_queue, default: false, type: :boolean, help_text: "Like McDonalds order progress screen"
+    field :search, default: true, type: :boolean
+    field :public_order_queue, default: false, type: :boolean
     field :description, default: "Best world literature in Ukrainian language", type: :text, validates: { presence: true, length: { in: 2..200 } }
   end
 
@@ -15,7 +15,7 @@ class Setting < RailsSettings::Base
     field :allow_promotion_codes, default: false, type: :boolean
     field :phone_number_collection, default: true, type: :boolean
     field :billing_address_collection, default: "required", type: :string, validates: { presence: true, inclusion: { in: BILLING_ADDRESS_COLLECTION_OPTIONS } }, option_values: BILLING_ADDRESS_COLLECTION_OPTIONS
-    field :shipping_countries, default: [ "FR", "PL" ], type: :array, help_text: "Allow customers to provide shipping address in these countries"
+    field :shipping_countries, default: [ "FR", "PL" ], type: :array
   end
 
   scope :legal do
