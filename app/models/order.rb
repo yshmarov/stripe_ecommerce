@@ -6,7 +6,11 @@ class Order < ApplicationRecord
                   done: "done" }
 
   has_many :order_items, dependent: :destroy
-  has_many :products, through: :order_items
+  has_many :prices, through: :order_items
+
+  def products
+    prices.map(&:product).uniq
+  end
 
   validates :user_id, presence: true
   validates :status, presence: true

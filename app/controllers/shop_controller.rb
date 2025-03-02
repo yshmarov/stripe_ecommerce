@@ -7,14 +7,14 @@ class ShopController < ApplicationController
     )
 
     # add to cart
-    product = Product.find(params[:product_id])
-    order_item = order.order_items.find_or_create_by(price: product.default_price)
+    price = Price.find(params[:price_id])
+    order_item = order.order_items.find_or_create_by(price:)
     # add +1 item to cart
     order_item.increment!(:quantity)
     # balance calculation
     order_item.calculate_total_amount
 
-    notice = "#{product.name} added to cart"
+    notice = "#{price.product.name} added to cart"
 
     redirect_back(fallback_location: products_path, notice:)
   end
