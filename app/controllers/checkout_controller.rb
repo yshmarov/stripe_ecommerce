@@ -24,6 +24,7 @@ class CheckoutController < ApplicationController
       #   enabled: true
       # },
       payment_method_types: [ "card" ],
+      currency: @order.order_items.first.price.stripe_price["currency"],
       line_items:,
       mode: "payment",
       success_url: order_url(@order),
