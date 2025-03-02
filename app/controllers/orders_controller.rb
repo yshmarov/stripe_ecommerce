@@ -21,6 +21,8 @@ class OrdersController < ApplicationController
 
   def set_order
     @order = @my_orders.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to orders_path
   end
 
   def order_params
