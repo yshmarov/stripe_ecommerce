@@ -5,7 +5,7 @@ class Setting < RailsSettings::Base
   scope :general do
     field :search, default: true, type: :boolean, help_text: "Enable search"
     field :public_order_queue, default: false, type: :boolean, help_text: "Like McDonalds order progress screen"
-    field :description, default: "Self checkout snack bar", type: :text, validates: { presence: true, length: { in: 2..200 } }
+    field :description, default: "Best world literature in Ukrainian language", type: :text, validates: { presence: true, length: { in: 2..200 } }
   end
 
   BILLING_ADDRESS_COLLECTION_OPTIONS = %w[auto required]
