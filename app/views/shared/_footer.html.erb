@@ -25,23 +25,29 @@
     <%= @stripe_account.try(:business_profile).try(:support_phone) %>
   </div>
 
-  <div>
-    <%= link_to terms_of_service_path do %>
-      <%= t("static.terms_of_service.title") %>
-    <% end %>
-  </div>
+  <% if Setting.terms_of_service.present? %>
+    <div>
+      <%= link_to terms_of_service_path do %>
+        <%= t("static.terms_of_service.title") %>
+      <% end %>
+    </div>
+  <% end %>
 
-  <div>
-    <%= link_to privacy_policy_path do %>
-      <%= t("static.privacy_policy.title") %>
-    <% end %>
-  </div>
+  <% if Setting.privacy_policy.present? %>
+    <div>
+      <%= link_to privacy_policy_path do %>
+        <%= t("static.privacy_policy.title") %>
+      <% end %>
+    </div>
+  <% end %>
 
-  <div>
-    <%= link_to refund_policy_path do %>
-      <%= t("static.refund_policy.title") %>
-    <% end %>
-  </div>
+  <% if Setting.refund_policy.present? %>
+    <div>
+      <%= link_to refund_policy_path do %>
+        <%= t("static.refund_policy.title") %>
+      <% end %>
+    </div>
+  <% end %>
 
   <div>
     <%= link_to admin_orders_path do %>
