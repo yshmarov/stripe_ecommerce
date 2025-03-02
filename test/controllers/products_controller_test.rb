@@ -2,11 +2,12 @@ require "test_helper"
 
 class ProductsControllerTest < ActionDispatch::IntegrationTest
   test "index" do
+    product_drink = products(:monster_classic)
+    product_food = products(:rafaello)
+
     get products_url
     assert_response :success
 
-    product_drink = products(:monster_classic)
-    product_food = products(:rafaello)
 
     assert_match product_drink.name, response.body
     assert_match product_food.name, response.body

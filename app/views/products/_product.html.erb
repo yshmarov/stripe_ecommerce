@@ -14,7 +14,6 @@
       <%= t(".add_to_cart") %>
       <mark><%= product.default_price.items_in_cart(@current_order) %></mark>
     <% end %>
-    <%#= @current_order&.products&.include?(product) %>
 
     <small><%= product.stripe_product["description"] %></small>
 

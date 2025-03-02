@@ -25,11 +25,8 @@ class Product < ApplicationRecord
   end
 
   def default_price
-    if stripe_product["default_price"].present?
-      prices.find { |price| price.stripe_price_id == stripe_product["default_price"]["id"] }
-    else
-      prices.first
-    end
+    default_price_id = stripe_product&.dig("default_price", "id")
+    prices.detect { |price| price.stripe_price_id == default_price_id } || prices.first
   end
 
   def default_unit_amount
