@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_26_085741) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_02_065936) do
   create_table "order_items", force: :cascade do |t|
     t.integer "order_id", null: false
     t.integer "product_id", null: false
@@ -44,6 +44,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_26_085741) do
     t.datetime "updated_at", null: false
     t.string "slug"
     t.json "stripe_product"
+    t.string "stripe_product_id"
     t.index ["slug"], name: "index_products_on_slug", unique: true
   end
 

@@ -5,7 +5,7 @@ class SyncStripeProductsJob < ApplicationJob
     Stripe::Product.list(
       expand: [ "data.default_price" ]
     ).each do |stripe_product|
-      product = Product.unscoped.where("stripe_product->>'id' = ?", stripe_product.id).first_or_initialize
+      product = Product.find_or_initialize_by(stripe_product_id: stripe_product.id)
       product.name = stripe_product.name
       product.stripe_product = stripe_product
       product.save!
