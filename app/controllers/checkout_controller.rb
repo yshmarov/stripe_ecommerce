@@ -15,7 +15,7 @@ class CheckoutController < ApplicationController
       shipping_address_collection: {
         allowed_countries: Setting.shipping_countries
       },
-      # customer_creation: "always",
+      customer_creation: "always",
       shipping_options: fetch_shipping_rates,
       # consent_collection: {
       # terms_of_service: "required",
