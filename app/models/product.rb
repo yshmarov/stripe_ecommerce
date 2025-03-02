@@ -4,8 +4,6 @@ class Product < ApplicationRecord
   validates :stripe_product, presence: true
 
   has_many :prices, dependent: :destroy
-  has_many :order_items, dependent: :restrict_with_error
-  has_many :orders, through: :order_items
 
   scope :sellable, -> { joins(:prices).merge(Price.sellable).where.not(stripe_product: nil).where("stripe_product->>'active' = ?", true) }
 
@@ -21,10 +19,6 @@ class Product < ApplicationRecord
 
   extend FriendlyId
   friendly_id :name, use: [ :finders, :slugged ]
-
-  def items_in_cart(current_order)
-    order_items.find_by(order: current_order)&.quantity
-  end
 
   def image_url
     stripe_product["images"].first

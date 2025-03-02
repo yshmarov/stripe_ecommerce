@@ -8,7 +8,7 @@ class ShopController < ApplicationController
 
     # add to cart
     product = Product.find(params[:product_id])
-    order_item = order.order_items.find_or_create_by(product:)
+    order_item = order.order_items.find_or_create_by(price: product.default_price)
     # add +1 item to cart
     order_item.increment!(:quantity)
     # balance calculation

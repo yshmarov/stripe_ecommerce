@@ -28,13 +28,13 @@
       <i class="fa-solid fa-credit-card"></i>
       <%= t(".complete") %>
       <% if order.order_items.any? %>
-        <%= number_to_currency(order.total_amount / 100.0, unit: currency_code_to_symbol(order.order_items.first.product.default_currency)) %>
+        <%= number_to_currency(order.total_amount / 100.0, unit: currency_code_to_symbol(order.order_items.first.price.stripe_price["currency"])) %>
       <% end %>
     <% end %>
   <% else %>
     <button disabled>
       <i class="fa-solid fa-credit-card"></i>
-      <%= number_to_currency(order.total_amount / 100.0, unit: currency_code_to_symbol(order.order_items.first.product.default_currency)) %>
+      <%= number_to_currency(order.total_amount / 100.0, unit: currency_code_to_symbol(order.order_items.first.price.stripe_price["currency"])) %>
     </button>
   <% end %>
 
