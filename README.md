@@ -30,3 +30,17 @@ Bonus features:
 
 - McDonalds-like self-service (restaurant)
 - Online bookstore
+
+### Deploy to production
+
+ENV VARS
+
+```sh
+RAILS_MASTER_KEY
+STRIPE_WEBHOOK_SECRET
+STRIPE_SECRET_KEY
+```
+
+Create a stripe webhook endpoint:
+
+https://dashboard.stripe.com/webhooks/create?events=product.created%2Cproduct.deleted%2Cproduct.updated%2Cprice.created%2Cprice.deleted%2Cprice.updated%2Ccheckout.session.completed
