@@ -60,3 +60,7 @@ if Stripe::ShippingRate.list.empty?
     }
   )
 end
+
+puts "🌱 Database seeded"
+puts "Sellable stripe products: #{Product.count}"
+puts "Sellable stripe prices: #{Price.count}"
