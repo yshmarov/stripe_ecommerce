@@ -61,12 +61,4 @@ class WebhooksController < ApplicationController
 
     order.calculate_total_price
   end
-
-  def refresh_product_from_price(event)
-    stripe_product = Stripe::Product.retrieve(event.data.object.product)
-    product = Product.find_or_create_by("stripe_product->>'id' = ?", event.data.object.product) do |p|
-      p.name = stripe_product.name
-      p.stripe_product = stripe_product
-    end
-  end
 end
