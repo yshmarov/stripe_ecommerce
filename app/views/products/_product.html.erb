@@ -1,6 +1,6 @@
 <article id="<%= dom_id product %>" style="display: flex; flex-direction: <%= action_name == 'show' ? 'row' : 'column' %>; gap: 1rem;">
-  <%= link_to product do %>
-    <%= image_tag product.image_url, style: "height: 250px; object-fit: cover;" if product.image_url.present? %>
+  <%= link_to product, style: "max-width: 256px;" do %>
+    <%= image_tag product.image_url, style: "height: 256px; object-fit: cover;" if product.image_url.present? %>
   <% end %>
 
   <div>
