@@ -1,27 +1,30 @@
-# Minimal ecommerce store
+# Minimal Stripe ecommerce store
 
-### Customer:
+Display non-recurring products index
 
+### Customer-facing:
+
+Core features:
+
+- ✅ SEO-friendly product directory with search
 - ✅ Add to cart
-- ✅ Checkout
-- ⏳ Payment processing
-- ✅ Order queue (private or public)
+- ✅ Order summary
+- ✅ Payment processing
 - ✅ Order history
-- ✅ Review (1 or 10 stars)
-- ⏳ No login flow (cookie = authentication)
+- ✅ No login flow (cookie = authentication)
+
+Bonus features:
+
+- ✅ i18n 🇬🇧🌍
+- ✅ Order queue (private or public)
+- ✅ Review (1 or 5 stars)
+- ⏳ Log in with Google
 
 ### Admin:
 
-- ✅ Stats
-- ✅ Order fulfillment
-- ✅ Product management
 - ✅ General store settings
-
-### Delivery options based on your business model:
-
-- ✅ "To go" - for restaurants & digital sales
-- ✅ "Table service" - for restaurants (if QR code scanned)
-- ⏳ "Delivery" - for physical products (coming soon)
+- ✅ Order fulfillment
+- ✅ Stats
 
 ## Usecases
 
