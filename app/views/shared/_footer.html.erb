@@ -22,7 +22,7 @@
   </div>
 
   <div>
-    <%= @stripe_account.business_profile.support_phone %>
+    <%= @stripe_account.try(:business_profile).try(:support_phone) %>
   </div>
 
   <div>
