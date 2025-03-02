@@ -7,7 +7,8 @@ class Product < ApplicationRecord
   has_many :order_items, dependent: :restrict_with_error
   has_many :orders, through: :order_items
 
-  scope :sellable, -> { where.not(stripe_product: nil).where("stripe_product->>'default_price' IS NOT NULL").where("stripe_product->'default_price'->>'recurring' IS NULL").where("stripe_product->>'active' = ?", true) }
+  scope :sellable, -> { joins(:prices).merge(Price.sellable).where.not(stripe_product: nil).where("stripe_product->>'active' = ?", true) }
+
   default_scope { sellable }
 
   scope :search, ->(query) {
@@ -29,11 +30,15 @@ class Product < ApplicationRecord
     stripe_product["images"].first
   end
 
+  def default_price
+    prices.first
+  end
+
   def default_unit_amount
-    stripe_product["default_price"]["unit_amount"]
+    default_price.stripe_price["unit_amount"]
   end
 
   def default_currency
-    stripe_product["default_price"]["currency"]
+    default_price.stripe_price["currency"]
   end
 end
