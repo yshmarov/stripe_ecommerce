@@ -2,11 +2,7 @@ class ProductsController < ApplicationController
   before_action :set_product, only: %i[show]
 
   def index
-    @products = if params[:query].present?
-                  Product.order(name: :asc).search(params[:query])
-    else
-                  Product.order(name: :asc)
-    end
+    @products = Product.order(name: :asc)
   end
 
   def search

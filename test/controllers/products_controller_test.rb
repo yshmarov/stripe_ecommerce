@@ -14,13 +14,10 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "search" do
-    product_drink = products(:monster_classic)
-    product_food = products(:rafaello)
-
-    get products_url(query: "monster")
+    get search_products_path, params: { query: "monster" }
     assert_response :success
     assert_match "Monster", response.body
-    assert_no_match product_food.name, response.body
+    assert_no_match "Rafaello", response.body
   end
 
   test "show" do

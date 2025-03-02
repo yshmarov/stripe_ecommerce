@@ -49,11 +49,4 @@ class ShopControllerTest < ActionDispatch::IntegrationTest
     assert_equal price2.stripe_price["unit_amount"], order.order_items.second.unit_amount
     assert_equal price2.stripe_price["unit_amount"] * 2, order.order_items.second.total_amount
   end
-
-  test "search products" do
-    get search_products_path, params: { query: "monster" }
-    assert_response :success
-    assert_match "Monster", response.body
-    assert_no_match "Rafaello", response.body
-  end
 end
