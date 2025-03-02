@@ -48,11 +48,11 @@ class WebhooksController < ActionController::Base
 
     # Create new order items based on what was actually purchased
     line_items.data.each do |item|
-      product = Product.find_by("stripe_product->>'id' = ?", item.price.product)
-      next unless product
+      price = Price.find_by(stripe_price_id: item.price.id)
+      next unless price
 
       order.order_items.create!(
-        product: product,
+        price:,
         quantity: item.quantity,
         unit_amount: item.price.unit_amount,
         total_amount: item.amount_total
