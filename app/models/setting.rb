@@ -20,8 +20,8 @@ class Setting < RailsSettings::Base
 
   scope :legal do
     field :address, default: "ul. Kowalska 123, 00-000 Warszawa", type: :string, validates: { presence: true, length: { in: 2..200 } }
-    field :email, default: "info@snackbarbyyaro.com", type: :string, validates: { presence: true, length: { in: 2..100 } }
-    field :trade_name, default: "Snack Bar By Yaro LLC", type: :string, validates: { presence: true, length: { in: 2..40 } }
+    field :email, default: "info@warszawabooks.pl", type: :string, validates: { presence: true, length: { in: 2..100 } }
+    field :trade_name, default: "Warsaw Books Sp. z o.o.", type: :string, validates: { presence: true, length: { in: 2..40 } }
     field :trade_vat_number, default: "PL1234567890", type: :string, validates: { presence: true, length: { in: 2..20 } }
     field :terms_of_service, type: :text, help_text: "Use Markdown syntax"
     field :privacy_policy, type: :text, help_text: "Use Markdown syntax"
