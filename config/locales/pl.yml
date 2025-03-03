@@ -46,7 +46,7 @@ pl:
     index:
       title: Moje zamówienia
     order:
-      items: produkty
+      items: Koszyk
       rating: Oceń zamówienie
       complete: Zamów
       empty: Twój koszyk jest pusty

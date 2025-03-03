@@ -46,7 +46,7 @@ ua:
     index:
       title: Мої замовлення
     order:
-      items: товари
+      items: Кошик
       rating: Оцінити замовлення
       complete: Замовити
       empty: Ваш кошик порожній

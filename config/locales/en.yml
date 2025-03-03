@@ -47,7 +47,7 @@ en:
     index:
       title: My Orders
     order:
-      items: items
+      items: Shopping cart
       rating: Rate the order
       complete: Complete order
       empty: Your cart is empty
