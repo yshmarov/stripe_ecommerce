@@ -8,6 +8,7 @@ monster_classic:
     description: Caffeinated energy drink that contains 160mg of caffeine per 16oz can.
     images: ['https://i.imgur.com/WEDXcDi.png']
     active: true
+    marketing_features: []
 rafaello:
   name: Rafaello
   stripe_product_id: prod_RpGK0GkH6oVX4m
@@ -18,3 +19,4 @@ rafaello:
     description: Chocolate wafer bar with a crunchy outer layer and a creamy filling.
     images: ['https://i.imgur.com/XwLtkud.png']
     active: true
+    marketing_features: []
