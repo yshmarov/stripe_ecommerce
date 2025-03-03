@@ -73,3 +73,5 @@ gem "good_job", "~> 4.9"
 gem "redcarpet"
 
 gem "honeybadger", "~> 5.26"
+
+gem "oj" # json performance
