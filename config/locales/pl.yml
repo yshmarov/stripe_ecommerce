@@ -49,6 +49,7 @@ pl:
       items: produkty
       rating: Oceń zamówienie
       complete: Zamów
+      empty: Twój koszyk jest pusty
     update:
       submitted: Zamówienie złożone! Przygotowujemy je dla Ciebie.
       rating: Dziękujemy za opinię!

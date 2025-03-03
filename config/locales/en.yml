@@ -50,6 +50,7 @@ en:
       items: items
       rating: Rate the order
       complete: Complete order
+      empty: Your cart is empty
     update:
       submitted: Order submitted! We are preparing it for you.
       rating: Thanks for the feedback!

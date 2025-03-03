@@ -9,7 +9,7 @@
     </p>
   <% end %>
 
-  <p id="order_status">
+  <p>
     <%= render partial: "orders/status", locals: { order: } unless order.draft? %>
   </p>
   <%# TODO: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress#describing_a_particular_region %>
@@ -26,9 +26,11 @@
   <% if order.draft? %>
     <%= button_to order_checkout_index_path(order), method: :post, data: { turbo: false }, disabled: order.order_items.empty? do %>
       <i class="fa-solid fa-credit-card"></i>
-      <%= t(".complete") %>
       <% if order.order_items.any? %>
+        <%= t(".complete") %>
         <%= number_to_currency(order.total_amount / 100.0, unit: currency_code_to_symbol(order.order_items.first.price.stripe_price["currency"])) %>
+      <% else %>
+        <%= t(".empty") %>
       <% end %>
     <% end %>
   <% else %>
