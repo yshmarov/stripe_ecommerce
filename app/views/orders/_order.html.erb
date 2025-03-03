@@ -1,6 +1,6 @@
 <article id="<%= dom_id order %>">
   <strong>
-    <%= link_to_unless_current "##{order.slug.upcase}", order %>
+    <%= link_to_unless_current t("orders.show.title", slug: order.slug.upcase), order %>
   </strong>
 
   <% if order.checkout_session.present? && !order.draft? %>
@@ -19,8 +19,8 @@
   <% if action_name != "show" %>
     <p>
       <%= link_to order do %>
-        <mark><%= order.order_items_quantity %></mark>
         <strong><%= t(".items") %></strong>
+        <mark><%= order.order_items_quantity %></mark>
       <% end %>
     </p>
   <% end %>
