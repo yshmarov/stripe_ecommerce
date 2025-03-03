@@ -61,6 +61,7 @@ en:
       rating: Thanks for the feedback!
     show:
       title: Order №%{slug}
+      thank_you: Thank you for your order! 💕
   queue:
     index:
       title: Orders in progress
