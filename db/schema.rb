@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_02_142710) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_03_231852) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -126,14 +126,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_02_142710) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug"
-    t.json "checkout_session"
+    t.jsonb "checkout_session"
     t.index ["slug"], name: "index_orders_on_slug", unique: true
   end
 
   create_table "prices", force: :cascade do |t|
     t.integer "product_id", null: false
     t.string "stripe_price_id"
-    t.json "stripe_price"
+    t.jsonb "stripe_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_prices_on_product_id"
@@ -144,7 +144,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_02_142710) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug"
-    t.json "stripe_product"
+    t.jsonb "stripe_product"
     t.string "stripe_product_id"
     t.index ["slug"], name: "index_products_on_slug", unique: true
   end
