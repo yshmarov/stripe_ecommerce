@@ -1,0 +1,31 @@
+<% if order.checkout_session.present? %>
+  <p>
+    <strong>Shipping cost:</strong>
+    <%= number_to_currency(order.checkout_session["shipping_cost"]["amount_subtotal"] / 100, unit: currency_code_to_symbol(order.currency)) %>
+  </p>
+
+  <p>
+    <strong>Shipping address:</strong>
+    <%= order.checkout_session["shipping_details"]["address"].values.join(", ") %>
+  </p>
+
+  <p>
+    <strong>Shipping name:</strong>
+    <%= order.checkout_session["shipping_details"]["name"] %>
+  </p>
+
+  <p>
+    <strong>Customer email:</strong>
+    <%= order.checkout_session["customer_details"]["email"] %>
+  </p>
+
+  <p>
+    <strong>Customer name:</strong>
+    <%= order.checkout_session["customer_details"]["name"] %>
+  </p>
+
+  <p>
+    <strong>Customer phone:</strong>
+    <%= order.checkout_session["customer_details"]["phone"] %>
+  </p>
+<% end %>

@@ -9,6 +9,8 @@
     </p>
   <% end %>
 
+  <%= render partial: "orders/checkout_details", locals: { order: } %>
+
   <p>
     <%= render partial: "orders/status", locals: { order: order } %>
   </p>

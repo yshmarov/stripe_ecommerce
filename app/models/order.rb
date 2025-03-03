@@ -12,6 +12,10 @@ class Order < ApplicationRecord
     prices.map(&:product).uniq
   end
 
+  def currency
+    prices.first.stripe_price["currency"]
+  end
+
   validates :user_id, presence: true
   validates :status, presence: true
   validates :rating, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }, allow_blank: true

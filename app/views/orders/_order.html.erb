@@ -9,6 +9,8 @@
     </p>
   <% end %>
 
+  <%= render partial: "orders/checkout_details", locals: { order: } %>
+
   <p>
     <%= render partial: "orders/status", locals: { order: } unless order.draft? %>
   </p>
@@ -28,7 +30,7 @@
       <i class="fa-solid fa-credit-card"></i>
       <% if order.order_items.any? %>
         <%= t(".complete") %>
-        <%= number_to_currency(order.total_amount / 100.0, unit: currency_code_to_symbol(order.order_items.first.price.stripe_price["currency"])) %>
+        <%= number_to_currency(order.total_amount / 100.0, unit: currency_code_to_symbol(order.currency)) %>
       <% else %>
         <%= t(".empty") %>
       <% end %>
@@ -36,7 +38,7 @@
   <% else %>
     <button disabled>
       <i class="fa-solid fa-credit-card"></i>
-      <%= number_to_currency(order.total_amount / 100.0, unit: currency_code_to_symbol(order.order_items.first.price.stripe_price["currency"])) %>
+      <%= number_to_currency(order.total_amount / 100.0, unit: currency_code_to_symbol(order.currency)) %>
     </button>
   <% end %>
 
