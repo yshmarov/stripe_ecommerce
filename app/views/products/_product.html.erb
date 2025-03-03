@@ -15,7 +15,7 @@
       <mark><%= product.default_price.items_in_cart(@current_order) %></mark>
     <% end %>
 
-    <small><%= product.stripe_product["description"] %></small>
+    <small><%= product.stripe_product_object.description %></small>
 
     <% if marketing_features(product).any? %>
       <% marketing_features(product).each do |feature| %>

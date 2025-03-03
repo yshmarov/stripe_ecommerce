@@ -21,14 +21,14 @@ class Product < ApplicationRecord
   friendly_id :name, use: [ :finders, :slugged ]
 
   def image_url
-    stripe_product["images"].first
+    stripe_product_object.images.first
   end
 
   def default_price
-    default_price_id = if stripe_product["default_price"].is_a?(String)
-      stripe_product["default_price"]
+    default_price_id = if stripe_product_object.default_price.is_a?(String)
+      stripe_product_object.default_price
     else
-      stripe_product&.dig("default_price", "id")
+      stripe_product_object.default_price.id
     end
     prices.detect { |price| price.stripe_price_id == default_price_id } || prices.first
   end
@@ -39,5 +39,9 @@ class Product < ApplicationRecord
 
   def default_currency
     default_price.stripe_price_object.currency
+  end
+
+  def stripe_product_object
+    Stripe::Product.construct_from(stripe_product)
   end
 end
