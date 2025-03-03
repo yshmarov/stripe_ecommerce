@@ -2,8 +2,13 @@ en:
   activerecord:
     attributes:
       setting:
+        scope:
+          general: General
+          checkout: Checkout
+          legal: Legal documents
+          socials: Social networks
         default_language: Default language
-        search: Search
+        search: Search engine
         public_order_queue: Public order queue
         description: Shop description
         allow_promotion_codes: Allow promotion codes

@@ -14,7 +14,7 @@
 
     <% Setting.defined_fields.group_by { |f| f[:scope] }.each do |scope, fields| %>
       <details open>
-        <summary><%= scope.to_s.titleize %></summary>
+        <summary><%= t("activerecord.attributes.setting.scope.#{scope}", default: scope.to_s.titleize) %></summary>
         <div>
           <% fields.each do |field| %>
             <div>

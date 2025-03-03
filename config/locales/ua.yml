@@ -2,6 +2,11 @@ ua:
   activerecord:
     attributes:
       setting:
+        scope:
+          general: Загальні
+          checkout: Оформлення замовлення
+          legal: Юридичні документи
+          socials: Соціальні мережі
         default_language: Мова за замовчуванням
         search: Пошук
         public_order_queue: Публічна черга замовлень
