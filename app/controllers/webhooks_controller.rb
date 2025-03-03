@@ -20,6 +20,10 @@ class WebhooksController < ActionController::Base
     end
 
     case event.type
+    when "account.updated"
+      account = Account.find_or_initialize_by(stripe_account_id: event.data.object.id)
+      account.stripe_account = event.data.object
+      account.save!
     when "product.updated", "product.created", "product.deleted"
       Stripe::SyncProductJob.perform_later(event.data.object.id)
     when "price.created", "price.updated", "price.deleted"
