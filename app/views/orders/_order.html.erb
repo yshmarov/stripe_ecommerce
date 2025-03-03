@@ -3,12 +3,6 @@
     <%= link_to_unless_current t("orders.show.title", slug: order.slug.upcase), order %>
   </strong>
 
-  <% if order.checkout_session.present? && !order.draft? %>
-    <p>
-      <%= Time.at(order.checkout_session["created"]).strftime("%d %h %Y, %H:%M") %>
-    </p>
-  <% end %>
-
   <%= render partial: "orders/checkout_details", locals: { order: } %>
 
   <p>
@@ -35,11 +29,6 @@
         <%= t(".empty") %>
       <% end %>
     <% end %>
-  <% else %>
-    <button disabled>
-      <i class="fa-solid fa-credit-card"></i>
-      <%= number_to_currency(order.total_amount / 100.0, unit: currency_code_to_symbol(order.currency)) %>
-    </button>
   <% end %>
 
   <% if order.done? %>

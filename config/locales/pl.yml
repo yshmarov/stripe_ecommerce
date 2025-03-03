@@ -30,6 +30,16 @@ pl:
         image_url: URL obrazu
       order:
         status: Status
+        checkout_session:
+          created: Zamówiono
+          amount_subtotal: Suma
+          shipping_cost: Koszt wysyłki
+          amount_total: Łącznie
+          shipping_address: Adres wysyłki
+          shipping_name: Imię odbiorcy
+          customer_email: Email odbiorcy
+          customer_name: Imię odbiorcy
+          customer_phone: Telefon odbiorcy
         statuses:
           draft: Szkic
           submitted: Złożone

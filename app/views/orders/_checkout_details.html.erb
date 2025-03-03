@@ -1,31 +1,52 @@
-<% if order.checkout_session.present? %>
+<% if order.checkout_session.present? && !order.draft? %>
   <p>
-    <strong>Shipping cost:</strong>
+    <strong><%= t("activerecord.attributes.order.checkout_session.created") %>:</strong>
+    <%= Time.at(order.checkout_session["created"]).strftime("%d %h %Y, %H:%M") %>
+  </p>
+
+  <hr>
+
+  <p>
+    <strong><%= t("activerecord.attributes.order.checkout_session.amount_subtotal") %>:</strong>
+    <%= number_to_currency(order.checkout_session["amount_subtotal"] / 100, unit: currency_code_to_symbol(order.currency)) %>
+  </p>
+
+  <p>
+    <strong><%= t("activerecord.attributes.order.checkout_session.shipping_cost") %>:</strong>
     <%= number_to_currency(order.checkout_session["shipping_cost"]["amount_subtotal"] / 100, unit: currency_code_to_symbol(order.currency)) %>
   </p>
 
   <p>
-    <strong>Shipping address:</strong>
+    <strong><%= t("activerecord.attributes.order.checkout_session.amount_total") %>:</strong>
+    <%= number_to_currency(order.checkout_session["amount_total"] / 100, unit: currency_code_to_symbol(order.currency)) %>
+  </p>
+
+  <hr>
+
+  <p>
+    <strong><%= t("activerecord.attributes.order.checkout_session.shipping_address") %>:</strong>
     <%= order.checkout_session["shipping_details"]["address"].values.join(", ") %>
   </p>
 
   <p>
-    <strong>Shipping name:</strong>
+    <strong><%= t("activerecord.attributes.order.checkout_session.shipping_name") %>:</strong>
     <%= order.checkout_session["shipping_details"]["name"] %>
   </p>
 
+  <hr>
+
   <p>
-    <strong>Customer email:</strong>
+    <strong><%= t("activerecord.attributes.order.checkout_session.customer_email") %>:</strong>
     <%= order.checkout_session["customer_details"]["email"] %>
   </p>
 
   <p>
-    <strong>Customer name:</strong>
+    <strong><%= t("activerecord.attributes.order.checkout_session.customer_name") %>:</strong>
     <%= order.checkout_session["customer_details"]["name"] %>
   </p>
 
   <p>
-    <strong>Customer phone:</strong>
+    <strong><%= t("activerecord.attributes.order.checkout_session.customer_phone") %>:</strong>
     <%= order.checkout_session["customer_details"]["phone"] %>
   </p>
 <% end %>

@@ -30,6 +30,16 @@ en:
         image_url: Image URL
       order:
         status: Status
+        checkout_session:
+          created: Submitted at
+          amount_subtotal: Subtotal
+          shipping_cost: Shipping cost
+          amount_total: Total
+          shipping_address: Shipping address
+          shipping_name: Shipping name
+          customer_email: Customer email
+          customer_name: Customer name
+          customer_phone: Customer phone
         statuses:
           draft: Draft
           submitted: Submitted
