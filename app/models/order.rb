@@ -13,7 +13,7 @@ class Order < ApplicationRecord
   end
 
   def currency
-    prices.first.stripe_price["currency"]
+    prices.first.stripe_price_object.currency
   end
 
   validates :user_id, presence: true

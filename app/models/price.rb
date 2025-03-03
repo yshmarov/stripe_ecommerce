@@ -13,4 +13,8 @@ class Price < ApplicationRecord
   def items_in_cart(current_order)
     order_items.find_by(order: current_order)&.quantity
   end
+
+  def stripe_price_object
+    Stripe::Price.construct_from(stripe_price)
+  end
 end

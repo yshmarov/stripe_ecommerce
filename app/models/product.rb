@@ -34,10 +34,10 @@ class Product < ApplicationRecord
   end
 
   def default_unit_amount
-    default_price.stripe_price["unit_amount"]
+    default_price.stripe_price_object.unit_amount
   end
 
   def default_currency
-    default_price.stripe_price["currency"]
+    default_price.stripe_price_object.currency
   end
 end
