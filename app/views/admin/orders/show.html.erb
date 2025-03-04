@@ -3,5 +3,10 @@
 <%= render @order %>
 
 <% if @order&.order_items&.any? %>
-  <%= render collection: @order.order_items, partial: "order_items/order_item", as: :order_item %>
+  <details open>
+    <summary>
+      <%= t("orders.order.items").capitalize %>
+    </summary>
+    <%= render collection: @order.order_items, partial: "order_items/order_item", as: :order_item %>
+  </details>
 <% end %>

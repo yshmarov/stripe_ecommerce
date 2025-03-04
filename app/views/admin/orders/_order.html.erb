@@ -3,7 +3,9 @@
     <%= link_to_unless_current t("orders.show.title", slug: order.slug.upcase), order %>
   </strong>
 
-  <%= render partial: "orders/checkout_details", locals: { order: } %>
+  <p>
+    <%= render partial: "orders/checkout_details", locals: { order: } %>
+  </p>
 
   <p>
     <%= render partial: "orders/status", locals: { order: order } %>
