@@ -19,20 +19,12 @@ class ApplicationController < ActionController::Base
   end
 
   def set_stripe_account
-    # Rails.cache.delete("stripe_account")
-    @stripe_account ||= Rails.cache.fetch("stripe_account", expires_in: 1.hour) do
-      Stripe::Account.retrieve
+    account = Account.first_or_create! do |account|
+      stripe_account = Stripe::Account.retrieve
+      account.stripe_account_id = stripe_account.id
+      account.stripe_account = stripe_account
     end
-
-    stripe_logo_id = @stripe_account.settings.branding.logo
-    if stripe_logo_id.present?
-      # Rails.cache.delete("stripe_logo_url_#{stripe_logo_id}")
-      @stripe_logo_url = Rails.cache.fetch("stripe_logo_url_#{stripe_logo_id}", expires_in: 1.hour) do
-        file = Stripe::File.retrieve(stripe_logo_id)
-        file.links.first.url
-      rescue Stripe::InvalidRequestError
-        nil
-      end
-    end
+    @stripe_account = account.stripe_account_object
+    @stripe_logo_url = account.stripe_logo_url
   end
 end
