@@ -8,7 +8,8 @@ module StripeTestHelper
         branding: OpenStruct.new(
           primary_color: "#000000",
           secondary_color: "#000000",
-          logo: "file_123" # mock logo ID
+          logo: "file_123",
+          icon: "file_123"
         ),
         business_profile: OpenStruct.new(
           support_phone: "+48 123 456 789"
