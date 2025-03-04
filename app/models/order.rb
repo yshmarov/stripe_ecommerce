@@ -46,4 +46,8 @@ class Order < ApplicationRecord
       order_items_quantity: order_items.sum(&:quantity)
     )
   end
+
+  def stripe_checkout_session_object
+    Stripe::Checkout::Session.construct_from(checkout_session)
+  end
 end

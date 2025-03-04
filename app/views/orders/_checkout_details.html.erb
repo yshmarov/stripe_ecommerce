@@ -2,63 +2,63 @@
   <details>
     <summary>
       <%= t("activerecord.attributes.order.checkout_session.created") %>
-      <%= Time.at(order.checkout_session["created"]).strftime("%d %h %Y, %H:%M") %>
+      <%= Time.at(order.stripe_checkout_session_object.created).strftime("%d %h %Y, %H:%M") %>
     </summary>
 
     <hr>
 
     <p>
       <strong><%= t("activerecord.attributes.order.checkout_session.amount_subtotal") %>:</strong>
-      <%= number_to_currency(order.checkout_session["amount_subtotal"].to_f / 100, unit: currency_code_to_symbol(order.currency)) %>
+      <%= number_to_currency(order.stripe_checkout_session_object.amount_subtotal.to_f / 100, unit: currency_code_to_symbol(order.currency)) %>
     </p>
 
     <p>
       <strong><%= t("activerecord.attributes.order.checkout_session.total_details.amount_tax") %>:</strong>
-      <%= number_to_currency(order.checkout_session["total_details"]["amount_tax"].to_f / 100, unit: currency_code_to_symbol(order.currency)) %>
+      <%= number_to_currency(order.stripe_checkout_session_object.total_details.amount_tax.to_f / 100, unit: currency_code_to_symbol(order.currency)) %>
     </p>
 
     <p>
       <strong><%= t("activerecord.attributes.order.checkout_session.total_details.amount_shipping") %>:</strong>
-      <%= number_to_currency(order.checkout_session["total_details"]["amount_shipping"].to_f / 100, unit: currency_code_to_symbol(order.currency)) %>
+      <%= number_to_currency(order.stripe_checkout_session_object.total_details.amount_shipping.to_f / 100, unit: currency_code_to_symbol(order.currency)) %>
     </p>
 
     <p>
       <strong><%= t("activerecord.attributes.order.checkout_session.total_details.amount_discount") %>:</strong>
-      <%= number_to_currency(-order.checkout_session["total_details"]["amount_discount"].to_f / 100, unit: currency_code_to_symbol(order.currency)) %>
+      <%= number_to_currency(-order.stripe_checkout_session_object.total_details.amount_discount.to_f / 100, unit: currency_code_to_symbol(order.currency)) %>
     </p>
 
     <p>
       <strong><%= t("activerecord.attributes.order.checkout_session.amount_total") %>:</strong>
-      <%= number_to_currency(order.checkout_session["amount_total"].to_f / 100, unit: currency_code_to_symbol(order.currency)) %>
+      <%= number_to_currency(order.stripe_checkout_session_object.amount_total.to_f / 100, unit: currency_code_to_symbol(order.currency)) %>
     </p>
 
     <hr>
 
     <p>
       <strong><%= t("activerecord.attributes.order.checkout_session.shipping_address") %>:</strong>
-      <%= order.checkout_session["shipping_details"]["address"].values.join(", ") %>
+      <%= order.stripe_checkout_session_object.shipping_details.address.values.join(", ") %>
     </p>
 
     <p>
       <strong><%= t("activerecord.attributes.order.checkout_session.shipping_name") %>:</strong>
-      <%= order.checkout_session["shipping_details"]["name"] %>
+      <%= order.stripe_checkout_session_object.shipping_details.name %>
     </p>
 
     <hr>
 
     <p>
       <strong><%= t("activerecord.attributes.order.checkout_session.customer_email") %>:</strong>
-      <%= order.checkout_session["customer_details"]["email"] %>
+      <%= order.stripe_checkout_session_object.customer_details.email %>
     </p>
 
     <p>
       <strong><%= t("activerecord.attributes.order.checkout_session.customer_name") %>:</strong>
-      <%= order.checkout_session["customer_details"]["name"] %>
+      <%= order.stripe_checkout_session_object.customer_details.name %>
     </p>
 
     <p>
       <strong><%= t("activerecord.attributes.order.checkout_session.customer_phone") %>:</strong>
-      <%= order.checkout_session["customer_details"]["phone"] %>
+      <%= order.stripe_checkout_session_object.customer_details.phone %>
     </p>
   </details>
 <% end %>
