@@ -19,12 +19,12 @@ class ApplicationController < ActionController::Base
   end
 
   def set_stripe_account
-    @account = Account.first_or_create! do |account|
+    account = Account.first_or_create! do |account|
       stripe_account = Stripe::Account.retrieve
       account.stripe_account_id = stripe_account.id
       account.stripe_account = stripe_account
     end
-    @stripe_account = @account.stripe_account_object
-    @stripe_logo_url = @account.stripe_logo_url
+    @stripe_account = account.stripe_account_object
+    @stripe_logo_url = account.stripe_logo_url
   end
 end
