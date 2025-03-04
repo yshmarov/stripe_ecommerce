@@ -47,6 +47,8 @@ class CheckoutController < ApplicationController
   end
 
   def fetch_shipping_rates
+    return [] if Setting.shipping_countries.blank?
+
     rates = Stripe::ShippingRate.list(limit: 5, active: true)
     rates.data.map do |rate|
       { shipping_rate: rate.id }
