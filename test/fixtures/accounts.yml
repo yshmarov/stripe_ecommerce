@@ -1,9 +1,61 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  stripe_account_id: MyString
-  stripe_account: 
-
-two:
-  stripe_account_id: MyString
-  stripe_account: 
+  stripe_account_id: acct_123
+  stripe_account:
+    id: acct_123
+    type: standard
+    object: account
+    country: PL
+    settings:
+      payouts:
+        schedule:
+          interval: weekly
+          delay_days: 7
+          weekly_anchor: monday
+        statement_descriptor: null
+        debit_negative_balances: true
+      branding:
+        icon: file_123
+        logo: file_123
+        primary_color: '#525f7f'
+        secondary_color: '#0074d4'
+      invoices:
+        default_account_tax_ids: null
+      payments:
+        statement_descriptor: 'WARSZAWA BOOKS'
+        statement_descriptor_kana: null
+        statement_descriptor_kanji: null
+      dashboard:
+        timezone: Poland
+        display_name: 'Warszawa Books'
+      card_issuing:
+        tos_acceptance:
+          ip: null
+          date: null
+      card_payments:
+        statement_descriptor_prefix: 'WAWABOOKS'
+        statement_descriptor_prefix_kana: null
+        statement_descriptor_prefix_kanji: null
+      bacs_debit_payments:
+        display_name: null
+        service_user_number: null
+      sepa_debit_payments: {}
+    capabilities:
+      transfers: active
+      eps_payments: active
+      p24_payments: active
+      blik_payments: active
+      card_payments: active
+      link_payments: active
+      twint_payments: active
+      klarna_payments: active
+      mobilepay_payments: active
+      bancontact_payments: active
+      multibanco_payments: active
+      revolut_pay_payments: active
+      cartes_bancaires_payments: pending
+    charges_enabled: true
+    payouts_enabled: true
+    default_currency: pln
+    details_submitted: true
