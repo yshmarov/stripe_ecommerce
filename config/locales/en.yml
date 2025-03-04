@@ -33,7 +33,10 @@ en:
         checkout_session:
           created: Submitted at
           amount_subtotal: Subtotal
-          shipping_cost: Shipping cost
+          total_details:
+            amount_tax: Tax
+            amount_shipping: Shipping
+            amount_discount: Discount
           amount_total: Total
           shipping_address: Shipping address
           shipping_name: Shipping name

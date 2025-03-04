@@ -33,7 +33,10 @@ pl:
         checkout_session:
           created: Zamówiono
           amount_subtotal: Suma
-          shipping_cost: Koszt wysyłki
+          total_details:
+            amount_tax: Podatek
+            amount_shipping: Wysyłka
+            amount_discount: Zniżka
           amount_total: Łącznie
           shipping_address: Adres wysyłki
           shipping_name: Imię odbiorcy

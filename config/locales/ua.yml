@@ -33,7 +33,10 @@ ua:
         checkout_session:
           created: Замовлено
           amount_subtotal: Сума
-          shipping_cost: Вартість доставки
+          total_details:
+            amount_tax: Податок
+            amount_shipping: Доставка
+            amount_discount: Знижка
           amount_total: Загальна сума
           shipping_address: Адреса доставки
           shipping_name: Ім'я одержувача

@@ -8,17 +8,27 @@
 
   <p>
     <strong><%= t("activerecord.attributes.order.checkout_session.amount_subtotal") %>:</strong>
-    <%= number_to_currency(order.checkout_session["amount_subtotal"] / 100, unit: currency_code_to_symbol(order.currency)) %>
+    <%= number_to_currency(order.checkout_session["amount_subtotal"].to_f / 100, unit: currency_code_to_symbol(order.currency)) %>
   </p>
 
   <p>
-    <strong><%= t("activerecord.attributes.order.checkout_session.shipping_cost") %>:</strong>
-    <%= number_to_currency(order.checkout_session["shipping_cost"]["amount_subtotal"] / 100, unit: currency_code_to_symbol(order.currency)) %>
+    <strong><%= t("activerecord.attributes.order.checkout_session.total_details.amount_tax") %>:</strong>
+    <%= number_to_currency(order.checkout_session["total_details"]["amount_tax"].to_f / 100, unit: currency_code_to_symbol(order.currency)) %>
+  </p>
+
+  <p>
+    <strong><%= t("activerecord.attributes.order.checkout_session.total_details.amount_shipping") %>:</strong>
+    <%= number_to_currency(order.checkout_session["total_details"]["amount_shipping"].to_f / 100, unit: currency_code_to_symbol(order.currency)) %>
+  </p>
+
+  <p>
+    <strong><%= t("activerecord.attributes.order.checkout_session.total_details.amount_discount") %>:</strong>
+    <%= number_to_currency(-order.checkout_session["total_details"]["amount_discount"].to_f / 100, unit: currency_code_to_symbol(order.currency)) %>
   </p>
 
   <p>
     <strong><%= t("activerecord.attributes.order.checkout_session.amount_total") %>:</strong>
-    <%= number_to_currency(order.checkout_session["amount_total"] / 100, unit: currency_code_to_symbol(order.currency)) %>
+    <%= number_to_currency(order.checkout_session["amount_total"].to_f / 100, unit: currency_code_to_symbol(order.currency)) %>
   </p>
 
   <hr>
