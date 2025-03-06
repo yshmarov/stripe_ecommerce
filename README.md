@@ -1,6 +1,6 @@
 # Minimal Stripe ecommerce store
 
-Display non-recurring products index
+The Stripe Checkout (Shopping Cart) app allows you to accept payments for multiple products at once. You can also include shipping charges, tax and promo codes.
 
 ### Customer-facing:
 
@@ -33,18 +33,7 @@ Bonus features:
 
 ### Deploy to production
 
-ENV VARS
-
-```sh
-RAILS_MASTER_KEY
-STRIPE_SECRET_KEY
-STRIPE_WEBHOOK_SECRET
-ADMIN_USERNAME
-ADMIN_PASSWORD
-HONEYBADGER_API_KEY
-```
-
-Push your keys to Heroku:
+ENV VARS (Heroku example):
 
 ```sh
 heroku config:set RAILS_MASTER_KEY=`cat config/master.key`
@@ -55,6 +44,6 @@ heroku config:set ADMIN_PASSWORD='password'
 heroku config:set HONEYBADGER_API_KEY='hbp_foo'
 ```
 
-[Create a stripe webhook endpoint](https://dashboard.stripe.com/webhooks/create?events=product.created%2Cproduct.deleted%2Cproduct.updated%2Cprice.created%2Cprice.deleted%2Cprice.updated%2Ccheckout.session.completed)
+[Create a stripe webhook endpoint](https://dashboard.stripe.com/webhooks/create?events=product.created%2Cproduct.deleted%2Cproduct.updated%2Cprice.created%2Cprice.deleted%2Cprice.updated%2Ccheckout.session.completed%2Caccount.updated)
 
 [One-click Heroku deploy](https://dashboard.heroku.com/new?template=https://github.com/yshmarov/superails)
