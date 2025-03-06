@@ -24,10 +24,14 @@ class WebhooksController < ActionController::Base
       account = Account.find_or_initialize_by(stripe_account_id: event.data.object.id)
       account.stripe_account = event.data.object
       account.save!
-    when "product.updated", "product.created", "product.deleted"
+    when "product.updated", "product.created"
       Stripe::SyncProductJob.perform_later(event.data.object.id)
-    when "price.created", "price.updated", "price.deleted"
+    when "product.deleted"
+      Product.find_by(stripe_product_id: event.data.object.id).destroy!
+    when "price.created", "price.updated"
       Stripe::SyncProductJob.perform_later(event.data.object.product)
+    when "price.deleted"
+      Price.find_by(stripe_price_id: event.data.object.id).destroy!
     when "checkout.session.completed"
       session = event.data.object
       order = Order.find(session.client_reference_id)
