@@ -2,6 +2,9 @@ class Account < ApplicationRecord
   validates :stripe_account_id, presence: true
   validates :stripe_account, presence: true
 
+  has_many :orders, dependent: :destroy
+  has_many :products, dependent: :destroy
+
   def stripe_account_object
     @stripe_account_object ||= Stripe::Account.construct_from(stripe_account)
   end

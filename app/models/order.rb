@@ -5,6 +5,8 @@ class Order < ApplicationRecord
                   delivery: "delivery",
                   done: "done" }
 
+  belongs_to :account
+
   has_many :order_items, dependent: :destroy
   has_many :prices, through: :order_items
 

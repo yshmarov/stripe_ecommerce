@@ -3,6 +3,8 @@ class Product < ApplicationRecord
   validates :stripe_product_id, presence: true, uniqueness: true
   validates :stripe_product, presence: true
 
+  belongs_to :account
+
   has_many :prices, dependent: :destroy
 
   scope :sellable, -> { joins(:prices).merge(Price.sellable).where.not(stripe_product: nil).where("(stripe_product->>'active')::boolean = true") }
