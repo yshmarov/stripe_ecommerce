@@ -6,6 +6,7 @@ class Stripe::SyncProductsJob < ApplicationJob
       expand: [ "data.default_price" ]
     ).each do |stripe_product|
       product = Product.unscoped.find_or_initialize_by(stripe_product_id: stripe_product.id)
+      product.account = Account.first
       product.name = stripe_product.name
       product.stripe_product = stripe_product
       product.save!
