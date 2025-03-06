@@ -23,7 +23,6 @@ class CheckoutController < ApplicationController
       # adaptive_pricing: {
       #   enabled: true
       # },
-      payment_method_types: [ "card" ],
       currency: @order.currency,
       line_items:,
       mode: "payment",
