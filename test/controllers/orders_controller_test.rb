@@ -7,6 +7,11 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "update" do
+    ActionDispatch::TestRequest.create.cookie_jar.tap do |cookie_jar|
+      cookie_jar.signed[:guest_id] = "123"
+      cookies[:guest_id] = cookie_jar[:guest_id]
+    end
+
     product = products(:monster_classic)
     post add_to_cart_url(product.id)
     order = Order.last
