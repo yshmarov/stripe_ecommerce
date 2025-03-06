@@ -2,14 +2,14 @@ class ProductsController < ApplicationController
   before_action :set_product, only: %i[show]
 
   def index
-    @products = Product.order(name: :asc)
+    @products = @current_account.products.order(name: :asc)
   end
 
   def search
     @products = if params[:query].length > 2
-                  Product.search(params[:query])
+                  @current_account.products.search(params[:query])
     else
-                  Product.none
+                  @current_account.products.none
     end
   end
 
@@ -18,6 +18,6 @@ class ProductsController < ApplicationController
   private
 
   def set_product
-    @product = Product.find(params[:id])
+    @product = @current_account.products.find(params[:id])
   end
 end
