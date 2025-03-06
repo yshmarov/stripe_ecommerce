@@ -1,3 +1,9 @@
+OrderItem.destroy_all
+Order.destroy_all
+Price.destroy_all
+Product.destroy_all
+Account.destroy_all
+
 product_objects = [
   { name: 'Prince Polo', price: 199, image_url: 'https://i.imgur.com/l4tEqmL.png', description: 'Classic wafer bar covered in dark chocolate' },
   { name: 'Donut Chocolate', price: 129, image_url: 'https://i.imgur.com/LRwEakM.png' },
@@ -16,17 +22,17 @@ product_objects = [
   { name: 'Mini Snickers', price: 59, image_url: 'https://i.imgur.com/ORYBJqE.png', description: 'Mini chocolate bars with peanuts, caramel and nougat' }
 ]
 
+stripe_account = Stripe::Account.retrieve
+Account.create!(stripe_account_id: stripe_account.id, stripe_account:)
+
 if Stripe::Product.list.empty?
   product_objects.each do |product_object|
     stripe_product = Stripe::Product.create(name: product_object[:name], images: [ product_object[:image_url] ], description: product_object[:description])
-    stripe_price = Stripe::Price.create(product: stripe_product.id, unit_amount: product_object[:price], currency: "usd")
+    stripe_price = Stripe::Price.create(product: stripe_product.id, unit_amount: product_object[:price], currency: "pln")
     stripe_product.default_price = stripe_price.id
     stripe_product.save
   end
 end
-
-Price.destroy_all
-Product.destroy_all
 
 Stripe::SyncProductsJob.perform_now
 
@@ -36,7 +42,7 @@ if Stripe::ShippingRate.list.empty?
     type: "fixed_amount",
     fixed_amount: {
       amount: 1000,
-      currency: "usd"
+      currency: "pln"
     },
     delivery_estimate: {
       minimum: {
