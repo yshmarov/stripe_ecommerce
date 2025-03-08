@@ -26,10 +26,10 @@ class Setting < RailsSettings::Base
   end
 
   scope :legal do
-    field :address, default: "ul. Kowalska 123, 00-000 Warszawa", type: :string, validates: { presence: true, length: { in: 2..200 } }
-    field :email, default: "info@warszawabooks.pl", type: :string, validates: { presence: true, length: { in: 2..100 } }
-    field :phone_number, default: "+48 123 456 789", type: :string, validates: { presence: true, length: { in: 2..20 } }
-    # field :trade_vat_number, default: "PL1234567890", type: :string, validates: { presence: true, length: { in: 2..20 } }
+    field :address, type: :string, validates: { length: { maximum: 200 } }, placeholder: "ul. Kowalska 123, 00-000 Warszawa"
+    field :email, type: :string, validates: { length: { maximum: 100 } }, placeholder: "info@warszawabooks.pl"
+    field :phone_number, type: :string, validates: { length: { maximum: 20 } }, placeholder: "+48 123 456 789"
+    # field :trade_vat_number, type: :string, validates: { length: { in: 2..20 } }, placeholder: "PL1234567890"
 
     field :terms_of_service, type: :text, help_text: "Use Markdown syntax"
     field :privacy_policy, type: :text, help_text: "Use Markdown syntax"
@@ -37,17 +37,17 @@ class Setting < RailsSettings::Base
   end
 
   scope :socials do
-    field :instagram, default: "https://www.instagram.com/yaro_the_slav", type: :string
-    field :twitter, default: "https://twitter.com/yarotheslav", type: :string
-    field :tiktok, default: "", type: :string, help_text: "https://www.tiktok.com/@yaro_the_slav"
-    field :linkedin, default: "", type: :string, help_text: "https://www.linkedin.com/in/yarotheslav"
-    field :youtube, default: "", type: :string, help_text: "https://www.youtube.com/@yaro_the_slav"
-    field :facebook, default: "", type: :string, help_text: "https://www.facebook.com/yarotheslav"
-    field :pinterest, default: "", type: :string, help_text: "https://www.pinterest.com/yarotheslav"
-    field :twitch, default: "", type: :string, help_text: "https://www.twitch.tv/yarotheslav"
-    field :discord, default: "", type: :string, help_text: "https://discord.gg/yarotheslav"
-    field :telegram, default: "", type: :string, help_text: "https://t.me/yarotheslav"
-    field :whatsapp, default: "", type: :string, help_text: "https://wa.me/yarotheslav"
+    field :instagram, default: "", type: :string, placeholder: "https://www.instagram.com/yaro_the_slav"
+    field :twitter, default: "", type: :string, placeholder: "https://twitter.com/yarotheslav"
+    field :tiktok, default: "", type: :string, placeholder: "https://www.tiktok.com/@yaro_the_slav"
+    field :linkedin, default: "", type: :string, placeholder: "https://www.linkedin.com/in/yarotheslav"
+    field :youtube, default: "", type: :string, placeholder: "https://www.youtube.com/@yaro_the_slav"
+    field :facebook, default: "", type: :string, placeholder: "https://www.facebook.com/yarotheslav"
+    field :pinterest, default: "", type: :string, placeholder: "https://www.pinterest.com/yarotheslav"
+    field :twitch, default: "", type: :string, placeholder: "https://www.twitch.tv/yarotheslav"
+    field :discord, default: "", type: :string, placeholder: "https://discord.gg/yarotheslav"
+    field :telegram, default: "", type: :string, placeholder: "https://t.me/yarotheslav"
+    field :whatsapp, default: "", type: :string, placeholder: "https://wa.me/yarotheslav"
   end
 
   def self.get_scope(scope_name)
