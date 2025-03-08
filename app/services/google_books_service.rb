@@ -5,9 +5,8 @@ class GoogleBooksService
   include HTTParty
   base_uri "https://www.googleapis.com/books/v1"
 
-  def self.search_books(query, language = nil)
+  def self.search_books(query)
     params = { q: query }
-    params[:langRestrict] = language if language
 
     response = get("/volumes", query: params)
     return [] unless response.success?
