@@ -30,4 +30,5 @@ Rails.application.routes.draw do
   get "terms_of_service", to: "static#terms_of_service"
   get "privacy_policy", to: "static#privacy_policy"
   get "refund_policy", to: "static#refund_policy"
+  get "sitemap", to: "static#sitemap"
 end

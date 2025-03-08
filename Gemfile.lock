@@ -318,6 +318,8 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sitemap_generator (6.3.0)
+      builder (~> 3.0)
     sshkit (1.24.0)
       base64
       logger
@@ -375,6 +377,7 @@ PLATFORMS
 DEPENDENCIES
   active_link_to
   bootsnap
+  builder
   capybara
   chartkick
   debug
@@ -397,6 +400,7 @@ DEPENDENCIES
   redcarpet
   rubocop-rails-omakase
   selenium-webdriver
+  sitemap_generator
   stimulus-rails
   stripe
   thruster

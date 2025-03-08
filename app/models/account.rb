@@ -6,6 +6,8 @@ class Account < ApplicationRecord
   has_many :products, dependent: :destroy
   has_many :prices, through: :products
 
+  after_update_commit :generate_sitemap
+
   def stripe_account_object
     @stripe_account_object ||= Stripe::Account.construct_from(stripe_account)
   end
@@ -20,5 +22,9 @@ class Account < ApplicationRecord
     rescue Stripe::InvalidRequestError
       nil
     end
+  end
+
+  def generate_sitemap
+    Account::GenerateSitemapJob.perform_later(self)
   end
 end

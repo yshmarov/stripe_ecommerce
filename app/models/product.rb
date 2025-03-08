@@ -11,6 +11,10 @@ class Product < ApplicationRecord
 
   default_scope { sellable }
 
+  after_save_commit do
+    account.regenerate_sitemap
+  end
+
   scope :search, ->(query) {
     if ActiveRecord::Base.connection.adapter_name.downcase == "postgresql"
       where("name ILIKE ?", "%#{query}%")

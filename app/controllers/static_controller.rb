@@ -10,4 +10,11 @@ class StaticController < ApplicationController
   def refund_policy
     render "static/index"
   end
+
+  def sitemap
+    sitemap = @current_account.raw_sitemap
+    respond_to do |format|
+      format.xml { render html: sitemap }
+    end
+  end
 end
