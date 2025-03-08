@@ -11,7 +11,7 @@
     <% else %>
       <i class="fa-solid fa-shop" style="font-size: 1.25rem; vertical-align: middle;"></i>
     <% end %>
-    <span style="font-size: 1.1rem; vertical-align: middle;"><%= @stripe_account.settings.dashboard.display_name %></span>
+    <span style="font-size: 1.1rem; vertical-align: middle;"><%= Setting.store_name %></span>
   <% end %>
 
   <% if Setting.public_order_queue %>

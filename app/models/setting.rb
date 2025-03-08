@@ -3,6 +3,7 @@ class Setting < RailsSettings::Base
   cache_prefix { "v1" }
 
   scope :general do
+    field :store_name, default: "Warszawa Books", type: :string, validates: { presence: true, length: { in: 2..40 } }
     field :default_language, default: "en", type: :string, validates: { presence: true, inclusion: { in: I18n.available_locales.map(&:to_s) } }, option_values: I18n.available_locales.map(&:to_s)
     field :search, default: true, type: :boolean
     field :public_order_queue, default: false, type: :boolean
