@@ -14,14 +14,36 @@ module ProductHelper
       "name": product.name,
       "description": product.stripe_product["description"],
       "image": product.stripe_product["images"].first,
+      "url": product_url(product),
       "sku": product.default_price.stripe_price_id,
+      # "brand": {
+      #   "@type": "Brand",
+      #   "name": product.brand_name
+      # },
+      # "category": "",
       "offers": {
         "@type": "Offer",
-        "url": product_url(product),
-        "priceCurrency": product.default_price.stripe_price["currency"],
         "price": product.default_price.stripe_price["unit_amount"].to_f / 100,
-        "availability": "https://schema.org/InStock"
+        "priceCurrency": product.default_price.stripe_price["currency"],
+        "availability": "InStock",
+        "condition": "NewCondition"
       }
+      # "aggregateRating": {
+      #   "@type": "AggregateRating",
+      #   "ratingValue": "5",
+      #   "ratingCount": "499"
+      # },
+      # "review": {
+      #   "@type": "Review",
+      #   "reviewRating": {
+      #     "@type": "Rating",
+      #     "ratingValue": "5"
+      #   },
+      #   "author": {
+      #     "@type": "Person",
+      #     "name": "Anonymous"
+      #   }
+      # }
     }.to_json.html_safe
   end
 end

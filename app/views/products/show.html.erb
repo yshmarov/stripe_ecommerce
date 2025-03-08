@@ -1,7 +1,9 @@
 <%= meta_tags(title: @product.name, description: @product.stripe_product["description"], image: @product.image_url) %>
 
-<script type="application/ld+json">
-	<%= product_schema_json(@product) %>
-</script>
+<% content_for :head do %>
+  <script type="application/ld+json">
+    <%= product_schema_json(@product) %>
+  </script>
+<% end %>
 
 <%= render "products/product", product: @product %>
