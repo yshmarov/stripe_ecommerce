@@ -2,8 +2,13 @@
 class Setting < RailsSettings::Base
   cache_prefix { "v1" }
 
+  # CURRENCY_OPTIONS = %w[usd eur pln]
+
   scope :general do
+    # field :brand_color, default: "#000000", type: :string, help_text: "Hex color code", foo: "bar"
     field :store_name, default: "Warszawa Books", type: :string, validates: { presence: true, length: { in: 2..40 } }
+    # field :logo_url, default: "", type: :string, help_text: "https://www.warszawabooks.pl/logo.png"
+    # field :currency, default: "usd", type: :string, validates: { presence: true, inclusion: { in: CURRENCY_OPTIONS } }, option_values: CURRENCY_OPTIONS
     field :default_language, default: "en", type: :string, validates: { presence: true, inclusion: { in: I18n.available_locales.map(&:to_s) } }, option_values: I18n.available_locales.map(&:to_s)
     field :search, default: true, type: :boolean
     field :public_order_queue, default: false, type: :boolean
