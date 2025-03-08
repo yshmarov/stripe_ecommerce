@@ -60,7 +60,8 @@ class Account::GenerateSitemapJob < ApplicationJob
 
   def base_url
     if Rails.env.production?
-      "https://#{ENV['HOST_NAME']}"
+      domain = Rails.application.routes.default_url_options[:host] || ENV["HOST_NAME"]
+      "https://#{domain}"
     else
       "http://localhost:3000"
     end
