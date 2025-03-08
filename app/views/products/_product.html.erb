@@ -18,18 +18,20 @@
       <mark><%= product.default_price.items_in_cart(@current_order) %></mark>
     <% end %>
 
-    <p>
-      <%= product.stripe_product_object.description %>
-    </p>
+    <% if action_name == 'show' %>
+      <p>
+        <%= product.stripe_product_object.description %>
+      </p>
 
-    <% if marketing_features(product).any? %>
-      <ul>
-        <% marketing_features(product).each do |feature| %>
-          <li>
-            <small><%= feature %></small>
-          </li>
-        <% end %>
-      </ul>
+      <% if marketing_features(product).any? %>
+        <ul>
+          <% marketing_features(product).each do |feature| %>
+            <li>
+              <small><%= feature %></small>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
     <% end %>
   </div>
 </article>
