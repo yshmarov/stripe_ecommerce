@@ -21,10 +21,6 @@
     <%= mail_to @current_account.stripe_business_profile_support_email %>
   </div>
 
-  <div>
-    <%= @stripe_account.try(:business_profile).try(:support_phone) %>
-  </div>
-
   <% if Setting.terms_of_service.present? %>
     <div>
       <%= link_to terms_of_service_path do %>
