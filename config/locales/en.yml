@@ -7,6 +7,8 @@ en:
           checkout: Checkout
           legal: Legal documents
           socials: Social networks
+        store_name: Store name
+        automatic_tax: Automatic tax
         default_language: Default language
         search: Search engine
         public_order_queue: Public order queue
@@ -15,10 +17,6 @@ en:
         phone_number_collection: Phone number collection
         billing_address_collection: Billing address collection
         shipping_countries: Shipping countries
-        address: Address
-        email: Email
-        trade_name: Trade name
-        trade_vat_number: Trade VAT number
         terms_of_service: Terms of service
         privacy_policy: Privacy policy
         refund_policy: Refund policy

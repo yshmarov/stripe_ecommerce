@@ -7,6 +7,8 @@ pl:
           checkout: Płatność
           legal: Dokumenty prawni
           socials: Sieci społecznościowe
+        store_name: Nazwa sklepu
+        automatic_tax: Automatyczne obliczanie podatku
         default_language: Domyślny język
         search: Wyszukiwarka
         public_order_queue: Publiczna kolejka zamówień
@@ -15,10 +17,6 @@ pl:
         phone_number_collection: Zbieranie numeru telefonu
         billing_address_collection: Zbieranie adresu rozliczeniowego
         shipping_countries: Kraje dostawy
-        address: Adres
-        email: Email
-        trade_name: Nazwa firmy
-        trade_vat_number: NIP firmy
         terms_of_service: Warunki użytkowania
         privacy_policy: Polityka prywatności
         refund_policy: Polityka zwrotu

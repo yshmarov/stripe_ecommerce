@@ -7,6 +7,8 @@ ua:
           checkout: Оформлення замовлення
           legal: Юридичні документи
           socials: Соціальні мережі
+        store_name: Назва магазину
+        automatic_tax: Автоматичне обчислення податку
         default_language: Мова за замовчуванням
         search: Пошук
         public_order_queue: Публічна черга замовлень
@@ -15,10 +17,6 @@ ua:
         phone_number_collection: Збір номера телефону
         billing_address_collection: Збір платіжної адреси
         shipping_countries: Країни доставки
-        address: Адреса
-        email: Електронна пошта
-        trade_name: Назва компанії
-        trade_vat_number: ІПН компанії
         terms_of_service: Умови обслуговування
         privacy_policy: Політика конфіденційності
         refund_policy: Політика повернення
