@@ -38,7 +38,7 @@ Stripe::SyncProductsJob.perform_now
 
 if Stripe::ShippingRate.list.empty?
   Stripe::ShippingRate.create(
-    display_name: "Standard International Shipping2",
+    display_name: "Standard International Shipping",
     type: "fixed_amount",
     fixed_amount: {
       amount: 1000,
@@ -52,6 +52,25 @@ if Stripe::ShippingRate.list.empty?
       maximum: {
         unit: "business_day",
         value: 10
+      }
+    }
+  )
+
+  Stripe::ShippingRate.create(
+    display_name: "Takeaway",
+    type: "fixed_amount",
+    fixed_amount: {
+      amount: 0,
+      currency: "pln"
+    },
+    delivery_estimate: {
+      minimum: {
+        unit: "business_day",
+        value: 1
+      },
+      maximum: {
+        unit: "business_day",
+        value: 1
       }
     }
   )
