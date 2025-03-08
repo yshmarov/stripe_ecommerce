@@ -26,7 +26,7 @@ module ProductHelper
         "price": product.default_price.stripe_price["unit_amount"].to_f / 100,
         "priceCurrency": product.default_price.stripe_price["currency"],
         "availability": "InStock",
-        "condition": "NewCondition"
+        "itemCondition": "NewCondition"
       }
       # "aggregateRating": {
       #   "@type": "AggregateRating",
