@@ -1,6 +1,6 @@
 <footer data-turbo-prefetch="false">
   <div>
-    <%= @current_account.stripe_business_profile_name || Setting.store_name %>
+    <%= Setting.store_name %>
     ©
     <%= Time.zone.now.year %>
   </div>
@@ -10,15 +10,15 @@
   </div>
 
   <div>
-    <%= @current_account.stripe_business_profile_support_address %>
+    <%= Setting.address %>
   </div>
 
   <div>
-    <%= @current_account.stripe_business_profile_support_phone %>
+    <%= Setting.phone_number %>
   </div>
 
   <div>
-    <%= mail_to @current_account.stripe_business_profile_support_email %>
+    <%= mail_to Setting.email %>
   </div>
 
   <% if Setting.terms_of_service.present? %>

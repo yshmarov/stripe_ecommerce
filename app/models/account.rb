@@ -22,23 +22,23 @@ class Account < ApplicationRecord
     end
   end
 
-  def stripe_business_profile
-    stripe_account_object.try(:business_profile)
-  end
+  # def stripe_business_profile
+  #   stripe_account_object.try(:business_profile)
+  # end
 
-  def stripe_business_profile_name
-    stripe_business_profile&.name
-  end
+  # def stripe_business_profile_name
+  #   stripe_business_profile&.name
+  # end
 
-  def stripe_business_profile_support_address
-    stripe_business_profile&.support_address&.values&.compact&.join(", ")
-  end
+  # def stripe_business_profile_support_address
+  #   stripe_business_profile&.support_address&.values&.compact&.join(", ")
+  # end
 
-  def stripe_business_profile_support_email
-    stripe_business_profile&.support_email
-  end
+  # def stripe_business_profile_support_email
+  #   stripe_business_profile&.support_email
+  # end
 
-  def stripe_business_profile_support_phone
-    stripe_business_profile&.support_phone
-  end
+  # def stripe_business_profile_support_phone
+  #   stripe_business_profile&.support_phone
+  # end
 end

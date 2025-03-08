@@ -26,6 +26,11 @@ class Setting < RailsSettings::Base
   end
 
   scope :legal do
+    field :address, default: "ul. Kowalska 123, 00-000 Warszawa", type: :string, validates: { presence: true, length: { in: 2..200 } }
+    field :email, default: "info@warszawabooks.pl", type: :string, validates: { presence: true, length: { in: 2..100 } }
+    field :phone_number, default: "+48 123 456 789", type: :string, validates: { presence: true, length: { in: 2..20 } }
+    # field :trade_vat_number, default: "PL1234567890", type: :string, validates: { presence: true, length: { in: 2..20 } }
+
     field :terms_of_service, type: :text, help_text: "Use Markdown syntax"
     field :privacy_policy, type: :text, help_text: "Use Markdown syntax"
     field :refund_policy, type: :text, help_text: "Use Markdown syntax"
