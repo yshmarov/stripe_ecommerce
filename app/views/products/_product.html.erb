@@ -1,13 +1,16 @@
-<article id="<%= dom_id product %>" style="display: flex; flex-direction: <%= action_name == 'show' ? 'row' : 'column' %>; gap: 1rem;">
+<article id="<%= dom_id product %>" style="display: flex; <%= action_name == 'show' ? 'flex-direction: row; gap: 1rem;' : 'flex-direction: column;' %>;">
   <%= link_to product, style: "max-width: 256px;" do %>
     <%= image_tag product.image_url, style: "height: 256px; object-fit: cover;" if product.image_url.present? %>
   <% end %>
 
   <div>
-    <h5>
-      <%= link_to_unless_current highlight(product.name, params[:query]), product %>,
+    <b>
+      <%= link_to_unless_current highlight(product.name, params[:query]), product %>
+    </b>
+
+    <p>
       <%= price_label(product.default_price) %>
-    </h5>
+    </p>
 
     <%= button_to add_to_cart_path(product.default_price) do %>
       <i class="fa-solid fa-cart-arrow-down"></i>
@@ -15,14 +18,18 @@
       <mark><%= product.default_price.items_in_cart(@current_order) %></mark>
     <% end %>
 
-    <small><%= product.stripe_product_object.description %></small>
+    <p>
+      <%= product.stripe_product_object.description %>
+    </p>
 
     <% if marketing_features(product).any? %>
-      <% marketing_features(product).each do |feature| %>
-        <li>
-          <small><%= feature %></small>
-        </li>
-      <% end %>
+      <ul>
+        <% marketing_features(product).each do |feature| %>
+          <li>
+            <small><%= feature %></small>
+          </li>
+        <% end %>
+      </ul>
     <% end %>
   </div>
 </article>
