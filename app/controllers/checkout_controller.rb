@@ -11,7 +11,7 @@ class CheckoutController < ApplicationController
       allow_promotion_codes: Setting.allow_promotion_codes,
       phone_number_collection: { enabled: Setting.phone_number_collection },
       billing_address_collection: Setting.billing_address_collection,
-      # automatic_tax: { enabled: true },
+      automatic_tax: { enabled: Setting.automatic_tax },
       shipping_address_collection: {
         allowed_countries: Setting.shipping_countries
       },
