@@ -7,6 +7,10 @@ ua:
           checkout: Оформлення замовлення
           legal: Юридичні документи
           socials: Соціальні мережі
+        default_currency: Загальна валюта
+        address: Адреса
+        email: Email
+        phone_number: Телефон
         store_name: Назва магазину
         automatic_tax: Автоматичне обчислення податку
         default_language: Мова за замовчуванням

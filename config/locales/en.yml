@@ -7,6 +7,10 @@ en:
           checkout: Checkout
           legal: Legal documents
           socials: Social networks
+        default_currency: Default currency
+        address: Address
+        email: Email
+        phone_number: Phone number
         store_name: Store name
         automatic_tax: Automatic tax
         default_language: Default language

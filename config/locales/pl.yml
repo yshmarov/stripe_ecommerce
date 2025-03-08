@@ -7,6 +7,10 @@ pl:
           checkout: Płatność
           legal: Dokumenty prawni
           socials: Sieci społecznościowe
+        default_currency: Domyślna waluta
+        address: Adres
+        email: Email
+        phone_number: Numer telefonu
         store_name: Nazwa sklepu
         automatic_tax: Automatyczne obliczanie podatku
         default_language: Domyślny język
