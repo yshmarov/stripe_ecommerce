@@ -6,12 +6,14 @@
   <div style="display: inline-flex; align-items: center; gap: 0.75rem;">
     <% if @stripe_logo_url.present? %>
       <div>
-        <%= image_tag @stripe_logo_url, style: "height: 1.5em; width: auto; vertical-align: middle;" %>
+        <%= image_tag @stripe_logo_url, style: "height: 2rem; width: auto; vertical-align: middle; aspect-ratio: 1/1;" %>
       </div>
     <% else %>
-      <i class="fa-solid fa-shop" style="font-size: 1.25rem; vertical-align: middle;"></i>
+      <div>
+        <i class="fa-solid fa-shop" style="font-size: 1.25rem; vertical-align: middle;"></i>
+      </div>
     <% end %>
-    <span style="font-size: 1.1rem; vertical-align: middle;"><%= Setting.store_name %></span>
+    <span style="font-size: 1.1rem; vertical-align: middle; font-weight: 500;"><%= Setting.store_name %></span>
   </div>
 
   <%= active_link_to products_path do %>
