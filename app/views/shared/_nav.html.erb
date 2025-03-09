@@ -3,7 +3,7 @@
     <%= render "products/search_dialog" %>
   <% end %>
 
-  <%= active_link_to products_path, style: "display: inline-flex; align-items: center; gap: 0.75rem; text-decoration: none; font-weight: 500;" do %>
+  <div style="display: inline-flex; align-items: center; gap: 0.75rem;">
     <% if @stripe_logo_url.present? %>
       <div>
         <%= image_tag @stripe_logo_url, style: "height: 1.5em; width: auto; vertical-align: middle;" %>
@@ -12,6 +12,10 @@
       <i class="fa-solid fa-shop" style="font-size: 1.25rem; vertical-align: middle;"></i>
     <% end %>
     <span style="font-size: 1.1rem; vertical-align: middle;"><%= Setting.store_name %></span>
+  </div>
+
+  <%= active_link_to products_path do %>
+    <%= t("products.index.title") %>
   <% end %>
 
   <% if Setting.public_order_queue %>
@@ -30,13 +34,8 @@
 
   <% if @current_order %>
     <%= active_link_to @current_order do %>
-      <%#= @current_order.id %>
       <i class="fa-solid fa-cart-shopping"></i>
       <mark><%= @current_order.order_items_quantity %></mark>
     <% end %>
-  <% end %>
-
-  <%= form_tag request.path, method: :get, style: "display: inline-block;" do %>
-    <%= select_tag :locale, options_for_select(I18n.available_locales.map { |l| [flag(l), l] }, I18n.locale), onchange: "this.form.requestSubmit()" %>
   <% end %>
 </nav>
