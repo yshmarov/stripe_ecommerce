@@ -13,3 +13,5 @@
     <%= render collection: @products, partial: "products/product", as: :product %>
   </div>
 </div>
+
+<%== pagy_nav(@pagy) if @pagy.pages > 1 %>
