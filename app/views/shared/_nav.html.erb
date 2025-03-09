@@ -1,8 +1,4 @@
 <nav>
-  <% if Setting.search %>
-    <%= render "products/search_dialog" %>
-  <% end %>
-
   <div style="display: inline-flex; align-items: center; gap: 0.75rem;">
     <% if @stripe_logo_url.present? %>
       <div>
@@ -15,6 +11,10 @@
     <% end %>
     <span style="font-size: 1.1rem; vertical-align: middle; font-weight: 500;"><%= Setting.store_name %></span>
   </div>
+
+  <% if Setting.search %>
+    <%= render "products/search_dialog" %>
+  <% end %>
 
   <%= active_link_to products_path do %>
     <%= t("products.index.title") %>
