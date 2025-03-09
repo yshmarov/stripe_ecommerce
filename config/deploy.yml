@@ -35,16 +35,15 @@ registry:
 env:
   secret:
     - RAILS_MASTER_KEY
-  clear:
-    # Set number of cores available to the application on each server (default: 1).
-    # WEB_CONCURRENCY: 2
+  # clear:
+  #   # Set number of cores available to the application on each server (default: 1).
+  #   WEB_CONCURRENCY: 2
 
-    # Match this to any external database server to configure Active Record correctly
-    # Use rails8app-db for a db accessory server on same machine via local kamal docker network.
-    # DB_HOST: 192.168.0.2
+  #   # Match this to any external database server to configure Active Record correctly
+  #   DB_HOST: 192.168.0.2
 
-    # Log everything from Rails
-    # RAILS_LOG_LEVEL: debug
+  #   # Log everything from Rails
+  #   RAILS_LOG_LEVEL: debug
 
 # Aliases are triggered with "bin/kamal <alias>". You can overwrite arguments on invocation:
 # "bin/kamal logs -r job" will tail logs from the first server in the job section.
@@ -73,7 +72,7 @@ builder:
   #
   # # Pass arguments and secrets to the Docker build process
   # args:
-  #   RUBY_VERSION: 3.3.3
+  #   RUBY_VERSION: 3.4.1
   # secrets:
   #   - GITHUB_TOKEN
   #   - RAILS_MASTER_KEY
