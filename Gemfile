@@ -75,3 +75,4 @@ gem "redcarpet"
 gem "honeybadger", "~> 5.26"
 
 gem "oj" # json performance
+gem "tailwindcss-rails"
