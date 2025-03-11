@@ -93,6 +93,8 @@ ua:
     stats:
       index:
         title: Статистика
+        most_popular_products: Найпопулярніші товари
+        satisfaction_rate: Рівень задоволеності
     products:
       index:
         title: Редагування товарів
