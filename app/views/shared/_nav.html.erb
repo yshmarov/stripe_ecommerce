@@ -1,7 +1,7 @@
 <nav class="px-4 sm:px-6 lg:px-8 py-4">
   <div class="max-w-7xl mx-auto">
-    <div class="flex items-center justify-between">
-      <div class="flex items-center space-x-3">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <%= link_to products_path, class: "flex items-center space-x-3 hover:opacity-75 transition-opacity" do %>
         <% if @stripe_logo_url.present? %>
           <div class="flex-shrink-0">
             <%= image_tag @stripe_logo_url, class: "h-8 w-8 object-contain" %>
@@ -12,17 +12,13 @@
           </div>
         <% end %>
         <span class="text-lg font-medium text-gray-900 dark:text-white"><%= Setting.store_name %></span>
-      </div>
+      <% end %>
 
-      <div class="hidden md:flex items-center space-x-8">
+      <div class="flex flex-wrap items-center gap-4">
         <% if Setting.search %>
           <div class="relative">
             <%= render "products/search_dialog" %>
           </div>
-        <% end %>
-
-        <%= active_link_to products_path, class: "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
-          <%= t("products.index.title") %>
         <% end %>
 
         <% if Setting.public_order_queue %>
@@ -48,54 +44,6 @@
           <% end %>
         <% end %>
       </div>
-      <!-- Mobile menu button -->
-      <div class="md:hidden">
-        <button
-          type="button"
-          class="text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-          data-action="click->mobile-menu#toggle"
-        >
-          <span class="sr-only">Open menu</span>
-          <i class="fa-solid fa-bars text-xl"></i>
-        </button>
-      </div>
-    </div>
-  </div>
-  <!-- Mobile menu -->
-  <div class="md:hidden hidden" data-mobile-menu-target="menu">
-    <div class="px-2 pt-2 pb-3 space-y-1">
-      <% if Setting.search %>
-        <div class="py-2">
-          <%= render "products/search_dialog" %>
-        </div>
-      <% end %>
-
-      <%= active_link_to products_path, class: "block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700" do %>
-        <%= t("products.index.title") %>
-      <% end %>
-
-      <% if Setting.public_order_queue %>
-        <%= active_link_to queue_path, class: "block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700" do %>
-          <i class="fa-solid fa-stopwatch"></i>
-          <%= t("queue.index.title") %>
-        <% end %>
-      <% end %>
-
-      <% if @my_orders.not_draft.any? %>
-        <%= active_link_to orders_path, active: :exact, class: "block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700" do %>
-          <i class="fa-solid fa-clock-rotate-left"></i>
-          <%= t("orders.index.title") %>
-        <% end %>
-      <% end %>
-
-      <% if @current_order %>
-        <%= active_link_to @current_order, class: "block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700" do %>
-          <i class="fa-solid fa-cart-shopping"></i>
-          <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-indigo-600 rounded-full">
-            <%= @current_order.order_items_quantity %>
-          </span>
-        <% end %>
-      <% end %>
     </div>
   </div>
 </nav>
