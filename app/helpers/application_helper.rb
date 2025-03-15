@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include Pagy::Frontend
+
   def meta_tags(title: nil, description: nil, image: nil)
     # Set the page title
     content_for(:title) { title } if title

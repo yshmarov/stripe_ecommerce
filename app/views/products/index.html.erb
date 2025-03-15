@@ -1,9 +1,5 @@
 <%= meta_tags(title: t(".title"), description: Setting.description) %>
 
-<h1>
-  <%= Setting.store_name %>
-</h1>
-
 <p>
   <%= simple_format Setting.description %>
 </p>
@@ -13,3 +9,5 @@
     <%= render collection: @products, partial: "products/product", as: :product %>
   </div>
 </div>
+
+<%== pagy_nav(@pagy) if @pagy.pages > 1 %>

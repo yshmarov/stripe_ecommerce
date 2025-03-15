@@ -1,8 +1,10 @@
 class ProductsController < ApplicationController
+  include Pagy::Backend
+
   before_action :set_product, only: %i[show]
 
   def index
-    @products = @current_account.products.order(name: :asc)
+    @pagy, @products = pagy(@current_account.products.order(name: :asc))
   end
 
   def search

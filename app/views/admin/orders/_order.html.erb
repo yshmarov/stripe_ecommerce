@@ -14,7 +14,7 @@
   <% if action_name != "show" %>
     <p>
       <%= link_to [:admin, order] do %>
-        <strong><%= t(".items") %></strong>
+        <strong><%= t("orders.order.items") %></strong>
         <%= order.order_items_quantity %>
       <% end %>
     </p>
@@ -22,9 +22,9 @@
 
   <% if order.next_status.present? %>
     <%= button_to admin_order_path(order.id), method: :put do %>
-      <%= order.status %>
+      <%= t("activerecord.attributes.order.statuses.#{order.status}") %>
       ->
-      <%= order.next_status %>
+      <%= t("activerecord.attributes.order.statuses.#{order.next_status}") %>
     <% end %>
   <% end %>
 </article>

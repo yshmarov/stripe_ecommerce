@@ -94,6 +94,8 @@ en:
     stats:
       index:
         title: Stats
+        most_popular_products: Most popular products
+        satisfaction_rate: Satisfaction rate
     products:
       index:
         title: Edit products

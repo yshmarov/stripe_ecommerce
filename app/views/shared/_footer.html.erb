@@ -45,6 +45,14 @@
     </div>
   <% end %>
 
+  <br>
+
+  <%= form_tag request.path, method: :get, style: "display: inline-block;" do %>
+    <%= select_tag :locale, options_for_select(I18n.available_locales.map { |l| [flag(l), l] }, I18n.locale), onchange: "this.form.requestSubmit()" %>
+  <% end %>
+
+  <br>
+
   <div>
     <%= link_to admin_orders_path do %>
       <i class="fa fa-lock"></i>

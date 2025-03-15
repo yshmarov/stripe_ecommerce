@@ -86,6 +86,8 @@ pl:
     stats:
       index:
         title: Statystyki
+        most_popular_products: Najpopularniejsze produkty
+        satisfaction_rate: Stopień zadowolenia
     products:
       index:
         title: Edytuj produkty

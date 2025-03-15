@@ -16,9 +16,11 @@
       <%= number_to_currency(order_item.total_amount / 100.0, unit: currency_code_to_symbol(order_item.price.product.default_currency)) %>
     </p>
 
-    <%= button_to [order_item.order, order_item], method: :delete, disabled: !@order.draft? do %>
-      <i class="fa-solid fa-trash"></i>
-      <%= t(".remove") %>
+    <% if @order.draft? %>
+      <%= button_to [order_item.order, order_item], method: :delete do %>
+        <i class="fa-solid fa-trash"></i>
+        <%= t(".remove") %>
+      <% end %>
     <% end %>
   </div>
 </blockquote>
