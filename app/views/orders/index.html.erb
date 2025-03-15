@@ -2,12 +2,18 @@
 
 <%= turbo_stream_from :orders %>
 
-<h1>
-  <i class="fa-solid fa-clock-rotate-left"></i>
-  <%= t(".title") %>
-  <mark><%= @orders.count %></mark>
-</h1>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="mb-8">
+    <h1 class="flex items-center text-2xl font-bold text-gray-900 dark:text-white">
+      <i class="fa-solid fa-clock-rotate-left mr-3 text-indigo-600 dark:text-indigo-400"></i>
+      <%= t(".title") %>
+      <span class="ml-3 inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200">
+        <%= @orders.count %>
+      </span>
+    </h1>
+  </div>
 
-<div id="orders">
-  <%= render collection: @orders, partial: "orders/order", as: :order %>
+  <div id="orders" class="space-y-6">
+    <%= render collection: @orders, partial: "orders/order", as: :order %>
+  </div>
 </div>

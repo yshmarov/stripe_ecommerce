@@ -1,76 +1,89 @@
-<footer data-turbo-prefetch="false">
-  <div>
-    <%= Setting.store_name %>
-    ©
-    <%= Time.zone.now.year %>
-  </div>
+<footer class="py-12 px-4 sm:px-6 lg:px-8" data-turbo-prefetch="false">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <!-- Company Info -->
+      <div class="space-y-4">
+        <div class="text-lg font-semibold text-gray-900 dark:text-white">
+          <%= Setting.store_name %>
+        </div>
+        <p class="text-gray-600 dark:text-gray-400">
+          © <%= Time.zone.now.year %>
+        </p>
+        <div class="pt-2">
+          <%= render "shared/social_links" %>
+        </div>
+      </div>
 
-  <div>
-    <%= render "shared/social_links" %>
-  </div>
+      <!-- Contact Info -->
+      <div class="space-y-4">
+        <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">Contact</h3>
+        <div class="space-y-2">
+          <p class="text-gray-600 dark:text-gray-400">
+            <%= Setting.address %>
+          </p>
+          <p class="text-gray-600 dark:text-gray-400">
+            <%= Setting.phone_number %>
+          </p>
+          <%= mail_to Setting.email, class: "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" %>
+        </div>
+      </div>
 
-  <div>
-    <%= Setting.address %>
-  </div>
+      <!-- Legal -->
+      <div class="space-y-4">
+        <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">Legal</h3>
+        <div class="space-y-2">
+          <% if Setting.terms_of_service.present? %>
+            <%= link_to terms_of_service_path, class: "block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
+              <%= t("static.terms_of_service.title") %>
+            <% end %>
+          <% end %>
 
-  <div>
-    <%= Setting.phone_number %>
-  </div>
+          <% if Setting.privacy_policy.present? %>
+            <%= link_to privacy_policy_path, class: "block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
+              <%= t("static.privacy_policy.title") %>
+            <% end %>
+          <% end %>
 
-  <div>
-    <%= mail_to Setting.email %>
-  </div>
+          <% if Setting.refund_policy.present? %>
+            <%= link_to refund_policy_path, class: "block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
+              <%= t("static.refund_policy.title") %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
 
-  <% if Setting.terms_of_service.present? %>
-    <div>
-      <%= link_to terms_of_service_path do %>
-        <%= t("static.terms_of_service.title") %>
-      <% end %>
+      <!-- Admin Links -->
+      <div class="space-y-4">
+        <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">Admin</h3>
+        <div class="space-y-2">
+          <%= link_to admin_orders_path, class: "block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
+            <i class="fa fa-lock"></i>
+            <%= t("admin.orders.index.title") %>
+          <% end %>
+
+          <%= link_to admin_stats_path, class: "block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
+            <i class="fa fa-lock"></i>
+            <%= t("admin.stats.index.title") %>
+          <% end %>
+
+          <%= link_to [:admin, :settings], class: "block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
+            <i class="fa fa-lock"></i>
+            <%= t("admin.settings.index.title") %>
+          <% end %>
+        </div>
+      </div>
     </div>
-  <% end %>
 
-  <% if Setting.privacy_policy.present? %>
-    <div>
-      <%= link_to privacy_policy_path do %>
-        <%= t("static.privacy_policy.title") %>
-      <% end %>
+    <!-- Language Selector -->
+    <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+      <div class="flex justify-center">
+        <%= form_tag request.path, method: :get, class: "inline-block" do %>
+          <%= select_tag :locale,
+            options_for_select(I18n.available_locales.map { |l| [flag(l), l] }, I18n.locale),
+            onchange: "this.form.requestSubmit()",
+            class: "form-select rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-indigo-500 focus:border-indigo-500" %>
+        <% end %>
+      </div>
     </div>
-  <% end %>
-
-  <% if Setting.refund_policy.present? %>
-    <div>
-      <%= link_to refund_policy_path do %>
-        <%= t("static.refund_policy.title") %>
-      <% end %>
-    </div>
-  <% end %>
-
-  <br>
-
-  <%= form_tag request.path, method: :get, style: "display: inline-block;" do %>
-    <%= select_tag :locale, options_for_select(I18n.available_locales.map { |l| [flag(l), l] }, I18n.locale), onchange: "this.form.requestSubmit()" %>
-  <% end %>
-
-  <br>
-
-  <div>
-    <%= link_to admin_orders_path do %>
-      <i class="fa fa-lock"></i>
-      <%= t("admin.orders.index.title") %>
-    <% end %>
-  </div>
-
-  <div>
-    <%= link_to admin_stats_path do %>
-      <i class="fa fa-lock"></i>
-      <%= t("admin.stats.index.title") %>
-    <% end %>
-  </div>
-
-  <div>
-    <%= link_to [:admin, :settings] do %>
-      <i class="fa fa-lock"></i>
-      <%= t("admin.settings.index.title") %>
-    <% end %>
   </div>
 </footer>

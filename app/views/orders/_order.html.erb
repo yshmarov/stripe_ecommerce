@@ -1,49 +1,67 @@
-<article id="<%= dom_id order %>">
-  <strong>
-    <%= link_to_unless_current t("orders.show.title", slug: order.slug.upcase), order %>
-  </strong>
+<article id="<%= dom_id order %>" class="bg-white dark:bg-gray-800 shadow-sm rounded-lg overflow-hidden">
+  <div class="p-6">
+    <div class="flex items-center justify-between">
+      <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
+        <%= link_to_unless_current t("orders.show.title", slug: order.slug.upcase), order, class: "hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" %>
+      </h2>
 
-  <p>
-    <%= render partial: "orders/checkout_details", locals: { order: } %>
-  </p>
-
-  <p>
-    <%= render partial: "orders/status", locals: { order: } unless order.draft? %>
-  </p>
-  <%# TODO: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress#describing_a_particular_region %>
-
-  <% if action_name != "show" %>
-    <p>
-      <%= link_to order do %>
-        <strong><%= t(".items") %></strong>
-        <mark><%= order.order_items_quantity %></mark>
-      <% end %>
-    </p>
-  <% end %>
-
-  <% if order.draft? %>
-    <%= button_to order_checkout_index_path(order), method: :post, data: { turbo: false }, disabled: order.order_items.empty? do %>
-      <i class="fa-solid fa-credit-card"></i>
-      <% if order.order_items.any? %>
-        <%= t(".complete") %>
-        <%= number_to_currency(order.total_amount / 100.0, unit: currency_code_to_symbol(order.currency)) %>
-      <% else %>
-        <%= t(".empty") %>
-      <% end %>
-    <% end %>
-  <% end %>
-
-  <% if order.done? %>
-    <hr>
-    <p>
-      <%= t(".rating") %>
-    </p>
-    <div style="display: flex; justify-content: space-between;">
-      <% rating_emojis.each do |rating, emoji| %>
-        <%= button_to order_path(order), params: {order: { id: order.id, rating: rating }}, method: :put, disabled: order.rating.equal?(rating) do %>
-          <%= emoji %>
-        <% end %>
+      <% unless order.draft? %>
+        <div class="ml-4">
+          <%= render partial: "orders/status", locals: { order: } %>
+        </div>
       <% end %>
     </div>
-  <% end %>
+
+    <div class="mt-4">
+      <%= render partial: "orders/checkout_details", locals: { order: } %>
+    </div>
+
+    <% if action_name != "show" %>
+      <div class="mt-4">
+        <%= link_to order, class: "inline-flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" do %>
+          <strong class="mr-2"><%= t(".items") %></strong>
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200">
+            <%= order.order_items_quantity %>
+          </span>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if order.draft? %>
+      <div class="mt-6">
+        <%= button_to order_checkout_index_path(order),
+          method: :post,
+          data: { turbo: false },
+          disabled: order.order_items.empty?,
+          class: "w-full inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors" do %>
+          <i class="fa-solid fa-credit-card mr-2"></i>
+          <% if order.order_items.any? %>
+            <%= t(".complete") %>
+            <%= number_to_currency(order.total_amount / 100.0, unit: currency_code_to_symbol(order.currency)) %>
+          <% else %>
+            <%= t(".empty") %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if order.done? %>
+      <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+        <h3 class="text-sm font-medium text-gray-900 dark:text-white mb-4">
+          <%= t(".rating") %>
+        </h3>
+        <div class="flex justify-between gap-2">
+          <% rating_emojis.each do |rating, emoji| %>
+            <%= button_to order_path(order),
+              params: {order: { id: order.id, rating: rating }},
+              method: :put,
+              disabled: order.rating.equal?(rating),
+              class: "flex-1 p-2 text-2xl rounded-md #{order.rating.equal?(rating) ? 'bg-indigo-100 dark:bg-indigo-900' : 'hover:bg-gray-100 dark:hover:bg-gray-700'} disabled:cursor-not-allowed transition-colors" do %>
+              <%= emoji %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </article>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-full">
   <head>
     <title><%= content_for?(:title) ? "#{content_for(:title)} | #{Setting.store_name}" : Setting.store_name %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -35,22 +35,23 @@
 
     <script defer data-domain="warszawabooks.pl" src="https://plausible.io/js/script.js"></script>
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
     <%= yield :head %>
   </head>
 
-  <body>
-    <header style="position: sticky; top: 0; z-index: 100;">
+  <body class="h-full bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col min-h-screen">
+    <header class="sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm">
       <%= render "shared/nav" %>
     </header>
-    <main>
+
+    <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <%#= render "shared/flash" %>
       <%= yield %>
     </main>
-    <footer>
+
+    <footer class="bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
       <%= render "shared/footer" %>
     </footer>
   </body>

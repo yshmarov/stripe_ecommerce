@@ -2,27 +2,43 @@
   data-controller="dialog"
   data-dialog-id="search-dialog"
   data-action="click->dialog#open keydown.meta+k@window->dialog#open keydown.ctrl+k@window->dialog#open click@window->dialog#clickOutside"
+  class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
 >
   <i class="fa-solid fa-magnifying-glass"></i>
+  <kbd class="hidden md:inline-block ml-2 text-xs text-gray-400 dark:text-gray-500">
+    <span class="font-sans">⌘</span>K
+  </kbd>
 </button>
 
-<dialog id="search-dialog">
-  <form method="dialog" hidden>
-    <button>
-      <i class="fa-solid fa-xmark"></i>
-    </button>
-  </form>
+<dialog id="search-dialog" class="w-full max-w-2xl mx-auto p-4 rounded-lg bg-white dark:bg-gray-800 shadow-xl backdrop:bg-gray-900/50">
+  <div class="relative">
+    <form method="dialog" class="absolute top-0 right-0">
+      <button class="p-2 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">
+        <span class="sr-only">Close</span>
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </form>
 
-  <%= form_with url: search_products_path, method: :get, data: { turbo_frame: :search_results } do |f| %>
-    <%= f.text_field :query,
-                 placeholder: t("products.search_form.placeholder"),
-                 autofocus: true,
-                 autocomplete: "off",
-                 autocorrect: "off",
-                 autocapitalize: "off",
-                 spellcheck: "false",
-                 oninput: "this.form.requestSubmit()" %>
-  <% end %>
+    <%= form_with url: search_products_path,
+                  method: :get,
+                  data: { turbo_frame: :search_results },
+                  class: "relative" do |f| %>
+      <div class="relative">
+        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500"></i>
+        <%= f.text_field :query,
+                     class: "w-full pl-11 pr-4 py-3 text-base text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500",
+                     placeholder: t("products.search_form.placeholder"),
+                     autofocus: true,
+                     autocomplete: "off",
+                     autocorrect: "off",
+                     autocapitalize: "off",
+                     spellcheck: "false",
+                     oninput: "this.form.requestSubmit()" %>
+      </div>
+    <% end %>
 
-  <%= turbo_frame_tag :search_results, target: "_top" %>
+    <div class="mt-4">
+      <%= turbo_frame_tag :search_results, target: "_top" %>
+    </div>
+  </div>
 </dialog>
