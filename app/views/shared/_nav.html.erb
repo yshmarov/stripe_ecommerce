@@ -14,35 +14,37 @@
         <span class="text-lg font-medium text-gray-900 dark:text-white"><%= Setting.store_name %></span>
       <% end %>
 
-      <div class="flex flex-wrap items-center gap-4">
+      <div class="flex flex-wrap items-center gap-4 lg:flex-1 lg:justify-center">
         <% if Setting.search %>
-          <div class="relative">
+          <div class="relative lg:w-full lg:max-w-xl">
             <%= render "products/search_dialog" %>
           </div>
         <% end %>
 
-        <% if Setting.public_order_queue %>
-          <%= active_link_to queue_path, class: "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center space-x-1" do %>
-            <i class="fa-solid fa-stopwatch"></i>
-            <span><%= t("queue.index.title") %></span>
+        <div class="flex items-center gap-4 lg:absolute lg:right-8">
+          <% if Setting.public_order_queue %>
+            <%= active_link_to queue_path, class: "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center space-x-1" do %>
+              <i class="fa-solid fa-stopwatch"></i>
+              <span><%= t("queue.index.title") %></span>
+            <% end %>
           <% end %>
-        <% end %>
 
-        <% if @my_orders.not_draft.any? %>
-          <%= active_link_to orders_path, active: :exact, class: "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center space-x-1" do %>
-            <i class="fa-solid fa-clock-rotate-left"></i>
-            <span><%= t("orders.index.title") %></span>
+          <% if @my_orders.not_draft.any? %>
+            <%= active_link_to orders_path, active: :exact, class: "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center space-x-1" do %>
+              <i class="fa-solid fa-clock-rotate-left"></i>
+              <span><%= t("orders.index.title") %></span>
+            <% end %>
           <% end %>
-        <% end %>
 
-        <% if @current_order %>
-          <%= active_link_to @current_order, class: "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center space-x-1" do %>
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-indigo-600 rounded-full">
-              <%= @current_order.order_items_quantity %>
-            </span>
+          <% if @current_order %>
+            <%= active_link_to @current_order, class: "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center space-x-1" do %>
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-indigo-600 rounded-full">
+                <%= @current_order.order_items_quantity %>
+              </span>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       </div>
     </div>
   </div>

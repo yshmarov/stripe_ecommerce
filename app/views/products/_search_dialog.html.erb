@@ -2,11 +2,13 @@
   data-controller="dialog"
   data-dialog-id="search-dialog"
   data-action="click->dialog#open keydown.meta+k@window->dialog#open keydown.ctrl+k@window->dialog#open click@window->dialog#clickOutside"
-  class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+  class="cursor-pointer w-full flex items-center gap-2 px-4 py-2 text-left text-gray-500 dark:text-gray-400 lg:bg-gray-50 lg:dark:bg-gray-800 lg:border lg:border-gray-300 lg:dark:border-gray-600 lg:rounded-lg lg:hover:border-gray-400 lg:dark:hover:border-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
 >
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <kbd class="hidden md:inline-block ml-2 text-xs text-gray-400 dark:text-gray-500">
-    <span class="font-sans">⌘</span>K
+  <i class="fa-solid fa-magnifying-glass flex-shrink-0"></i>
+  <span class="text-sm text-gray-400 dark:text-gray-500 flex-grow hidden lg:block"><%= t("products.search_form.placeholder") %></span>
+  <kbd class="hidden lg:flex items-center gap-1 px-2 py-0.5 text-xs text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded">
+    <span class="font-sans">⌘</span>
+    <span>K</span>
   </kbd>
 </button>
 
@@ -37,7 +39,7 @@
       </div>
     <% end %>
 
-    <div class="">
+    <div class="mt-4">
       <%= turbo_frame_tag :search_results, target: "_top" %>
     </div>
   </div>
