@@ -5,13 +5,13 @@ class OrderItemsController < ApplicationController
   def update
     @order_item.update(order_item_params)
     @order_item.calculate_total_amount
-    redirect_to @order_item.order, notice: t(".update.notice")
+    redirect_back fallback_location: @order_item.order, notice: t(".update.notice")
   end
 
   def destroy
     @order_item.destroy
     @order_item.order.calculate_total_amount
-    redirect_to @order_item.order, notice: t(".destroy.notice")
+    redirect_back fallback_location: @order_item.order, notice: t(".destroy.notice")
   end
 
   private

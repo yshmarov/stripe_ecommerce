@@ -23,14 +23,39 @@
       </div>
     </div>
 
-    <%= button_to add_to_cart_path(product.default_price),
-      class: "inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors" do %>
-      <i class="fa-solid fa-cart-arrow-down mr-2"></i>
-      <%= t(".add_to_cart") %>
-      <% if product.default_price.items_in_cart(@current_order)&.positive? %>
-        <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
-          <%= product.default_price.items_in_cart(@current_order) %>
-        </span>
+    <% if (order_item = product.default_price.order_item_in_cart(@current_order)) %>
+      <div class="flex items-center gap-2">
+        <% if order_item.quantity == 1 %>
+          <%= button_to order_order_item_path(@current_order, order_item),
+            method: :delete,
+            class: "inline-flex items-center justify-center w-10 h-10 rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors" do %>
+            <i class="fa-solid fa-minus"></i>
+          <% end %>
+        <% else %>
+          <%= button_to order_order_item_path(@current_order, order_item),
+            method: :patch,
+            params: { order_item: { quantity: order_item.quantity - 1 } },
+            class: "inline-flex items-center justify-center w-10 h-10 rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors" do %>
+            <i class="fa-solid fa-minus"></i>
+          <% end %>
+        <% end %>
+
+        <div class="flex items-center justify-center min-w-[3rem] h-10 px-3 rounded-md bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 font-medium">
+          <%= order_item.quantity %>
+        </div>
+
+        <%= button_to order_order_item_path(@current_order, order_item),
+          method: :patch,
+          params: { order_item: { quantity: order_item.quantity + 1 } },
+          class: "inline-flex items-center justify-center w-10 h-10 rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors" do %>
+          <i class="fa-solid fa-plus"></i>
+        <% end %>
+      </div>
+    <% else %>
+      <%= button_to add_to_cart_path(product.default_price),
+        class: "inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors" do %>
+        <i class="fa-solid fa-cart-arrow-down mr-2"></i>
+        <%= t(".add_to_cart") %>
       <% end %>
     <% end %>
 
