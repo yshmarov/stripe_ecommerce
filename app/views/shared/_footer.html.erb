@@ -33,21 +33,27 @@
         <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">Legal</h3>
         <div class="space-y-2">
           <% if Setting.terms_of_service.present? %>
-            <%= link_to terms_of_service_path, class: "block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
-              <%= t("static.terms_of_service.title") %>
-            <% end %>
+            <div>
+              <%= active_link_to terms_of_service_path, class: "inline-block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
+                <%= t("static.terms_of_service.title") %>
+              <% end %>
+            </div>
           <% end %>
 
           <% if Setting.privacy_policy.present? %>
-            <%= link_to privacy_policy_path, class: "block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
-              <%= t("static.privacy_policy.title") %>
-            <% end %>
+            <div>
+              <%= active_link_to privacy_policy_path, class: "inline-block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
+                <%= t("static.privacy_policy.title") %>
+              <% end %>
+            </div>
           <% end %>
 
           <% if Setting.refund_policy.present? %>
-            <%= link_to refund_policy_path, class: "block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
-              <%= t("static.refund_policy.title") %>
-            <% end %>
+            <div>
+              <%= active_link_to refund_policy_path, class: "inline-block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
+                <%= t("static.refund_policy.title") %>
+              <% end %>
+            </div>
           <% end %>
         </div>
       </div>
@@ -56,20 +62,26 @@
       <div class="space-y-4">
         <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">Admin</h3>
         <div class="space-y-2">
-          <%= link_to admin_orders_path, class: "block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
-            <i class="fa fa-lock"></i>
-            <%= t("admin.orders.index.title") %>
-          <% end %>
+          <div>
+            <%= active_link_to admin_orders_path, class: "inline-block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
+              <i class="fa fa-lock"></i>
+              <%= t("admin.orders.index.title") %>
+            <% end %>
+          </div>
 
-          <%= link_to admin_stats_path, class: "block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
-            <i class="fa fa-lock"></i>
-            <%= t("admin.stats.index.title") %>
-          <% end %>
+          <div>
+            <%= active_link_to admin_stats_path, class: "inline-block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
+              <i class="fa fa-lock"></i>
+              <%= t("admin.stats.index.title") %>
+            <% end %>
+          </div>
 
-          <%= link_to [:admin, :settings], class: "block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
-            <i class="fa fa-lock"></i>
-            <%= t("admin.settings.index.title") %>
-          <% end %>
+          <div>
+            <%= active_link_to [:admin, :settings], class: "inline-block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
+              <i class="fa fa-lock"></i>
+              <%= t("admin.settings.index.title") %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
