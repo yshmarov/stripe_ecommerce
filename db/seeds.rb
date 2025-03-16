@@ -3,9 +3,17 @@ Order.destroy_all
 Price.destroy_all
 Product.destroy_all
 Account.destroy_all
+Setting.destroy_all
+
+currency = "pln"
 
 product_objects = [
-  { name: 'Prince Polo', price: 199, image_url: 'https://i.imgur.com/l4tEqmL.png', description: 'Classic wafer bar covered in dark chocolate' },
+  { name: 'Prince Polo',
+    price: 199,
+    image_url: 'https://i.imgur.com/l4tEqmL.png',
+    description: 'Classic wafer bar covered in dark chocolate',
+    metadata: { foo: "bar", bizz: "bazz" },
+    marketing_features: [ 'gluten-free', 'dairy-free', 'vegan', 'organic' ] },
   { name: 'Donut Chocolate', price: 129, image_url: 'https://i.imgur.com/LRwEakM.png' },
   { name: 'Donut limited', price: 159, image_url: 'https://i.imgur.com/3sgNWeJ.png' },
   { name: 'Banana', price: 99, image_url: 'https://i.imgur.com/eUzrUjG.png' },
@@ -28,7 +36,7 @@ Account.create!(stripe_account_id: stripe_account.id, stripe_account:)
 if Stripe::Product.list.empty?
   product_objects.each do |product_object|
     stripe_product = Stripe::Product.create(name: product_object[:name], images: [ product_object[:image_url] ], description: product_object[:description])
-    stripe_price = Stripe::Price.create(product: stripe_product.id, unit_amount: product_object[:price], currency: "pln")
+    stripe_price = Stripe::Price.create(product: stripe_product.id, unit_amount: product_object[:price], currency:)
     stripe_product.default_price = stripe_price.id
     stripe_product.save
   end
@@ -42,7 +50,7 @@ if Stripe::ShippingRate.list.empty?
     type: "fixed_amount",
     fixed_amount: {
       amount: 1000,
-      currency: "pln"
+      currency:
     },
     delivery_estimate: {
       minimum: {
@@ -61,7 +69,7 @@ if Stripe::ShippingRate.list.empty?
     type: "fixed_amount",
     fixed_amount: {
       amount: 0,
-      currency: "pln"
+      currency:
     },
     delivery_estimate: {
       minimum: {
@@ -79,3 +87,4 @@ end
 puts "🌱 Database seeded"
 puts "Sellable stripe products: #{Product.count}"
 puts "Sellable stripe prices: #{Price.count}"
+puts "Shipping Rates: #{Stripe::ShippingRate.list.count}"
