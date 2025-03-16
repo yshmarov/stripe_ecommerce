@@ -17,7 +17,7 @@ class Account < ApplicationRecord
     Rails.cache.fetch("stripe_logo_url_#{logo_id}", expires_in: 1.hour) do
       file = Stripe::File.retrieve(logo_id)
       file.links.first.url
-    rescue Stripe::InvalidRequestError
+    rescue Stripe::InvalidRequestError, Stripe::APIConnectionError
       nil
     end
   end
