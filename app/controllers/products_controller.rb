@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
 
   def search
     @products = if params[:query].length > 2
-                  @current_account.products.search(params[:query])
+                  @current_account.products.search(params[:query]).limit(5)
     else
                   @current_account.products.none
     end

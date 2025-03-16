@@ -26,7 +26,11 @@
       <% end %>
     <% else %>
       <div class="p-4 text-sm text-gray-500 dark:text-gray-400 text-center">
-        No products found matching "<%= params[:query] %>"
+        <% if params[:query].length < 2 %>
+          Please enter at least 2 characters to search
+        <% else %>
+          No products found matching "<%= params[:query] %>"
+        <% end %>
       </div>
     <% end %>
   </div>
