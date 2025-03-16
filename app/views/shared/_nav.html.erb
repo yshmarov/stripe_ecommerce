@@ -1,6 +1,6 @@
-<nav class="px-4 sm:px-6 lg:px-8 py-4">
+<nav class="px-4 lg:px-8 py-4">
   <div class="max-w-7xl mx-auto">
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div class="flex items-center justify-between">
       <%= link_to products_path, class: "flex items-center space-x-3 hover:opacity-75 transition-opacity" do %>
         <% if @stripe_logo_url.present? %>
           <div class="flex-shrink-0">
@@ -14,7 +14,7 @@
         <span class="text-lg font-medium text-gray-900 dark:text-white"><%= Setting.store_name %></span>
       <% end %>
 
-      <div class="flex flex-wrap items-center gap-4 lg:flex-1 lg:justify-center">
+      <div class="flex items-center gap-4 lg:flex-1 lg:justify-center">
         <% if Setting.search %>
           <div class="relative lg:w-full lg:max-w-xl">
             <%= render "products/search_dialog" %>
@@ -25,14 +25,14 @@
           <% if Setting.public_order_queue %>
             <%= active_link_to queue_path, class: "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center space-x-1" do %>
               <i class="fa-solid fa-stopwatch"></i>
-              <span><%= t("queue.index.title") %></span>
+              <span class="hidden lg:inline"><%= t("queue.index.title") %></span>
             <% end %>
           <% end %>
 
           <% if @my_orders.not_draft.any? %>
             <%= active_link_to orders_path, active: :exact, class: "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center space-x-1" do %>
               <i class="fa-solid fa-clock-rotate-left"></i>
-              <span><%= t("orders.index.title") %></span>
+              <span class="hidden lg:inline"><%= t("orders.index.title") %></span>
             <% end %>
           <% end %>
 
