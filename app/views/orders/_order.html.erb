@@ -1,21 +1,26 @@
 <article id="<%= dom_id order %>" class="bg-white dark:bg-gray-800 shadow-sm rounded-lg overflow-hidden">
   <div class="p-6">
-    <div class="flex items-center justify-between">
-      <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
-        <%= link_to_unless_current t("orders.show.title", slug: order.slug.upcase), order, class: "hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" %>
-      </h2>
+    <%# Header with Order ID and Status %>
+    <div class="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 pb-4">
+      <div class="flex items-center gap-4">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
+          <%= link_to_unless_current t("orders.show.title", slug: order.slug.upcase), order, class: "hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" %>
+        </h2>
 
-      <% unless order.draft? %>
-        <div class="ml-4">
-          <%= render partial: "orders/status", locals: { order: } %>
+        <%= render partial: "orders/status", locals: { order: } %>
+      </div>
+
+      <% if !order.draft? && !order.done? %>
+        <div class="hidden sm:block">
+          <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200">
+            <i class="fa-solid fa-box-open mr-2"></i>
+            <%= t(".thank_you") %>
+          </span>
         </div>
       <% end %>
     </div>
 
-    <div class="mt-4">
-      <%= render partial: "orders/checkout_details", locals: { order: } %>
-    </div>
-
+    <%# Order Items Summary %>
     <% if action_name != "show" %>
       <div class="mt-4">
         <%= link_to order, class: "inline-flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" do %>
@@ -27,13 +32,19 @@
       </div>
     <% end %>
 
+    <%# Checkout Details %>
+    <div class="mt-6">
+      <%= render partial: "orders/checkout_details", locals: { order: } %>
+    </div>
+
+    <%# Action Buttons %>
     <% if order.draft? %>
       <div class="mt-6">
         <%= button_to order_checkout_index_path(order),
           method: :post,
           data: { turbo: false },
           disabled: order.order_items.empty?,
-          class: "w-full inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors" do %>
+          class: "w-full inline-flex items-center justify-center px-4 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors" do %>
           <i class="fa-solid fa-credit-card mr-2"></i>
           <% if order.order_items.any? %>
             <%= t(".complete") %>
@@ -45,6 +56,7 @@
       </div>
     <% end %>
 
+    <%# Rating Section %>
     <% if order.done? %>
       <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
         <h3 class="text-sm font-medium text-gray-900 dark:text-white mb-4">
