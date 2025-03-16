@@ -1,10 +1,33 @@
 <%= turbo_frame_tag :search_results do %>
-  <% @products.each do |product| %>
-    <div>
-      <%= link_to product_path(product) do %>
-        <%= image_tag product.image_url, width: 100 %>
-        <%= highlight(product.name, params[:query]) %>
+  <div class="overflow-y-auto max-h-96 rounded-lg bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-700">
+    <% if @products.any? %>
+      <% @products.each do |product| %>
+        <%= link_to product_path(product), class: "block p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition duration-150", data: { turbo_frame: "_top" } do %>
+          <div class="flex items-center gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-md overflow-hidden">
+              <% if product.image_url.present? %>
+                <%= image_tag product.image_url, class: "w-full h-full object-cover" %>
+              <% else %>
+                <div class="w-full h-full flex items-center justify-center">
+                  <i class="fa-solid fa-image text-gray-400 dark:text-gray-500"></i>
+                </div>
+              <% end %>
+            </div>
+            <div class="min-w-0 flex-1">
+              <p class="text-sm font-medium text-gray-900 dark:text-white truncate">
+                <%= highlight(product.name, params[:query]) %>
+              </p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">
+                <%= price_label(product.default_price) %>
+              </p>
+            </div>
+          </div>
+        <% end %>
       <% end %>
-    </div>
-  <% end %>
+    <% else %>
+      <div class="p-4 text-sm text-gray-500 dark:text-gray-400 text-center">
+        No products found matching "<%= params[:query] %>"
+      </div>
+    <% end %>
+  </div>
 <% end %>
