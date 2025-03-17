@@ -6,4 +6,21 @@
   </script>
 <% end %>
 
+<nav class="flex mb-8" aria-label="Breadcrumb">
+  <ol class="inline-flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+    <li>
+      <%= link_to products_path, class: "hover:text-gray-700 dark:hover:text-gray-300" do %>
+        <i class="fa-solid fa-shop"></i>
+        <span class="sr-only">Home</span>
+      <% end %>
+    </li>
+    <li>
+      <div class="flex items-center">
+        <i class="fa-solid fa-chevron-right text-xs mx-2"></i>
+        <span class="text-gray-700 dark:text-gray-300"><%= @product.name %></span>
+      </div>
+    </li>
+  </ol>
+</nav>
+
 <%= render "products/product", product: @product %>
