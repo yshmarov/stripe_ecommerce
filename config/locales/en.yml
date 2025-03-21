@@ -77,6 +77,7 @@ en:
     show:
       title: Order №%{slug}
       thank_you: Thank you for your order! 💕
+      rating: Rate the order
   queue:
     index:
       title: Orders in progress

@@ -76,6 +76,7 @@ pl:
     show:
       title: Zamówienie №%{slug}
       thank_you: Dziękujemy za Twoje zamówienie! 💕
+      rating: Oceń zamówienie
   queue:
     index:
       title: Zamówienia w toku

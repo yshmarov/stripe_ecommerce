@@ -22,18 +22,4 @@
       <% end %>
     <% end %>
   <% end %>
-
-  <% if order.done? %>
-    <hr>
-    <p>
-      <%= t(".rating") %>
-    </p>
-    <div style="display: flex; justify-content: space-between;">
-      <% rating_emojis.each do |rating, emoji| %>
-        <%= button_to order_path(order), params: {order: { id: order.id, rating: rating }}, method: :put, disabled: order.rating.equal?(rating) do %>
-          <%= emoji %>
-        <% end %>
-      <% end %>
-    </div>
-  <% end %>
 </article>
