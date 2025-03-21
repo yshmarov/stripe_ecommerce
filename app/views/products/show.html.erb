@@ -38,12 +38,12 @@
     </p>
 
     <% if @product.stripe_product_object.metadata.present? %>
-      <% @product.stripe_product_object.metadata.each do |key, value| %>
-        <p>
-          <%= key %>:
-          <%= value %>
-        </p>
-      <% end %>
+      <dl style="display: grid; grid-template-columns: auto 1fr;">
+        <% @product.stripe_product_object.metadata.each do |key, value| %>
+          <dt><%= key %></dt>
+          <dd><%= value %></dd>
+        <% end %>
+      </dl>
     <% end %>
 
     <% if marketing_features(@product).any? %>
