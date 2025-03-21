@@ -10,16 +10,6 @@
   <p>
     <%= render partial: "orders/status", locals: { order: } unless order.draft? %>
   </p>
-  <%# TODO: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress#describing_a_particular_region %>
-
-  <% if action_name != "show" %>
-    <p>
-      <%= link_to order do %>
-        <strong><%= t(".items") %></strong>
-        <mark><%= order.order_items_quantity %></mark>
-      <% end %>
-    </p>
-  <% end %>
 
   <% if order.draft? %>
     <%= button_to order_checkout_index_path(order), method: :post, data: { turbo: false }, disabled: order.order_items.empty? do %>
