@@ -37,6 +37,15 @@
       <%= @product.stripe_product_object.description %>
     </p>
 
+    <% if @product.stripe_product_object.metadata.present? %>
+      <% @product.stripe_product_object.metadata.each do |key, value| %>
+        <p>
+          <%= key %>:
+          <%= value %>
+        </p>
+      <% end %>
+    <% end %>
+
     <% if marketing_features(@product).any? %>
       <ul>
         <% marketing_features(@product).each do |feature| %>
