@@ -4,10 +4,6 @@
   </strong>
 
   <p>
-    <%= render partial: "orders/checkout_details", locals: { order: } %>
-  </p>
-
-  <p>
     <%= render partial: "orders/status", locals: { order: } unless order.draft? %>
   </p>
 

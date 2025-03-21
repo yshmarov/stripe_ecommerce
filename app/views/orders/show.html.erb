@@ -10,6 +10,8 @@
 
 <%= render @order %>
 
+<%= render partial: "orders/checkout_details", locals: { order: @order } %>
+
 <% if @order.order_items.any? %>
   <details open>
     <summary>

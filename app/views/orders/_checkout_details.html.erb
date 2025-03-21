@@ -1,11 +1,9 @@
 <% if order.checkout_session.present? && !order.draft? %>
-  <details>
+  <details open>
     <summary>
       <%= t("activerecord.attributes.order.checkout_session.created") %>
       <%= Time.at(order.stripe_checkout_session_object.created).strftime("%d %h %Y, %H:%M") %>
     </summary>
-
-    <hr>
 
     <p>
       <strong><%= t("activerecord.attributes.order.checkout_session.amount_subtotal") %>:</strong>
