@@ -10,6 +10,7 @@ monster_classic:
     images: ['https://i.imgur.com/WEDXcDi.png']
     active: true
     marketing_features: []
+    metadata: {}
 rafaello:
   account: one
   name: Rafaello
@@ -22,3 +23,4 @@ rafaello:
     images: ['https://i.imgur.com/XwLtkud.png']
     active: true
     marketing_features: []
+    metadata: {}
