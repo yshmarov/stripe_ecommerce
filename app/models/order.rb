@@ -32,9 +32,9 @@ class Order < ApplicationRecord
   end
 
   def statuses_for_display
-    return [ status ] if %w[draft done].include?(status)
+    return [ status ] if %w[draft].include?(status)
 
-    self.class.statuses.reject { |k, _v| %w[draft done].include?(k) }.keys
+    self.class.statuses.reject { |k, _v| %w[draft].include?(k) }.keys
   end
 
   after_update_commit do
