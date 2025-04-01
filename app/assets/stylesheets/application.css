@@ -8,27 +8,3 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
-
-.active {
-  background-color: var(--primary);
-}
-
-.grid-cols-auto-fit {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-}
-
-@media (min-width: 768px) {
-  .grid-cols-auto-fit {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-mark:empty {
-  display: none !important;
-}
-
-#flash:empty {
-  display: none !important;
-}

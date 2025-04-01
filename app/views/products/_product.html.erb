@@ -1,21 +1,86 @@
-<article id="<%= dom_id product %>" style="display: flex; flex-direction: column;">
-  <%= link_to product, style: "max-width: 256px;" do %>
-    <%= image_tag product.image_url, style: "height: 256px; object-fit: cover;" if product.image_url.present? %>
+<article
+  id="<%= dom_id product %>"
+  class="<%= action_name == 'show' ? 'flex flex-col md:flex-row gap-8' : 'flex flex-col' %> bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden transition-shadow hover:shadow-md"
+>
+  <%= link_to product, class: "#{action_name == 'show' ? 'md:w-1/2 lg:w-2/5' : 'w-full'} aspect-square overflow-hidden" do %>
+    <% if product.image_url.present? %>
+      <%= image_tag product.image_url, class: "w-full h-full object-cover transition-transform duration-300 hover:scale-105" %>
+    <% else %>
+      <div class="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-700">
+        <i class="fa-solid fa-image text-4xl text-gray-400 dark:text-gray-500"></i>
+      </div>
+    <% end %>
   <% end %>
 
-  <div>
-    <b>
-      <%= link_to_unless_current highlight(product.name, params[:query]), product %>
-    </b>
+  <div class="p-4 flex flex-col gap-4 flex-grow">
+    <div>
+      <h2 class="text-xl font-medium text-gray-900 dark:text-white">
+        <%= link_to_unless_current highlight(product.name, params[:query]), product, class: "hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" %>
+      </h2>
 
-    <p>
-      <%= price_label(product.default_price) %>
-    </p>
+      <div class="mt-2 text-lg font-semibold text-gray-900 dark:text-white">
+        <%= price_label(product.default_price) %>
+      </div>
+    </div>
 
-    <%= button_to add_to_cart_path(product.default_price) do %>
-      <i class="fa-solid fa-cart-arrow-down"></i>
-      <%= t(".add_to_cart") %>
-      <mark><%= product.default_price.items_in_cart(@current_order) %></mark>
+    <% if (order_item = product.default_price.order_item_in_cart(@current_order)) %>
+      <div class="flex items-center gap-2">
+        <% if order_item.quantity == 1 %>
+          <%= button_to order_order_item_path(@current_order, order_item),
+            method: :delete,
+            class: "inline-flex items-center justify-center w-10 h-10 rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors" do %>
+            <i class="fa-solid fa-minus"></i>
+          <% end %>
+        <% else %>
+          <%= button_to order_order_item_path(@current_order, order_item),
+            method: :patch,
+            params: { order_item: { quantity: order_item.quantity - 1 } },
+            class: "cursor-pointer inline-flex items-center justify-center w-10 h-10 rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors" do %>
+            <i class="fa-solid fa-minus"></i>
+          <% end %>
+        <% end %>
+
+        <div class="flex items-center justify-center min-w-[3rem] h-10 px-3 rounded-md bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 font-medium">
+          <%= order_item.quantity %>
+        </div>
+
+        <%= button_to order_order_item_path(@current_order, order_item),
+          method: :patch,
+          params: { order_item: { quantity: order_item.quantity + 1 } },
+          class: "cursor-pointer inline-flex items-center justify-center w-10 h-10 rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors" do %>
+          <i class="fa-solid fa-plus"></i>
+        <% end %>
+      </div>
+    <% else %>
+      <%= button_to add_to_cart_path(product.default_price),
+        class: "cursor-pointer inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors" do %>
+        <i class="fa-solid fa-cart-arrow-down mr-2"></i>
+        <%= t(".add_to_cart") %>
+      <% end %>
+    <% end %>
+
+    <% if action_name == 'show' %>
+      <% if product.stripe_product_object.description.present? %>
+        <div class="mt-4 prose dark:prose-invert">
+          <p class="text-gray-600 dark:text-gray-300">
+            <%= product.stripe_product_object.description %>
+          </p>
+        </div>
+      <% end %>
+
+      <% if marketing_features(product).any? %>
+        <div class="mt-6">
+          <h3 class="text-sm font-medium text-gray-900 dark:text-white">Features</h3>
+          <ul class="mt-2 space-y-2">
+            <% marketing_features(product).each do |feature| %>
+              <li class="flex items-start">
+                <i class="fa-solid fa-check text-green-500 mt-1 mr-2"></i>
+                <span class="text-sm text-gray-600 dark:text-gray-300"><%= feature %></span>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </article>

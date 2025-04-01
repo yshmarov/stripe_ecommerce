@@ -75,6 +75,6 @@ gem "redcarpet"
 gem "honeybadger", "~> 5.26"
 
 gem "oj" # json performance
-
+gem "tailwindcss-rails"
 gem "pagy", "~> 9.3"
 gem "sqids" # for obfuscating IDs

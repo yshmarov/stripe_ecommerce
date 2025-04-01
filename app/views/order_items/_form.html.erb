@@ -1,6 +1,10 @@
 <%= form_for [order_item.order, order_item], method: :put do |f| %>
-  <div>
-    <%= f.label :quantity %>
-    <%= f.number_field :quantity, min: 1, oninput: "this.form.requestSubmit()", required: true %>
+  <div class="flex items-center gap-2">
+    <%= f.label :quantity, class: "sr-only" %>
+    <%= f.number_field :quantity,
+                   min: 1,
+                   oninput: "this.form.requestSubmit()",
+                   required: true,
+                   class: "block w-16 rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white sm:text-sm" %>
   </div>
 <% end %>

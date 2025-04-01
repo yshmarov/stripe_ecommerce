@@ -1,26 +1,41 @@
-<blockquote id="<%= dom_id order_item %>" style="display: flex; flex-direction: row; gap: 1rem;">
-  <%= image_tag order_item.price.product.image_url, style: "max-width: 100px; max-height: 100px; object-fit: cover;" if order_item.price.product.image_url.present? %>
+<div id="<%= dom_id order_item %>" class="flex items-start gap-6 p-6 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+  <% if order_item.price.product.image_url.present? %>
+    <div class="flex-shrink-0">
+      <%= image_tag order_item.price.product.image_url,
+        class: "w-24 h-24 object-cover rounded-lg shadow-sm" %>
+    </div>
+  <% end %>
 
-  <div>
-    <%= order_item.price.product.name %>
+  <div class="flex-grow">
+    <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+      <%= order_item.price.product.name %>
+    </h3>
 
-    <p>
-      <% if @order.draft? %>
-        <%= render "order_items/form", order_item: %>
-      <% else %>
-        <%= order_item.quantity %>
-      <% end %>
-      X
-      <%= price_label(order_item.price) %>
-      =
-      <%= number_to_currency(order_item.total_amount / 100.0, unit: currency_code_to_symbol(order_item.price.product.default_currency)) %>
-    </p>
+    <div class="mt-2 flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+      <div class="flex items-center gap-2">
+        <% if @order.draft? %>
+          <%= render "order_items/form", order_item: %>
+        <% else %>
+          <span class="font-medium"><%= order_item.quantity %></span>
+        <% end %>
+        <span>×</span>
+        <span><%= price_label(order_item.price) %></span>
+      </div>
+      <span>=</span>
+      <span class="font-medium text-gray-900 dark:text-white">
+        <%= number_to_currency(order_item.total_amount / 100.0, unit: currency_code_to_symbol(order_item.price.product.default_currency)) %>
+      </span>
+    </div>
 
     <% if @order.draft? %>
-      <%= button_to [order_item.order, order_item], method: :delete do %>
-        <i class="fa-solid fa-trash"></i>
-        <%= t(".remove") %>
-      <% end %>
+      <div class="mt-4">
+        <%= button_to [order_item.order, order_item],
+          method: :delete,
+          class: "inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded text-red-700 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors" do %>
+          <i class="fa-solid fa-trash text-xs mr-1.5"></i>
+          <%= t(".remove") %>
+        <% end %>
+      </div>
     <% end %>
   </div>
-</blockquote>
+</div>
