@@ -1,6 +1,6 @@
 <article id="<%= dom_id order %>">
   <strong>
-    <%= link_to_unless_current t("orders.show.title", slug: order.slug.upcase), order %>
+    <%= link_to_unless_current t("orders.show.title", slug: order.to_param.upcase), order %>
   </strong>
 
   <p>
