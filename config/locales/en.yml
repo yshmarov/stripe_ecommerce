@@ -75,7 +75,7 @@ en:
       submitted: Order submitted! We are preparing it for you.
       rating: Thanks for the feedback!
     show:
-      title: Order №%{slug}
+      title: Order №%{name}
       thank_you: Thank you for your order! 💕
       rating: Rate the order
   queue:
