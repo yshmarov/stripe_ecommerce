@@ -21,7 +21,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "show" do
-    get product_url(products(:monster_classic))
+    get product_url(products(:monster_classic).id)
     assert_response :success
   end
 end

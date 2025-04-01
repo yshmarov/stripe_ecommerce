@@ -1,4 +1,4 @@
-<%= meta_tags(title: t(".title", slug: @order.slug.upcase)) %>
+<%= meta_tags(title: t(".title", name: @order.to_param.upcase)) %>
 
 <%= turbo_stream_from @order %>
 
@@ -10,11 +10,28 @@
 
 <%= render @order %>
 
+<%= render partial: "orders/checkout_details", locals: { order: @order } %>
+
 <% if @order.order_items.any? %>
   <details open>
     <summary>
       <%= t("orders.order.items").capitalize %>
     </summary>
     <%= render @order_items %>
+  </details>
+<% end %>
+
+<% if @order.done? %>
+  <details open>
+    <summary>
+      <%= t(".rating") %>
+    </summary>
+    <div style="display: flex; justify-content: space-between;">
+      <% rating_emojis.each do |rating, emoji| %>
+        <%= button_to order_path(@order), params: {order: { id: @order.id, rating: rating }}, method: :put, disabled: @order.rating.equal?(rating) do %>
+          <%= emoji %>
+        <% end %>
+      <% end %>
+    </div>
   </details>
 <% end %>

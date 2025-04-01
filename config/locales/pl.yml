@@ -74,8 +74,9 @@ pl:
       submitted: Zamówienie złożone! Przygotowujemy je dla Ciebie.
       rating: Dziękujemy za opinię!
     show:
-      title: Zamówienie №%{slug}
+      title: Zamówienie №%{name}
       thank_you: Dziękujemy za Twoje zamówienie! 💕
+      rating: Oceń zamówienie
   queue:
     index:
       title: Zamówienia w toku

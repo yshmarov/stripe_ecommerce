@@ -24,17 +24,14 @@ class Order < ApplicationRecord
 
   scope :queued, -> { where(status: %w[submitted processing delivery]) }
 
-  extend FriendlyId
-  friendly_id :generate_random_slug, use: [ :finders, :slugged ]
-
   def next_status
     Order.statuses.keys.split(status).last.first
   end
 
   def statuses_for_display
-    return [ status ] if %w[draft done].include?(status)
+    return [ status ] if %w[draft].include?(status)
 
-    self.class.statuses.reject { |k, _v| %w[draft done].include?(k) }.keys
+    self.class.statuses.reject { |k, _v| %w[draft].include?(k) }.keys
   end
 
   after_update_commit do

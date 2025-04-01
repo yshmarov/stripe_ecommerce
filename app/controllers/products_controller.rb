@@ -20,6 +20,6 @@ class ProductsController < ApplicationController
   private
 
   def set_product
-    @product = @current_account.products.find(params[:id])
+    @product = @current_account.products.friendly.find(params[:id])
   end
 end
