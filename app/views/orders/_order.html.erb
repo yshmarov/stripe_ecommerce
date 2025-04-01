@@ -4,7 +4,7 @@
     <div class="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 pb-4">
       <div class="flex items-center gap-4">
         <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
-          <%= link_to_unless_current t("orders.show.title", slug: order.slug.upcase), order, class: "hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" %>
+          <%= link_to_unless_current t("orders.show.title", name: order.to_param.upcase), order, class: "hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" %>
         </h2>
 
         <%= render partial: "orders/status", locals: { order: } %>
