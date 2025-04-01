@@ -20,7 +20,7 @@ class Product < ApplicationRecord
   }
 
   extend FriendlyId
-  friendly_id :name, use: [ :finders, :slugged ]
+  friendly_id :name, use: [ :slugged ]
 
   def image_url
     stripe_product_object.images.first

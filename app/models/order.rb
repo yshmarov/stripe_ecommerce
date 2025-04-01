@@ -24,9 +24,6 @@ class Order < ApplicationRecord
 
   scope :queued, -> { where(status: %w[submitted processing delivery]) }
 
-  extend FriendlyId
-  friendly_id :generate_random_slug, use: [ :finders, :slugged ]
-
   def next_status
     Order.statuses.keys.split(status).last.first
   end
