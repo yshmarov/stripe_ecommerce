@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_06_142536) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_01_210013) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -19,6 +19,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_142536) do
     t.jsonb "stripe_account"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "raw_sitemap"
   end
 
   create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -117,11 +118,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_142536) do
     t.bigint "unit_amount", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "slug"
     t.integer "price_id", null: false
     t.index ["order_id"], name: "index_order_items_on_order_id"
     t.index ["price_id"], name: "index_order_items_on_price_id"
-    t.index ["slug"], name: "index_order_items_on_slug", unique: true
   end
 
   create_table "orders", force: :cascade do |t|
@@ -132,11 +131,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_142536) do
     t.integer "order_items_quantity", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "slug"
     t.jsonb "checkout_session"
     t.bigint "account_id", null: false
     t.index ["account_id"], name: "index_orders_on_account_id"
-    t.index ["slug"], name: "index_orders_on_slug", unique: true
   end
 
   create_table "prices", force: :cascade do |t|
