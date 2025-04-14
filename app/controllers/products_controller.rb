@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   before_action :set_product, only: %i[show]
 
   def index
-    @pagy, @products = pagy(@current_account.products.order(name: :asc))
+    @pagy, @products = pagy(@current_account.products.order(name: :asc), items: 25)
   end
 
   def search
