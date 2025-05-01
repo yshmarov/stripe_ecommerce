@@ -83,6 +83,9 @@ class WebhooksController < ActionController::Base
 
       #{order.order_items.map { |item| "#{item.quantity}x #{item.price.product.name} - #{number_to_currency(item.total_amount / 100.0, unit: currency_code_to_symbol(item.price.stripe_price_object.currency))}" }.join("\n")}
 
+      Доставка: #{number_to_currency(order.stripe_checkout_session_object.total_details.amount_shipping.to_f / 100, unit: currency_code_to_symbol(order.currency))}
+      Податок: #{number_to_currency(order.stripe_checkout_session_object.total_details.amount_tax.to_f / 100, unit: currency_code_to_symbol(order.currency))}
+      Знижка: #{number_to_currency(-order.stripe_checkout_session_object.total_details.amount_discount.to_f / 100, unit: currency_code_to_symbol(order.currency))}
       Загальна сума: #{number_to_currency(order.total_amount / 100.0, unit: currency_code_to_symbol(order.currency))}
 
       Адреса доставки:
