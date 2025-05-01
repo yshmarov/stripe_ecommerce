@@ -1,6 +1,6 @@
 Telegrama.configure do |config|
-  config.bot_token = Rails.application.credentials.dig(:telegram, :bot_token)
-  config.chat_id   = Rails.application.credentials.dig(:telegram, :chat_id)
+  config.bot_token = Rails.application.credentials.dig(Rails.env.to_sym, :telegram, :bot_token)
+  config.chat_id   = Rails.application.credentials.dig(Rails.env.to_sym, :telegram, :chat_id)
   config.default_parse_mode = "MarkdownV2"
 
   # Optional prefix/suffix for all messages (useful to identify messages from different apps or environments)
