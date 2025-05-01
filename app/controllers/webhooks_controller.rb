@@ -79,12 +79,23 @@ class WebhooksController < ActionController::Base
   def notify_admin_channel(order)
     message = <<~MESSAGE
       Нове замовлення: #{order.obfuscated_id}
+      #{admin_order_url(order, host: "example.com")}
 
-      #{link_to order.obfuscated_id, admin_order_url(order)}
+      #{order.order_items.map { |item| "#{item.quantity}x #{item.price.product.name} - #{number_to_currency(item.total_amount / 100.0, unit: currency_code_to_symbol(item.price.stripe_price_object.currency))}" }.join("\n")}
 
-      #{order.order_items.map { |item| "#{item.quantity}x #{item.price.name} - #{item.total_amount}" }.join("\n")}
+      Загальна сума: #{number_to_currency(order.total_amount / 100.0, unit: currency_code_to_symbol(order.currency))}
 
-      #{render_to_string(partial: "orders/checkout_details", locals: { order: })}
+      Адреса доставки:
+      #{order.stripe_checkout_session_object.collected_information.shipping_details.address.values.compact.join(", ")}
+
+      Ім'я:
+      #{order.stripe_checkout_session_object.customer_details.name}
+
+      Email:
+      #{order.stripe_checkout_session_object.customer_details.email}
+
+      Телефон:
+      #{order.stripe_checkout_session_object.customer_details.phone}
     MESSAGE
 
     Telegrama.send_message(message, disable_web_page_preview: true)
