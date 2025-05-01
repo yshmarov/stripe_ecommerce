@@ -6,6 +6,12 @@ class Notifications::OrderCreatedJob < ApplicationJob
   queue_as :default
 
   def perform(order)
+    default_url_options[:host] = if Rails.env.production?
+      Rails.application.config.action_mailer.default_url_options[:host]
+    else
+      "localhost:3000"
+    end
+
     message = <<~MESSAGE
       Нове замовлення: #{order.obfuscated_id}
       #{admin_order_url(order)}
