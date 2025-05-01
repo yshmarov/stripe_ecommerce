@@ -14,7 +14,7 @@
 <% end %>
 
 <article id="<%= dom_id @product %>" style="display: flex; flex-direction: row; gap: 1rem;">
-  <div style="max-width: 256px;">
+  <div style="width: 256px; flex-shrink: 0;">
     <%= image_tag @product.image_url, style: "height: 256px; object-fit: cover;" if @product.image_url.present? %>
   </div>
 
