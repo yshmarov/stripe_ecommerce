@@ -40,6 +40,8 @@ class WebhooksController < ActionController::Base
       return unless session.payment_status == "paid"
 
       order.submitted! if order.draft?
+
+      Notifications::OrderCreatedJob.perform_later(order)
     end
 
     render json: { status: "success" }
