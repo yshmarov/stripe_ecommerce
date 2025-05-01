@@ -78,3 +78,5 @@ gem "oj" # json performance
 
 gem "pagy", "~> 9.3"
 gem "sqids" # for obfuscating IDs
+
+gem "telegrama", "~> 0.1.3"

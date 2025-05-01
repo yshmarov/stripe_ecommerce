@@ -1,4 +1,8 @@
 class WebhooksController < ActionController::Base
+  include ActionView::Helpers::NumberHelper
+  include Rails.application.routes.url_helpers
+  include ActionView::Helpers::UrlHelper
+
   skip_before_action :verify_authenticity_token
 
   def create
@@ -40,6 +44,8 @@ class WebhooksController < ActionController::Base
       return unless session.payment_status == "paid"
 
       order.submitted! if order.draft?
+
+      notify_admin_channel(order)
     end
 
     render json: { status: "success" }
@@ -68,5 +74,19 @@ class WebhooksController < ActionController::Base
     end
 
     order.calculate_total_amount
+  end
+
+  def notify_admin_channel(order)
+    message = <<~MESSAGE
+      Нове замовлення: #{order.obfuscated_id}
+
+      #{link_to order.obfuscated_id, admin_order_url(order)}
+
+      #{order.order_items.map { |item| "#{item.quantity}x #{item.price.name} - #{item.total_amount}" }.join("\n")}
+
+      #{render_to_string(partial: "orders/checkout_details", locals: { order: })}
+    MESSAGE
+
+    Telegrama.send_message(message, disable_web_page_preview: true)
   end
 end
