@@ -30,17 +30,17 @@
       <%= number_to_currency(order.stripe_checkout_session_object.amount_total.to_f / 100, unit: currency_code_to_symbol(order.currency)) %>
     </p>
 
-    <% if order.stripe_checkout_session_object.shipping_details.present? %>
+    <% if order.stripe_checkout_session_object.collected_information.shipping_details.present? %>
       <hr>
 
       <p>
         <strong><%= t("activerecord.attributes.order.checkout_session.shipping_address") %>:</strong>
-        <%= order.stripe_checkout_session_object.shipping_details.address.values.join(", ") %>
+        <%= order.stripe_checkout_session_object.collected_information.shipping_details.address.values.compact.join(", ") %>
       </p>
 
       <p>
         <strong><%= t("activerecord.attributes.order.checkout_session.shipping_name") %>:</strong>
-        <%= order.stripe_checkout_session_object.shipping_details.name %>
+        <%= order.stripe_checkout_session_object.collected_information.shipping_details.name %>
       </p>
     <% end %>
 
