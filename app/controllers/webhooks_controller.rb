@@ -31,7 +31,9 @@ class WebhooksController < ActionController::Base
     when "price.created", "price.updated"
       Stripe::SyncProductJob.perform_later(event.data.object.product)
     when "price.deleted"
-      Price.find_by(stripe_price_id: event.data.object.id).destroy!
+      price = Price.find_by(stripe_price_id: event.data.object.id)
+      price.order_items.where(order: Order.draft).destroy_all
+      price.destroy!
     when "checkout.session.completed"
       session = event.data.object
       order = Order.find(session.client_reference_id)
