@@ -7,6 +7,7 @@ class OrdersController < ApplicationController
 
   def show
     @order_items = @order.order_items.order(created_at: :desc)
+    @order.validate_order_items
   end
 
   # add rating to order
