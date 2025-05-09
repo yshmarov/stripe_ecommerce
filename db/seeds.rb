@@ -38,7 +38,7 @@ if Stripe::Product.list.empty?
     stripe_product = Stripe::Product.create(name: product_object[:name], images: [ product_object[:image_url] ], description: product_object[:description])
     stripe_price = Stripe::Price.create(product: stripe_product.id, unit_amount: product_object[:price], currency:)
     stripe_product.default_price = stripe_price.id
-    stripe_product.save
+    stripe_product.update
   end
 end
 

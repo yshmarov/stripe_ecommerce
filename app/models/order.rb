@@ -49,4 +49,15 @@ class Order < ApplicationRecord
   def stripe_checkout_session_object
     Stripe::Checkout::Session.construct_from(checkout_session)
   end
+
+  def validate_order_items
+    return unless draft?
+    order_items.each do |order_item|
+      stripe_price_id = order_item.price.stripe_price_id
+      stripe_price = Stripe::Price.retrieve({ id: stripe_price_id, expand: [ "product" ] })
+      next if stripe_price.present? && stripe_price.active && stripe_price.product.active
+
+      order_items.delete(order_item)
+    end
+  end
 end
