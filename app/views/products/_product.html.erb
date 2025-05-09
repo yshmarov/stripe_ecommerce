@@ -1,21 +1,86 @@
-<article id="<%= dom_id product %>" style="display: flex; flex-direction: column;">
-  <%= link_to product, style: "max-width: 256px;" do %>
-    <%= image_tag product.image_url, style: "height: 256px; object-fit: cover;" if product.image_url.present? %>
+<article
+  id="<%= dom_id product %>"
+  class="<%= action_name == 'show' ? 'flex flex-col md:flex-row gap-8' : 'flex flex-col' %> bg-base-100 rounded-lg shadow-sm overflow-hidden transition-shadow hover:shadow-md"
+>
+  <%= link_to product, class: "#{action_name == 'show' ? 'md:w-1/2 lg:w-2/5' : 'w-full'} aspect-square overflow-hidden" do %>
+    <% if product.image_url.present? %>
+      <%= image_tag product.image_url, class: "w-full h-full object-cover transition-transform duration-300 hover:scale-105" %>
+    <% else %>
+      <div class="w-full h-full flex items-center justify-center bg-base-200">
+        <i class="fa-solid fa-image text-4xl text-base-content/40"></i>
+      </div>
+    <% end %>
   <% end %>
 
-  <div>
-    <b>
-      <%= link_to_unless_current highlight(product.name, params[:query]), product %>
-    </b>
+  <div class="p-4 flex flex-col gap-4 flex-grow">
+    <div>
+      <h2 class="text-xl font-medium text-base-content">
+        <%= link_to_unless_current highlight(product.name, params[:query]), product, class: "hover:text-primary transition-colors" %>
+      </h2>
 
-    <p>
-      <%= price_label(product.default_price) %>
-    </p>
+      <div class="mt-2 text-lg font-semibold text-base-content">
+        <%= price_label(product.default_price) %>
+      </div>
+    </div>
 
-    <%= button_to add_to_cart_path(product.default_price) do %>
-      <i class="fa-solid fa-cart-arrow-down"></i>
-      <%= t(".add_to_cart") %>
-      <mark><%= product.default_price.items_in_cart(@current_order) %></mark>
+    <% if (order_item = product.default_price.order_item_in_cart(@current_order)) %>
+      <div class="flex items-center gap-2">
+        <% if order_item.quantity == 1 %>
+          <%= button_to order_order_item_path(@current_order, order_item),
+            method: :delete,
+            class: "du-btn du-btn-sm du-btn-outline du-btn-primary" do %>
+            <i class="fa-solid fa-minus"></i>
+          <% end %>
+        <% else %>
+          <%= button_to order_order_item_path(@current_order, order_item),
+            method: :patch,
+            params: { order_item: { quantity: order_item.quantity - 1 } },
+            class: "du-btn du-btn-sm du-btn-outline du-btn-primary" do %>
+            <i class="fa-solid fa-minus"></i>
+          <% end %>
+        <% end %>
+
+        <div class="du-badge du-badge-xl du-badge-outline du-badge-primary">
+          <%= order_item.quantity %>
+        </div>
+
+        <%= button_to order_order_item_path(@current_order, order_item),
+          method: :patch,
+          params: { order_item: { quantity: order_item.quantity + 1 } },
+          class: "du-btn du-btn-sm du-btn-outline du-btn-primary" do %>
+          <i class="fa-solid fa-plus"></i>
+        <% end %>
+      </div>
+    <% else %>
+      <%= button_to add_to_cart_path(product.default_price),
+        class: "du-btn du-btn du-btn-primary" do %>
+        <i class="fa-solid fa-cart-arrow-down mr-2"></i>
+        <%= t(".add_to_cart") %>
+      <% end %>
+    <% end %>
+
+    <% if action_name == 'show' %>
+      <% if product.stripe_product_object.description.present? %>
+        <div class="mt-4 prose dark:prose-invert">
+          <p class="text-base-content/80">
+            <%= product.stripe_product_object.description %>
+          </p>
+        </div>
+      <% end %>
+
+      <% if marketing_features(product).any? %>
+        <div class="mt-6">
+          <h3 class="text-sm font-medium text-base-content">Features</h3>
+          <ul class="mt-2 space-y-2">
+            <% marketing_features(product).each do |feature| %>
+              <li class="flex items-start">
+                <i class="fa-solid fa-check text-success mt-1 mr-2"></i>
+                <span class="text-sm text-base-content/80"><%= feature %></span>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </article>

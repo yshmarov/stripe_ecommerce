@@ -1,5 +1,33 @@
-<% order.statuses_for_display.each do |status| %>
-  <mark style="<%= 'font-weight: bold;' if order.status == status %>">
-    <%= t("activerecord.attributes.order.statuses.#{status}") %>
-  </mark>
+<% if order.draft? %>
+  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-base-200 text-base-content">
+    <%= t("activerecord.attributes.order.statuses.draft") %>
+  </span>
+<% else %>
+  <div class="flex items-center gap-2 text-sm">
+    <% order.statuses_for_display.each do |status| %>
+      <% if order.status == status %>
+        <span
+          class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <%= case status
+              when 'submitted'
+                'bg-info/10 text-info'
+              when 'processing'
+                'bg-warning/10 text-warning'
+              when 'delivery'
+                'bg-secondary/10 text-secondary'
+              when 'done'
+                'bg-success/10 text-success'
+              end %>"
+        >
+          <%= t("activerecord.attributes.order.statuses.#{status}") %>
+        </span>
+      <% else %>
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-base-200 text-base-content/60">
+          <%= t("activerecord.attributes.order.statuses.#{status}") %>
+        </span>
+      <% end %>
+      <% unless status == order.statuses_for_display.last %>
+        <i class="fa-solid fa-chevron-right text-base-content/40 text-xs"></i>
+      <% end %>
+    <% end %>
+  </div>
 <% end %>

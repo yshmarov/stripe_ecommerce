@@ -2,27 +2,43 @@
   data-controller="dialog"
   data-dialog-id="search-dialog"
   data-action="click->dialog#open keydown.meta+k@window->dialog#open keydown.ctrl+k@window->dialog#open click@window->dialog#clickOutside"
+  class="du-btn du-btn-outline du-btn-ghost"
 >
-  <i class="fa-solid fa-magnifying-glass"></i>
+  <i class="fa-solid fa-magnifying-glass flex-shrink-0"></i>
+  <span class="text-sm text-base-content/60 flex-grow hidden lg:block"><%= t("products.search_form.placeholder") %></span>
+  <kbd class="hidden lg:flex items-center gap-1 px-2 py-0.5 text-xs text-base-content/60 bg-base-200 border border-base-300 rounded">
+    <span class="font-sans">⌘</span>
+    <span>K</span>
+  </kbd>
 </button>
 
-<dialog id="search-dialog">
-  <form method="dialog" hidden>
-    <button>
+<dialog id="search-dialog" class="mt-10 fixed inset-0 m-auto w-full max-w-2xl mx-auto p-4 rounded-lg bg-base-100 shadow-xl backdrop:bg-base-300/90">
+  <form method="dialog" class="absolute top-0 right-0">
+    <button class="p-2 text-base-content/60 hover:text-base-content">
+      <span class="sr-only">Close</span>
       <i class="fa-solid fa-xmark"></i>
     </button>
   </form>
 
-  <%= form_with url: search_products_path, method: :get, data: { turbo_frame: :search_results } do |f| %>
-    <%= f.text_field :query,
-                 placeholder: t("products.search_form.placeholder"),
-                 autofocus: true,
-                 autocomplete: "off",
-                 autocorrect: "off",
-                 autocapitalize: "off",
-                 spellcheck: "false",
-                 oninput: "this.form.requestSubmit()" %>
+  <%= form_with url: search_products_path,
+                method: :get,
+                data: { turbo_frame: :search_results },
+                class: "relative" do |f| %>
+    <div class="relative">
+      <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-base-content/60"></i>
+      <%= f.text_field :query,
+                   class: "w-full pl-11 pr-4 py-3 text-base text-base-content placeholder-base-content/60 bg-base-100 border border-base-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary",
+                   placeholder: t("products.search_form.placeholder"),
+                   autofocus: true,
+                   autocomplete: "off",
+                   autocorrect: "off",
+                   autocapitalize: "off",
+                   spellcheck: "false",
+                   oninput: "this.form.requestSubmit()" %>
+    </div>
   <% end %>
 
-  <%= turbo_frame_tag :search_results, target: "_top" %>
+  <div class="">
+    <%= turbo_frame_tag :search_results, target: "_top" %>
+  </div>
 </dialog>

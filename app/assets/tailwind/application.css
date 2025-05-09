@@ -1,0 +1,38 @@
+@import 'tailwindcss';
+@source "../../../public/*.html";
+@source "../../../app/helpers/**/*.rb";
+@source "../../../app/javascript/**/*.js";
+@source "../../../app/views/**/*";
+
+@plugin "./daisyui.js" {
+  themes: light --default, dark --prefersdark;
+  prefix: 'du-';
+}
+
+/* Optional for custom themes – Docs: https://daisyui.com/docs/themes/#how-to-add-a-new-custom-theme */
+@plugin "./daisyui-theme.js" {
+  /* custom theme here */
+}
+
+.pagy {
+  @apply flex space-x-1 font-medium text-sm;
+  a:not(.gap) {
+    @apply du-btn du-btn-sm du-btn-ghost;
+    &:hover {
+      @apply du-btn-active;
+    }
+    &:not([href]) {
+      /* disabled links */
+      @apply du-btn-disabled;
+    }
+    &.current {
+      @apply du-btn du-btn-sm du-btn-primary;
+    }
+  }
+  label {
+    @apply du-form-control w-full;
+    input {
+      @apply du-input du-input-bordered du-input-sm w-16;
+    }
+  }
+}
