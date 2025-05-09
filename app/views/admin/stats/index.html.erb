@@ -1,18 +1,28 @@
-<h1>
-  <mark>admin</mark>
-  <%= t(".title") %>
-</h1>
+<div class="container mx-auto px-4 py-8">
+  <div class="flex items-center gap-4 mb-8">
+    <h1 class="text-2xl font-bold">
+      <%= t(".title") %>
+    </h1>
+    <div class="badge badge-primary">admin</div>
+  </div>
 
-<section>
-  <h3>
-    <%= t(".most_popular_products") %>
-  </h3>
-  <%= pie_chart @most_popular_products %>
-</section>
+  <div class="grid gap-8">
+    <section class="card bg-base-100 shadow-sm">
+      <div class="card-body">
+        <h3 class="card-title">
+          <%= t(".most_popular_products") %>
+        </h3>
+        <%= pie_chart @most_popular_products %>
+      </div>
+    </section>
 
-<section>
-  <h3>
-    <%= t(".satisfaction_rate") %>
-  </h3>
-  <%= column_chart @satisfaction %>
-</section>
+    <section class="card bg-base-100 shadow-sm">
+      <div class="card-body">
+        <h3 class="card-title">
+          <%= t(".satisfaction_rate") %>
+        </h3>
+        <%= column_chart @satisfaction %>
+      </div>
+    </section>
+  </div>
+</div>
