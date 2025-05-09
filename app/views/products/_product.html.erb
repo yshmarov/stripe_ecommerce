@@ -1,21 +1,27 @@
-<article id="<%= dom_id product %>" style="display: flex; flex-direction: column;">
-  <%= link_to product, style: "max-width: 256px;" do %>
-    <%= image_tag product.image_url, style: "height: 256px; object-fit: cover;" if product.image_url.present? %>
+<article id="<%= dom_id product %>" class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+  <%= link_to product, class: "card-body p-4" do %>
+    <figure class="px-4 pt-4">
+      <%= image_tag product.image_url, class: "rounded-xl h-48 w-full object-cover" if product.image_url.present? %>
+    </figure>
   <% end %>
 
-  <div>
-    <b>
-      <%= link_to_unless_current highlight(product.name, params[:query]), product %>
-    </b>
+  <div class="card-body p-4">
+    <h2 class="card-title text-lg font-semibold">
+      <%= link_to_unless_current highlight(product.name, params[:query]), product, class: "hover:text-primary transition-colors duration-200" %>
+    </h2>
 
-    <p>
+    <p class="text-xl font-bold text-primary mt-2">
       <%= price_label(product.default_price) %>
     </p>
 
-    <%= button_to add_to_cart_path(product.default_price) do %>
-      <i class="fa-solid fa-cart-arrow-down"></i>
+    <%= button_to add_to_cart_path(product.default_price), class: "btn btn-primary hover:btn-secondary transition-colors duration-200 mt-4 w-full" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+      </svg>
       <%= t(".add_to_cart") %>
-      <mark><%= product.default_price.items_in_cart(@current_order) %></mark>
+      <% if @current_order && (quantity = product.default_price.items_in_cart(@current_order)) && quantity > 0 %>
+        <div class="badge badge-secondary ml-2"><%= quantity %></div>
+      <% end %>
     <% end %>
   </div>
 </article>

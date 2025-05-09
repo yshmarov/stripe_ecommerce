@@ -1,59 +1,68 @@
 <%= meta_tags(title: @product.name, description: @product.stripe_product_object.description, image: @product.image_url) %>
 
-<nav aria-label="navigation">
-  <%= link_to products_path do %>
-    <i class="fa-solid fa-chevron-left"></i>
-    <%= t("products.index.title") %>
-  <% end %>
-</nav>
+<div class="min-h-screen flex flex-col">
+  <div class="container mx-auto px-4 py-8 flex-grow">
+    <nav class="mb-6">
+      <%= link_to products_path, class: "btn btn-ghost gap-2" do %>
+        <i class="fa-solid fa-chevron-left"></i>
+        <%= t("products.index.title") %>
+      <% end %>
+    </nav>
 
-<% content_for :head do %>
-  <script type="application/ld+json">
-    <%= product_schema_json(@product) %>
-  </script>
-<% end %>
-
-<article id="<%= dom_id @product %>" style="display: flex; flex-direction: row; gap: 1rem;">
-  <div style="width: 256px; flex-shrink: 0;">
-    <%= image_tag @product.image_url, style: "height: 256px; object-fit: cover;" if @product.image_url.present? %>
-  </div>
-
-  <div>
-    <b>
-      <%= @product.name %>
-    </b>
-
-    <p>
-      <%= price_label(@product.default_price) %>
-    </p>
-
-    <%= button_to add_to_cart_path(@product.default_price) do %>
-      <i class="fa-solid fa-cart-arrow-down"></i>
-      <%= t(".add_to_cart") %>
-      <mark><%= @product.default_price.items_in_cart(@current_order) %></mark>
+    <% content_for :head do %>
+      <script type="application/ld+json">
+        <%= product_schema_json(@product) %>
+      </script>
     <% end %>
 
-    <p>
-      <%= @product.stripe_product_object.description %>
-    </p>
+    <article id="<%= dom_id @product %>" class="card lg:card-side bg-base-100 shadow-xl">
+      <figure class="lg:w-1/2">
+        <%= image_tag @product.image_url, class: "w-full h-full object-cover" if @product.image_url.present? %>
+      </figure>
 
-    <% if @product.stripe_product_object.metadata.present? %>
-      <dl style="display: grid; grid-template-columns: auto 1fr;">
-        <% @product.stripe_product_object.metadata.each do |key, value| %>
-          <dt><%= key %></dt>
-          <dd><%= value %></dd>
+      <div class="card-body lg:w-1/2">
+        <h1 class="card-title text-2xl font-bold mb-4">
+          <%= @product.name %>
+        </h1>
+
+        <div class="text-2xl font-bold text-primary mb-6">
+          <%= price_label(@product.default_price) %>
+        </div>
+
+        <%= button_to add_to_cart_path(@product.default_price), class: "btn btn-primary gap-2 mb-6" do %>
+          <i class="fa-solid fa-cart-arrow-down"></i>
+          <%= t(".add_to_cart") %>
+          <% if @current_order && @product.default_price.items_in_cart(@current_order).to_i > 0 %>
+            <div class="badge badge-secondary"><%= @product.default_price.items_in_cart(@current_order) %></div>
+          <% end %>
         <% end %>
-      </dl>
-    <% end %>
 
-    <% if marketing_features(@product).any? %>
-      <ul>
-        <% marketing_features(@product).each do |feature| %>
-          <li>
-            <small><%= feature %></small>
-          </li>
+        <div class="prose max-w-none mb-6">
+          <%= @product.stripe_product_object.description %>
+        </div>
+
+        <% if @product.stripe_product_object.metadata.present? %>
+          <div class="divider"></div>
+          <dl class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2">
+            <% @product.stripe_product_object.metadata.each do |key, value| %>
+              <dt class="font-semibold"><%= key %></dt>
+              <dd><%= value %></dd>
+            <% end %>
+          </dl>
         <% end %>
-      </ul>
-    <% end %>
+
+        <% if marketing_features(@product).any? %>
+          <div class="divider"></div>
+          <ul class="space-y-2">
+            <% marketing_features(@product).each do |feature| %>
+              <li class="flex items-center gap-2">
+                <i class="fa-solid fa-check text-success"></i>
+                <span><%= feature %></span>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    </article>
   </div>
-</article>
+</div>

@@ -2,27 +2,40 @@
   data-controller="dialog"
   data-dialog-id="search-dialog"
   data-action="click->dialog#open keydown.meta+k@window->dialog#open keydown.ctrl+k@window->dialog#open click@window->dialog#clickOutside"
+  class="btn btn-ghost btn-circle"
 >
-  <i class="fa-solid fa-magnifying-glass"></i>
+  <i class="fa-solid fa-magnifying-glass text-xl"></i>
 </button>
 
-<dialog id="search-dialog">
-  <form method="dialog" hidden>
-    <button>
-      <i class="fa-solid fa-xmark"></i>
-    </button>
+<dialog id="search-dialog" class="modal">
+  <div class="modal-box w-11/12 max-w-2xl">
+    <div class="flex flex-row-reverse justify-between items-center mb-6">
+      <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost">
+          <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+      </form>
+    </div>
+
+    <%= form_with url: search_products_path, method: :get, data: { turbo_frame: :search_results } do |f| %>
+      <div class="form-control">
+        <%= f.text_field :query,
+                     placeholder: t("products.search_form.placeholder"),
+                     autofocus: true,
+                     autocomplete: "off",
+                     autocorrect: "off",
+                     autocapitalize: "off",
+                     spellcheck: "false",
+                     oninput: "this.form.requestSubmit()",
+                     class: "input input-bordered w-full" %>
+      </div>
+    <% end %>
+
+    <div class="mt-6">
+      <%= turbo_frame_tag :search_results, target: "_top" %>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
   </form>
-
-  <%= form_with url: search_products_path, method: :get, data: { turbo_frame: :search_results } do |f| %>
-    <%= f.text_field :query,
-                 placeholder: t("products.search_form.placeholder"),
-                 autofocus: true,
-                 autocomplete: "off",
-                 autocorrect: "off",
-                 autocapitalize: "off",
-                 spellcheck: "false",
-                 oninput: "this.form.requestSubmit()" %>
-  <% end %>
-
-  <%= turbo_frame_tag :search_results, target: "_top" %>
 </dialog>
