@@ -3,11 +3,12 @@
 <p>
   <%= simple_format Setting.description %>
 </p>
+<div class="container mx-auto px-4 py-8">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <%= render @products %>
+  </div>
 
-<div>
-  <div class="grid-cols-auto-fit">
-    <%= render collection: @products, partial: "products/product", as: :product %>
+  <div class="flex justify-center mt-8">
+    <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
   </div>
 </div>
-
-<%== pagy_nav(@pagy) if @pagy.pages > 1 %>

@@ -1,86 +1,72 @@
+---
 en:
   activerecord:
     attributes:
-      setting:
-        scope:
-          general: General
-          checkout: Checkout
-          legal: Legal documents
-          socials: Social networks
-        default_currency: Default currency
-        address: Address
-        email: Email
-        phone_number: Phone number
-        store_name: Store name
-        automatic_tax: Automatic tax
-        default_language: Default language
-        search: Search engine
-        public_order_queue: Public order queue
-        description: Shop description
-        allow_promotion_codes: Allow promotion codes
-        phone_number_collection: Phone number collection
-        billing_address_collection: Billing address collection
-        shipping_countries: Shipping countries
-        terms_of_service: Terms of service
-        privacy_policy: Privacy policy
-        refund_policy: Refund policy
-      order_item:
-        quantity: Quantity
-      product:
-        name: Name
-        price: Price
-        image_url: Image URL
       order:
-        status: Status
         checkout_session:
-          created: Submitted at
           amount_subtotal: Subtotal
-          total_details:
-            amount_tax: Tax
-            amount_shipping: Shipping
-            amount_discount: Discount
           amount_total: Total
-          shipping_address: Shipping address
-          shipping_name: Shipping name
+          created: Submitted at
           customer_email: Customer email
           customer_name: Customer name
           customer_phone: Customer phone
+          shipping_address: Shipping address
+          shipping_name: Shipping name
+          total_details:
+            amount_discount: Discount
+            amount_shipping: Shipping
+            amount_tax: Tax
+        status: Status
         statuses:
-          draft: Draft
-          submitted: Submitted
-          processing: Processing
           delivery: Delivery
           done: Done
-  products:
-    index:
-      # title: Menu
-      title: Shop
-      all: All
-    search_form:
-      placeholder: Search products...
-      submit: Search
-      all: All
-      clear: Clear search
-    product:
-      add_to_cart: Add to cart
-  orders:
-    index:
-      title: My Orders
-    order:
-      items: Shopping cart
-      rating: Rate the order
-      complete: Complete order
-      empty: Your cart is empty
-    update:
-      submitted: Order submitted! We are preparing it for you.
-      rating: Thanks for the feedback!
-    show:
-      title: Order №%{name}
-      thank_you: Thank you for your order! 💕
-      rating: Rate the order
-  queue:
-    index:
-      title: Orders in progress
+          draft: Draft
+          processing: Processing
+          submitted: Submitted
+      order_item:
+        quantity: Quantity
+      product:
+        image_url: Image URL
+        name: Name
+        price: Price
+      setting:
+        address: Address
+        allow_promotion_codes: Allow promotion codes
+        automatic_tax: Automatic tax
+        billing_address_collection: Billing address collection
+        default_currency: Default currency
+        default_language: Default language
+        description: Shop description
+        email: Email
+        phone_number: Phone number
+        phone_number_collection: Phone number collection
+        privacy_policy: Privacy policy
+        public_order_queue: Public order queue
+        refund_policy: Refund policy
+        scope:
+          checkout: Checkout
+          general: General
+          legal: Legal documents
+          socials: Social networks
+        search: Search engine
+        shipping_countries: Shipping countries
+        store_name: Store name
+        terms_of_service: Terms of service
+  admin:
+    orders:
+      index:
+        title: Manage orders
+    products:
+      index:
+        title: Edit products
+    settings:
+      index:
+        title: Settings
+    stats:
+      index:
+        most_popular_products: Most popular products
+        satisfaction_rate: Satisfaction rate
+        title: Stats
   order_items:
     destroy:
       notice: Item removed from order
@@ -88,25 +74,42 @@ en:
       remove: Remove
     update:
       notice: Quantity updated
-  admin:
-    orders:
-      index:
-        title: Manage orders
-    stats:
-      index:
-        title: Stats
-        most_popular_products: Most popular products
-        satisfaction_rate: Satisfaction rate
-    products:
-      index:
-        title: Edit products
-    settings:
-      index:
-        title: Settings
+  orders:
+    index:
+      title: My Orders
+    order:
+      complete: Complete order
+      empty: Your cart is empty
+      items: Shopping cart
+      rating: Rate the order
+    show:
+      rating: Rate the order
+      thank_you: Thank you for your order! 💕
+      title: Order №%{name}
+    update:
+      rating: Thanks for the feedback!
+      submitted: Order submitted! We are preparing it for you.
+  products:
+    index:
+      all: All
+      # title: Menu
+      title: Shop
+    product:
+      add_to_cart: Add to cart
+    search_form:
+      all: All
+      clear: Clear search
+      placeholder: Search products...
+      submit: Search
+  queue:
+    index:
+      title: Orders in progress
   static:
-    terms_of_service:
-      title: Terms of Service
     privacy_policy:
       title: Privacy Policy
     refund_policy:
       title: Refund Policy
+    terms_of_service:
+      title: Terms of Service
+  theme:
+    toggle: Change theme

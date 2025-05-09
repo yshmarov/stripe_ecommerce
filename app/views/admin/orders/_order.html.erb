@@ -1,30 +1,36 @@
-<article id="<%= dom_id order %>">
-  <strong>
-    <%= link_to_unless_current t("orders.show.title", name: order.to_param.upcase), order %>
-  </strong>
+<article id="<%= dom_id order %>" class="card bg-base-100 shadow-sm">
+  <div class="card-body">
+    <h2 class="card-title">
+      <%= link_to_unless_current t("orders.show.title", name: order.to_param.upcase), order, class: "hover:text-primary" %>
+    </h2>
 
-  <p>
-    <%= render partial: "orders/checkout_details", locals: { order: } %>
-  </p>
+    <div class="text-sm text-base-content/70">
+      <%= render partial: "orders/checkout_details", locals: { order: } %>
+    </div>
 
-  <p>
-    <%= render partial: "orders/status", locals: { order: order } %>
-  </p>
+    <div class="flex flex-wrap gap-2">
+      <%= render partial: "orders/status", locals: { order: order } %>
+    </div>
 
-  <% if action_name != "show" %>
-    <p>
-      <%= link_to [:admin, order] do %>
-        <strong><%= t("orders.order.items") %></strong>
-        <%= order.order_items_quantity %>
-      <% end %>
-    </p>
-  <% end %>
-
-  <% if order.next_status.present? %>
-    <%= button_to admin_order_path(order.id), method: :put do %>
-      <%= t("activerecord.attributes.order.statuses.#{order.status}") %>
-      ->
-      <%= t("activerecord.attributes.order.statuses.#{order.next_status}") %>
+    <% if action_name != "show" %>
+      <div class="text-sm">
+        <%= link_to [:admin, order], class: "link link-primary" do %>
+          <strong><%= t("orders.order.items") %></strong>
+          <span class="badge badge-sm"><%= order.order_items_quantity %></span>
+        <% end %>
+      </div>
     <% end %>
-  <% end %>
+
+    <% if order.next_status.present? %>
+      <div class="card-actions justify-end">
+        <%= button_to admin_order_path(order.id), 
+            method: :put, 
+            class: "btn btn-primary btn-sm" do %>
+          <%= t("activerecord.attributes.order.statuses.#{order.status}") %>
+          <i class="fa-solid fa-arrow-right mx-2"></i>
+          <%= t("activerecord.attributes.order.statuses.#{order.next_status}") %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </article>

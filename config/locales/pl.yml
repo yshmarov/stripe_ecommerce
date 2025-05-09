@@ -1,100 +1,72 @@
+---
 pl:
   activerecord:
     attributes:
-      setting:
-        scope:
-          general: Ogólne
-          checkout: Płatność
-          legal: Dokumenty prawni
-          socials: Sieci społecznościowe
-        default_currency: Domyślna waluta
-        address: Adres
-        email: Email
-        phone_number: Numer telefonu
-        store_name: Nazwa sklepu
-        automatic_tax: Automatyczne obliczanie podatku
-        default_language: Domyślny język
-        search: Wyszukiwarka
-        public_order_queue: Publiczna kolejka zamówień
-        description: Opis sklepu
-        allow_promotion_codes: Zezwól na kody promocyjne
-        phone_number_collection: Zbieranie numeru telefonu
-        billing_address_collection: Zbieranie adresu rozliczeniowego
-        shipping_countries: Kraje dostawy
-        terms_of_service: Warunki użytkowania
-        privacy_policy: Polityka prywatności
-        refund_policy: Polityka zwrotu
-      order_item:
-        quantity: Ilość
-      product:
-        name: Nazwa
-        price: Cena
-        image_url: URL obrazu
       order:
-        status: Status
         checkout_session:
-          created: Zamówiono
           amount_subtotal: Suma
-          total_details:
-            amount_tax: Podatek
-            amount_shipping: Wysyłka
-            amount_discount: Zniżka
           amount_total: Łącznie
-          shipping_address: Adres wysyłki
-          shipping_name: Imię odbiorcy
+          created: Zamówiono
           customer_email: Email odbiorcy
           customer_name: Imię odbiorcy
           customer_phone: Telefon odbiorcy
+          shipping_address: Adres wysyłki
+          shipping_name: Imię odbiorcy
+          total_details:
+            amount_discount: Zniżka
+            amount_shipping: Wysyłka
+            amount_tax: Podatek
+        status: Status
         statuses:
-          draft: Szkic
-          submitted: Złożone
-          processing: Przetwarzanie
           delivery: Dostawa
           done: Zakończone
-  products:
-    index:
-      title: Sklep
-      all: Wszystkie
-    search_form:
-      placeholder: Szukaj produktów...
-      submit: Szukaj
-      all: Wszystkie
-      clear: Wyczyść wyszukiwanie
-    product:
-      add_to_cart: Dodaj do koszyka
-  orders:
-    index:
-      title: Moje zamówienia
-    order:
-      items: Koszyk
-      rating: Oceń zamówienie
-      complete: Zamów
-      empty: Twój koszyk jest pusty
-    update:
-      submitted: Zamówienie złożone! Przygotowujemy je dla Ciebie.
-      rating: Dziękujemy za opinię!
-    show:
-      title: Zamówienie №%{name}
-      thank_you: Dziękujemy za Twoje zamówienie! 💕
-      rating: Oceń zamówienie
-  queue:
-    index:
-      title: Zamówienia w toku
+          draft: Szkic
+          processing: Przetwarzanie
+          submitted: Złożone
+      order_item:
+        quantity: Ilość
+      product:
+        image_url: URL obrazu
+        name: Nazwa
+        price: Cena
+      setting:
+        address: Adres
+        allow_promotion_codes: Zezwól na kody promocyjne
+        automatic_tax: Automatyczne obliczanie podatku
+        billing_address_collection: Zbieranie adresu rozliczeniowego
+        default_currency: Domyślna waluta
+        default_language: Domyślny język
+        description: Opis sklepu
+        email: Email
+        phone_number: Numer telefonu
+        phone_number_collection: Zbieranie numeru telefonu
+        privacy_policy: Polityka prywatności
+        public_order_queue: Publiczna kolejka zamówień
+        refund_policy: Polityka zwrotu
+        scope:
+          checkout: Płatność
+          general: Ogólne
+          legal: Dokumenty prawni
+          socials: Sieci społecznościowe
+        search: Wyszukiwarka
+        shipping_countries: Kraje dostawy
+        store_name: Nazwa sklepu
+        terms_of_service: Warunki użytkowania
   admin:
     orders:
       index:
         title: Zarządzaj zamówieniami
-    stats:
-      index:
-        title: Statystyki
-        most_popular_products: Najpopularniejsze produkty
-        satisfaction_rate: Stopień zadowolenia
     products:
       index:
         title: Edytuj produkty
     settings:
       index:
         title: Ustawienia
+    stats:
+      index:
+        most_popular_products: Najpopularniejsze produkty
+        satisfaction_rate: Stopień zadowolenia
+        title: Statystyki
   order_items:
     destroy:
       notice: Produkt usunięty z zamówienia
@@ -102,10 +74,41 @@ pl:
       remove: Usuń
     update:
       notice: Ilość zaktualizowana
+  orders:
+    index:
+      title: Moje zamówienia
+    order:
+      complete: Zamów
+      empty: Twój koszyk jest pusty
+      items: Koszyk
+      rating: Oceń zamówienie
+    show:
+      rating: Oceń zamówienie
+      thank_you: Dziękujemy za Twoje zamówienie! 💕
+      title: Zamówienie №%{name}
+    update:
+      rating: Dziękujemy za opinię!
+      submitted: Zamówienie złożone! Przygotowujemy je dla Ciebie.
+  products:
+    index:
+      all: Wszystkie
+      title: Sklep
+    product:
+      add_to_cart: Dodaj do koszyka
+    search_form:
+      all: Wszystkie
+      clear: Wyczyść wyszukiwanie
+      placeholder: Szukaj produktów...
+      submit: Szukaj
+  queue:
+    index:
+      title: Zamówienia w toku
   static:
-    terms_of_service:
-      title: Warunki użytkowania
     privacy_policy:
       title: Polityka prywatności
     refund_policy:
       title: Polityka zwrotu
+    terms_of_service:
+      title: Warunki użytkowania
+  theme:
+    toggle: Zmień motyw

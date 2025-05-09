@@ -1,9 +1,13 @@
-<%= meta_tags(title: t("static.#{action_name}.title")) %>
+<%= content_for :title, t("static.#{action_name}.title") %>
 
-<h1>
-  <%= t("static.#{action_name}.title") %>
-</h1>
+<div class="max-w-4xl mx-auto px-4 py-10">
+  <div class="text-center mb-10">
+    <h1 class="text-4xl font-bold text-primary">
+      <%= t("static.#{action_name}.title") %>
+    </h1>
+  </div>
 
-<div>
-  <%= markdown Setting.send(action_name) %>
+  <div class="prose prose-sm sm:prose lg:prose-lg xl:prose-xl dark:prose-invert">
+    <%= markdown Setting.send(action_name) %>
+  </div>
 </div>

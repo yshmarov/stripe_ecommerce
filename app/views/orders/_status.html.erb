@@ -1,5 +1,5 @@
 <% order.statuses_for_display.each do |status| %>
-  <mark style="<%= 'font-weight: bold;' if order.status == status %>">
+  <div class="badge <%= order.status == status ? 'badge-primary' : 'badge-ghost' %>">
     <%= t("activerecord.attributes.order.statuses.#{status}") %>
-  </mark>
+  </div>
 <% end %>

@@ -1,18 +1,28 @@
-<article id="<%= dom_id order %>">
-  <strong>
-    <%= link_to_unless_current t("orders.show.title", name: order.to_param.upcase), order %>
-  </strong>
+<article id="<%= dom_id order %>" class="space-y-4">
+  <div class="flex justify-between items-center">
+    <h2 class="text-2xl font-bold">
+      <%= link_to_unless_current t("orders.show.title", name: order.to_param.upcase), order, class: "hover:text-primary" %>
+    </h2>
 
-  <p>
-    <%= render partial: "orders/status", locals: { order: } unless order.draft? %>
-  </p>
+    <% unless order.draft? %>
+      <div class="flex gap-2">
+        <%= render partial: "orders/status", locals: { order: } %>
+      </div>
+    <% end %>
+  </div>
 
   <% if order.draft? %>
-    <%= button_to order_checkout_index_path(order), method: :post, data: { turbo: false }, disabled: order.order_items.empty? do %>
+    <%= button_to order_checkout_index_path(order), 
+        method: :post, 
+        data: { turbo: false }, 
+        disabled: order.order_items.empty?,
+        class: "btn btn-primary w-full" do %>
       <i class="fa-solid fa-credit-card"></i>
       <% if order.order_items.any? %>
         <%= t(".complete") %>
-        <%= number_to_currency(order.total_amount / 100.0, unit: currency_code_to_symbol(order.currency)) %>
+        <span class="font-bold ml-2">
+          <%= number_to_currency(order.total_amount / 100.0, unit: currency_code_to_symbol(order.currency)) %>
+        </span>
       <% else %>
         <%= t(".empty") %>
       <% end %>

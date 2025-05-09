@@ -1,10 +1,19 @@
 <%= turbo_frame_tag :search_results do %>
-  <% @products.each do |product| %>
-    <div>
-      <%= link_to product_path(product) do %>
-        <%= image_tag product.image_url, width: 100 %>
-        <%= highlight(product.name, params[:query]) %>
+  <div class="space-y-4">
+    <% @products.each do |product| %>
+      <%= link_to product_path(product), class: "card card-side bg-base-100 shadow-sm hover:shadow-md transition-shadow" do %>
+        <figure class="w-24 h-24">
+          <%= image_tag product.image_url, class: "w-full h-full object-cover" %>
+        </figure>
+        <div class="card-body p-4">
+          <h3 class="card-title text-base">
+            <%= highlight(product.name, params[:query]) %>
+          </h3>
+          <p class="text-sm text-primary font-semibold">
+            <%= price_label(product.default_price) %>
+          </p>
+        </div>
       <% end %>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 <% end %>

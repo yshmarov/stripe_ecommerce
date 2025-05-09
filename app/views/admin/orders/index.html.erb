@@ -1,11 +1,14 @@
-<h1>
-  <mark>admin</mark>
-  <%= t("admin.orders.index.title") %>
-  <mark>
-    <%= @orders.count %>
-  </mark>
-</h1>
+<div class="container mx-auto px-4 py-8">
+  <div class="flex items-center gap-4 mb-8">
+    <h1 class="text-2xl font-bold">
+      <%= t("admin.orders.index.title") %>
+    </h1>
+    <div class="badge badge-primary badge-lg">
+      <%= @orders.count %>
+    </div>
+  </div>
 
-<div id="orders">
-  <%= render collection: @orders, partial: "admin/orders/order", as: :order %>
+  <div id="orders" class="grid gap-4">
+    <%= render collection: @orders, partial: "admin/orders/order", as: :order %>
+  </div>
 </div>
