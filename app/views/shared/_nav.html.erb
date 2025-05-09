@@ -56,7 +56,7 @@
     <% end %>
 
     <label class="swap swap-rotate btn btn-ghost btn-circle tooltip tooltip-bottom" data-tip="<%= t('theme.toggle') %>">
-      <input type="checkbox" class="theme-controller opacity-0 absolute" value="dark" />
+      <input type="checkbox" class="theme-controller opacity-0 absolute" value="dark" data-controller="theme" data-action="change->theme#toggle" />
       <i class="fa-solid fa-sun swap-on text-xl text-warning"></i>
       <i class="fa-solid fa-moon swap-off text-xl text-primary"></i>
     </label>

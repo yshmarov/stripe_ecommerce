@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="light">
   <head>
     <title><%= content_for?(:title) ? "#{content_for(:title)} | #{Setting.store_name}" : Setting.store_name %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -27,7 +27,6 @@
       referrerpolicy="no-referrer"
     >
 
-
     <script defer data-domain="warszawabooks.pl" src="https://plausible.io/js/script.js"></script>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
@@ -45,7 +44,7 @@
           <%= render "shared/nav" %>
         </header>
         <main class="flex-grow container mx-auto px-4 py-8 min-h-[calc(100vh-8rem)]">
-          <%#= render "shared/flash" %>
+          <%= render "shared/flash" %>
           <%= yield %>
         </main>
         <footer class="bg-base-200 mt-auto">
