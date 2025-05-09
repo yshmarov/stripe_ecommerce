@@ -1,24 +1,24 @@
 <article
   id="<%= dom_id product %>"
-  class="<%= action_name == 'show' ? 'flex flex-col md:flex-row gap-8' : 'flex flex-col' %> bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden transition-shadow hover:shadow-md"
+  class="<%= action_name == 'show' ? 'flex flex-col md:flex-row gap-8' : 'flex flex-col' %> bg-base-100 rounded-lg shadow-sm overflow-hidden transition-shadow hover:shadow-md"
 >
   <%= link_to product, class: "#{action_name == 'show' ? 'md:w-1/2 lg:w-2/5' : 'w-full'} aspect-square overflow-hidden" do %>
     <% if product.image_url.present? %>
       <%= image_tag product.image_url, class: "w-full h-full object-cover transition-transform duration-300 hover:scale-105" %>
     <% else %>
-      <div class="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-700">
-        <i class="fa-solid fa-image text-4xl text-gray-400 dark:text-gray-500"></i>
+      <div class="w-full h-full flex items-center justify-center bg-base-200">
+        <i class="fa-solid fa-image text-4xl text-base-content/40"></i>
       </div>
     <% end %>
   <% end %>
 
   <div class="p-4 flex flex-col gap-4 flex-grow">
     <div>
-      <h2 class="text-xl font-medium text-gray-900 dark:text-white">
-        <%= link_to_unless_current highlight(product.name, params[:query]), product, class: "hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" %>
+      <h2 class="text-xl font-medium text-base-content">
+        <%= link_to_unless_current highlight(product.name, params[:query]), product, class: "hover:text-primary transition-colors" %>
       </h2>
 
-      <div class="mt-2 text-lg font-semibold text-gray-900 dark:text-white">
+      <div class="mt-2 text-lg font-semibold text-base-content">
         <%= price_label(product.default_price) %>
       </div>
     </div>
@@ -62,7 +62,7 @@
     <% if action_name == 'show' %>
       <% if product.stripe_product_object.description.present? %>
         <div class="mt-4 prose dark:prose-invert">
-          <p class="text-gray-600 dark:text-gray-300">
+          <p class="text-base-content/80">
             <%= product.stripe_product_object.description %>
           </p>
         </div>
@@ -70,12 +70,12 @@
 
       <% if marketing_features(product).any? %>
         <div class="mt-6">
-          <h3 class="text-sm font-medium text-gray-900 dark:text-white">Features</h3>
+          <h3 class="text-sm font-medium text-base-content">Features</h3>
           <ul class="mt-2 space-y-2">
             <% marketing_features(product).each do |feature| %>
               <li class="flex items-start">
-                <i class="fa-solid fa-check text-green-500 mt-1 mr-2"></i>
-                <span class="text-sm text-gray-600 dark:text-gray-300"><%= feature %></span>
+                <i class="fa-solid fa-check text-success mt-1 mr-2"></i>
+                <span class="text-sm text-base-content/80"><%= feature %></span>
               </li>
             <% end %>
           </ul>

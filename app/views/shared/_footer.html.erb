@@ -3,10 +3,10 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
       <!-- Company Info -->
       <div class="space-y-4">
-        <div class="text-lg font-semibold text-gray-900 dark:text-white">
+        <div class="text-lg font-semibold text-base-content">
           <%= Setting.store_name %>
         </div>
-        <p class="text-gray-600 dark:text-gray-400">
+        <p class="text-base-content/60">
           © <%= Time.zone.now.year %>
         </p>
         <div class="pt-2">
@@ -16,25 +16,25 @@
 
       <!-- Contact Info -->
       <div class="space-y-4">
-        <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">Contact</h3>
+        <h3 class="text-sm font-semibold text-base-content uppercase tracking-wider">Contact</h3>
         <div class="space-y-2">
-          <p class="text-gray-600 dark:text-gray-400">
+          <p class="text-base-content/60">
             <%= Setting.address %>
           </p>
-          <p class="text-gray-600 dark:text-gray-400">
+          <p class="text-base-content/60">
             <%= Setting.phone_number %>
           </p>
-          <%= mail_to Setting.email, class: "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" %>
+          <%= mail_to Setting.email, class: "text-base-content/60 hover:text-base-content transition-colors" %>
         </div>
       </div>
 
       <!-- Legal -->
       <div class="space-y-4">
-        <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">Legal</h3>
+        <h3 class="text-sm font-semibold text-base-content uppercase tracking-wider">Legal</h3>
         <div class="space-y-2">
           <% if Setting.terms_of_service.present? %>
             <div>
-              <%= active_link_to terms_of_service_path, class: "inline-block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
+              <%= active_link_to terms_of_service_path, class: "inline-block text-base-content/60 hover:text-base-content transition-colors" do %>
                 <%= t("static.terms_of_service.title") %>
               <% end %>
             </div>
@@ -42,7 +42,7 @@
 
           <% if Setting.privacy_policy.present? %>
             <div>
-              <%= active_link_to privacy_policy_path, class: "inline-block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
+              <%= active_link_to privacy_policy_path, class: "inline-block text-base-content/60 hover:text-base-content transition-colors" do %>
                 <%= t("static.privacy_policy.title") %>
               <% end %>
             </div>
@@ -50,7 +50,7 @@
 
           <% if Setting.refund_policy.present? %>
             <div>
-              <%= active_link_to refund_policy_path, class: "inline-block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
+              <%= active_link_to refund_policy_path, class: "inline-block text-base-content/60 hover:text-base-content transition-colors" do %>
                 <%= t("static.refund_policy.title") %>
               <% end %>
             </div>
@@ -60,24 +60,24 @@
 
       <!-- Admin Links -->
       <div class="space-y-4">
-        <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">Admin</h3>
+        <h3 class="text-sm font-semibold text-base-content uppercase tracking-wider">Admin</h3>
         <div class="space-y-2">
           <div>
-            <%= active_link_to admin_orders_path, class: "inline-block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
+            <%= active_link_to admin_orders_path, class: "inline-block text-base-content/60 hover:text-base-content transition-colors" do %>
               <i class="fa fa-lock"></i>
               <%= t("admin.orders.index.title") %>
             <% end %>
           </div>
 
           <div>
-            <%= active_link_to admin_stats_path, class: "inline-block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
+            <%= active_link_to admin_stats_path, class: "inline-block text-base-content/60 hover:text-base-content transition-colors" do %>
               <i class="fa fa-lock"></i>
               <%= t("admin.stats.index.title") %>
             <% end %>
           </div>
 
           <div>
-            <%= active_link_to [:admin, :settings], class: "inline-block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" do %>
+            <%= active_link_to [:admin, :settings], class: "inline-block text-base-content/60 hover:text-base-content transition-colors" do %>
               <i class="fa fa-lock"></i>
               <%= t("admin.settings.index.title") %>
             <% end %>
@@ -87,13 +87,13 @@
     </div>
 
     <!-- Language Selector -->
-    <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+    <div class="mt-8 pt-8 border-t border-base-300">
       <div class="flex justify-center">
         <%= form_tag request.path, method: :get, class: "inline-block" do %>
           <%= select_tag :locale,
             options_for_select(I18n.available_locales.map { |l| [flag(l), l] }, I18n.locale),
             onchange: "this.form.requestSubmit()",
-            class: "form-select rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-indigo-500 focus:border-indigo-500" %>
+            class: "du-select du-select-bordered" %>
         <% end %>
       </div>
     </div>

@@ -1,10 +1,10 @@
-<article id="<%= dom_id order %>" class="bg-white dark:bg-gray-800 shadow-sm rounded-lg overflow-hidden">
+<article id="<%= dom_id order %>" class="bg-base-100 shadow-sm rounded-lg overflow-hidden">
   <div class="p-6">
     <%# Header with Order ID and Status %>
-    <div class="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 pb-4">
+    <div class="flex items-center justify-between border-b border-base-300 pb-4">
       <div class="flex items-center gap-4">
-        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
-          <%= link_to_unless_current t("orders.show.title", name: order.to_param.upcase), order, class: "hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" %>
+        <h2 class="text-xl font-semibold text-base-content">
+          <%= link_to_unless_current t("orders.show.title", name: order.to_param.upcase), order, class: "hover:text-primary transition-colors" %>
         </h2>
 
         <%= render partial: "orders/status", locals: { order: } %>
@@ -12,7 +12,7 @@
 
       <% if !order.draft? && !order.done? %>
         <div class="hidden sm:block">
-          <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200">
+          <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-primary/10 text-primary">
             <i class="fa-solid fa-box-open mr-2"></i>
             <%= t(".thank_you") %>
           </span>
@@ -23,9 +23,9 @@
     <%# Order Items Summary %>
     <% if action_name != "show" %>
       <div class="mt-4">
-        <%= link_to order, class: "inline-flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" do %>
+        <%= link_to order, class: "inline-flex items-center text-sm text-base-content/60 hover:text-base-content" do %>
           <strong class="mr-2"><%= t(".items") %></strong>
-          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
             <%= order.order_items_quantity %>
           </span>
         <% end %>
@@ -44,7 +44,7 @@
           method: :post,
           data: { turbo: false },
           disabled: order.order_items.empty?,
-          class: "w-full inline-flex items-center justify-center px-4 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors" do %>
+          class: "du-btn du-btn-primary w-full" do %>
           <i class="fa-solid fa-credit-card mr-2"></i>
           <% if order.order_items.any? %>
             <%= t(".complete") %>
@@ -58,8 +58,8 @@
 
     <%# Rating Section %>
     <% if order.done? %>
-      <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-        <h3 class="text-sm font-medium text-gray-900 dark:text-white mb-4">
+      <div class="mt-6 pt-6 border-t border-base-300">
+        <h3 class="text-sm font-medium text-base-content mb-4">
           <%= t(".rating") %>
         </h3>
         <div class="flex justify-between gap-2">
@@ -68,7 +68,7 @@
               params: {order: { id: order.id, rating: rating }},
               method: :put,
               disabled: order.rating.equal?(rating),
-              class: "flex-1 p-2 text-2xl rounded-md #{order.rating.equal?(rating) ? 'bg-indigo-100 dark:bg-indigo-900' : 'hover:bg-gray-100 dark:hover:bg-gray-700'} disabled:cursor-not-allowed transition-colors" do %>
+              class: "flex-1 p-2 text-2xl rounded-md #{order.rating.equal?(rating) ? 'bg-primary/10' : 'hover:bg-base-200'} disabled:cursor-not-allowed transition-colors" do %>
               <%= emoji %>
             <% end %>
           <% end %>
