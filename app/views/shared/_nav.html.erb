@@ -1,43 +1,64 @@
-<nav>
-  <div style="display: inline-flex; align-items: center; gap: 0.75rem; margin-right: 1rem;">
-    <% if @stripe_logo_url.present? %>
-      <div>
-        <%= image_tag @stripe_logo_url, style: "height: 2rem; width: auto; vertical-align: middle; aspect-ratio: 1/1;" %>
-      </div>
-    <% else %>
-      <div>
-        <i class="fa-solid fa-shop" style="font-size: 1.25rem; vertical-align: middle;"></i>
-      </div>
+<nav class="navbar bg-base-100 shadow-md">
+  <div class="flex-1">
+    <%= link_to root_path, class: "flex items-center gap-3 hover:opacity-80 transition-opacity" do %>
+      <% if @stripe_logo_url.present? %>
+        <div class="avatar">
+          <div class="w-10 h-10">
+            <%= image_tag @stripe_logo_url, class: "rounded-full" %>
+          </div>
+        </div>
+      <% else %>
+        <div class="text-2xl text-primary">
+          <i class="fa-solid fa-shop"></i>
+        </div>
+      <% end %>
+      <span class="text-lg font-semibold"><%= Setting.store_name %></span>
     <% end %>
-    <span style="font-size: 1.1rem; vertical-align: middle; font-weight: 500;"><%= Setting.store_name %></span>
   </div>
 
-  <% if Setting.search %>
-    <%= render "products/search_dialog" %>
-  <% end %>
-
-  <%= active_link_to products_path do %>
-    <%= t("products.index.title") %>
-  <% end %>
-
-  <% if Setting.public_order_queue %>
-    <%= active_link_to queue_path do %>
-      <i class="fa-solid fa-stopwatch"></i>
-      <%= t("queue.index.title") %>
+  <div class="flex-none gap-4">
+    <% if Setting.search %>
+      <%= render "products/search_dialog" %>
     <% end %>
-  <% end %>
 
-  <% if @my_orders.not_draft.any? %>
-    <%= active_link_to orders_path, active: :exact do %>
-      <i class="fa-solid fa-clock-rotate-left"></i>
-      <%= t("orders.index.title") %>
+    <%= active_link_to products_path, class: "btn btn-ghost" do %>
+      <%= t("products.index.title") %>
     <% end %>
-  <% end %>
 
-  <% if @current_order %>
-    <%= active_link_to @current_order do %>
-      <i class="fa-solid fa-cart-shopping"></i>
-      <mark><%= @current_order.order_items_quantity %></mark>
+    <% if Setting.public_order_queue %>
+      <%= active_link_to queue_path, class: "btn btn-ghost" do %>
+        <i class="fa-solid fa-stopwatch"></i>
+        <%= t("queue.index.title") %>
+      <% end %>
     <% end %>
-  <% end %>
+
+    <% if @my_orders.not_draft.any? %>
+      <%= active_link_to orders_path, active: :exact, class: "btn btn-ghost" do %>
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <%= t("orders.index.title") %>
+      <% end %>
+    <% end %>
+
+    <% if @current_order %>
+      <%= active_link_to @current_order, class: "btn btn-ghost" do %>
+        <div class="indicator">
+          <i class="fa-solid fa-cart-shopping text-xl"></i>
+          <span class="badge badge-sm indicator-item"><%= @current_order.order_items_quantity %></span>
+        </div>
+      <% end %>
+    <% end %>
+
+    <%= form_tag request.path, method: :get, class: "flex items-center" do %>
+      <%= select_tag :locale,
+          options_for_select(I18n.available_locales.map { |l| [flag(l), l] }, I18n.locale),
+          class: "select bg-base-100 hover:bg-base-200 transition-colors text-xl min-h-[2.5rem] border-0 focus:outline-none",
+          onchange: "this.form.requestSubmit()" %>
+    <% end %>
+
+    <label class="swap swap-rotate btn btn-ghost btn-circle tooltip tooltip-bottom" data-tip="<%= t('theme.toggle') %>">
+      <input type="checkbox" class="theme-controller opacity-0 absolute" value="dark" />
+      <i class="fa-solid fa-sun swap-on text-xl text-warning"></i>
+      <i class="fa-solid fa-moon swap-off text-xl text-primary"></i>
+    </label>
+  </div>
 </nav>
