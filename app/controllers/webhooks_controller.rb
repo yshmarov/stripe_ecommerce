@@ -71,6 +71,6 @@ class WebhooksController < ActionController::Base
       )
     end
 
-    order.calculate_total_amount
+    order.calculate_subtotal_amount
   end
 end
