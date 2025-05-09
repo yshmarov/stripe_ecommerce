@@ -10,18 +10,11 @@
       <%= favicon_link_tag @stripe_logo_url %>
     <% end %>
 
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
     <% if @stripe_account&.settings&.branding&.primary_color.present? %>
       <style>
         :root {
-          --accent: <%= @stripe_account.settings.branding.primary_color %>;
-          --accent-hover: <%= @stripe_account.settings.branding.secondary_color %>;
-        }
-        @media (prefers-color-scheme: dark) {
-          :root {
-            --accent: <%= @stripe_account.settings.branding.primary_color %>;
-            --accent-hover: <%= @stripe_account.settings.branding.secondary_color %>;
-          }
+          --primary: <%= @stripe_account.settings.branding.primary_color %>;
+          --primary-focus: <%= @stripe_account.settings.branding.secondary_color %>;
         }
       </style>
     <% end %>
@@ -34,7 +27,9 @@
       referrerpolicy="no-referrer"
     >
 
+
     <script defer data-domain="warszawabooks.pl" src="https://plausible.io/js/script.js"></script>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
@@ -42,16 +37,21 @@
     <%= yield :head %>
   </head>
 
-  <body>
-    <header style="position: sticky; top: 0; z-index: 100;">
-      <%= render "shared/nav" %>
-    </header>
-    <main>
-      <%#= render "shared/flash" %>
-      <%= yield %>
-    </main>
-    <footer>
-      <%= render "shared/footer" %>
-    </footer>
+  <body class="min-h-screen flex flex-col">
+    <div class="drawer min-h-screen flex flex-col">
+      <input id="drawer" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content flex flex-col min-h-screen">
+        <header class="sticky top-0 z-50 bg-base-100 shadow-md">
+          <%= render "shared/nav" %>
+        </header>
+        <main class="flex-grow container mx-auto px-4 py-8 min-h-[calc(100vh-8rem)]">
+          <%#= render "shared/flash" %>
+          <%= yield %>
+        </main>
+        <footer class="bg-base-200 mt-auto">
+          <%= render "shared/footer" %>
+        </footer>
+      </div>
+    </div>
   </body>
 </html>
