@@ -2,36 +2,53 @@
 
 <%= turbo_stream_from @order %>
 
-<% if !@order.draft? && !@order.done? %>
-  <h3>
-    <%= t(".thank_you") %>
-  </h3>
-<% end %>
-
-<%= render @order %>
-
-<%= render partial: "orders/checkout_details", locals: { order: @order } %>
-
-<% if @order.order_items.any? %>
-  <details open>
-    <summary>
-      <%= t("orders.order.items").capitalize %>
-    </summary>
-    <%= render @order_items %>
-  </details>
-<% end %>
-
-<% if @order.done? %>
-  <details open>
-    <summary>
-      <%= t(".rating") %>
-    </summary>
-    <div style="display: flex; justify-content: space-between;">
-      <% rating_emojis.each do |rating, emoji| %>
-        <%= button_to order_path(@order), params: {order: { id: @order.id, rating: rating }}, method: :put, disabled: @order.rating.equal?(rating) do %>
-          <%= emoji %>
-        <% end %>
-      <% end %>
+<div class="container mx-auto px-4 py-8">
+  <% if !@order.draft? && !@order.done? %>
+    <div class="alert alert-success mb-6">
+      <i class="fa-solid fa-circle-check"></i>
+      <h3 class="font-bold"><%= t(".thank_you") %></h3>
     </div>
-  </details>
-<% end %>
+  <% end %>
+
+  <div class="card bg-base-100 shadow-xl mb-6">
+    <div class="card-body">
+      <%= render @order %>
+    </div>
+  </div>
+
+  <%= render partial: "orders/checkout_details", locals: { order: @order } %>
+
+  <% if @order.order_items.any? %>
+    <div class="collapse collapse-arrow bg-base-200 mb-6">
+      <input type="checkbox" checked /> 
+      <div class="collapse-title text-xl font-medium">
+        <%= t("orders.order.items").capitalize %>
+      </div>
+      <div class="collapse-content">
+        <%= render @order_items %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @order.done? %>
+    <div class="collapse collapse-arrow bg-base-200">
+      <input type="checkbox" checked /> 
+      <div class="collapse-title text-xl font-medium">
+        <%= t(".rating") %>
+      </div>
+      <div class="collapse-content">
+        <div class="flex justify-between items-center">
+          <% rating_emojis.each do |rating, emoji| %>
+            <%= button_to order_path(@order), 
+                params: {order: { id: @order.id, rating: rating }}, 
+                method: :put, 
+                disabled: @order.rating.equal?(rating),
+                class: "btn btn-ghost text-2xl #{@order.rating.equal?(rating) ? 'btn-active' : ''}" do %>
+              <%= emoji %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

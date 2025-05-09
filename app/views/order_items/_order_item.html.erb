@@ -1,26 +1,38 @@
-<blockquote id="<%= dom_id order_item %>" style="display: flex; flex-direction: row; gap: 1rem;">
-  <%= image_tag order_item.price.product.image_url, style: "max-width: 100px; max-height: 100px; object-fit: cover;" if order_item.price.product.image_url.present? %>
+<div id="<%= dom_id order_item %>" class="card card-side bg-base-100 shadow-sm mb-4">
+  <figure class="w-24 h-25">
+    <%= image_tag order_item.price.product.image_url, class: "w-full h-full object-cover" if order_item.price.product.image_url.present? %>
+  </figure>
 
-  <div>
-    <%= order_item.price.product.name %>
+  <div class="card-body p-4">
+    <div class="flex justify-between items-start">
+      <div>
+        <h3 class="card-title text-lg">
+          <%= order_item.price.product.name %>
+        </h3>
 
-    <p>
+        <div class="flex items-center gap-2 text-sm">
+          <% if @order.draft? %>
+            <%= render "order_items/form", order_item: %>
+          <% else %>
+            <span class="font-semibold"><%= order_item.quantity %></span>
+          <% end %>
+          <span>×</span>
+          <span class="text-primary font-semibold"><%= price_label(order_item.price) %></span>
+          <span>=</span>
+          <span class="font-bold">
+            <%= number_to_currency(order_item.total_amount / 100.0, unit: currency_code_to_symbol(order_item.price.product.default_currency)) %>
+          </span>
+        </div>
+      </div>
+
       <% if @order.draft? %>
-        <%= render "order_items/form", order_item: %>
-      <% else %>
-        <%= order_item.quantity %>
+        <%= button_to [order_item.order, order_item], 
+            method: :delete, 
+            class: "btn btn-ghost btn-sm text-error" do %>
+          <i class="fa-solid fa-trash"></i>
+          <%= t(".remove") %>
+        <% end %>
       <% end %>
-      X
-      <%= price_label(order_item.price) %>
-      =
-      <%= number_to_currency(order_item.total_amount / 100.0, unit: currency_code_to_symbol(order_item.price.product.default_currency)) %>
-    </p>
-
-    <% if @order.draft? %>
-      <%= button_to [order_item.order, order_item], method: :delete do %>
-        <i class="fa-solid fa-trash"></i>
-        <%= t(".remove") %>
-      <% end %>
-    <% end %>
+    </div>
   </div>
-</blockquote>
+</div>
