@@ -1,12 +1,5 @@
 <%= meta_tags(title: @product.name, description: @product.stripe_product_object.description, image: @product.image_url) %>
 
-<nav aria-label="navigation">
-  <%= link_to products_path do %>
-    <i class="fa-solid fa-chevron-left"></i>
-    <%= t("products.index.title") %>
-  <% end %>
-</nav>
-
 <% content_for :head do %>
   <script type="application/ld+json">
     <%= product_schema_json(@product) %>
