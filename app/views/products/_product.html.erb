@@ -1,20 +1,22 @@
 <article
   id="<%= dom_id product %>"
-  class="<%= action_name == 'show' ? 'flex flex-col md:flex-row gap-8' : 'flex flex-col' %> bg-base-100 rounded-lg shadow-sm overflow-hidden transition-shadow hover:shadow-md"
+  class="du-card <%= action_name == 'show' ? 'du-card-side' : '' %> bg-base-100 shadow-sm hover:shadow-md transition-shadow"
 >
-  <%= link_to product, class: "#{action_name == 'show' ? 'md:w-1/2 lg:w-2/5' : 'w-full'} aspect-square overflow-hidden" do %>
-    <% if product.image_url.present? %>
-      <%= image_tag product.image_url, class: "w-full h-full object-cover transition-transform duration-300 hover:scale-105" %>
-    <% else %>
-      <div class="w-full h-full flex items-center justify-center bg-base-200">
-        <i class="fa-solid fa-image text-4xl text-base-content/40"></i>
-      </div>
+  <figure class="<%= action_name == 'show' ? 'md:w-1/2 lg:w-2/5' : 'w-full' %> aspect-square relative">
+    <%= link_to product, class: "block w-full h-full" do %>
+      <% if product.image_url.present? %>
+        <%= image_tag product.image_url, class: "w-full h-full object-cover transition-transform duration-300 hover:scale-105" %>
+      <% else %>
+        <div class="w-full h-full flex items-center justify-center bg-base-200">
+          <i class="fa-solid fa-image text-4xl text-base-content/40"></i>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
+  </figure>
 
-  <div class="p-4 flex flex-col gap-4 flex-grow">
+  <div class="du-card-body p-4">
     <div>
-      <h2 class="text-xl font-medium text-base-content">
+      <h2 class="du-card-title text-xl">
         <%= link_to_unless_current highlight(product.name, params[:query]), product, class: "hover:text-primary transition-colors" %>
       </h2>
 
@@ -53,7 +55,7 @@
       </div>
     <% else %>
       <%= button_to add_to_cart_path(product.default_price),
-        class: "du-btn du-btn du-btn-primary" do %>
+        class: "du-btn du-btn-primary" do %>
         <i class="fa-solid fa-cart-arrow-down mr-2"></i>
         <%= t(".add_to_cart") %>
       <% end %>
