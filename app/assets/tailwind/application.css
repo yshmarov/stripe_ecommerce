@@ -23,16 +23,16 @@
     }
     &:not([href]) {
       /* disabled links */
-      @apply du-btn-disabled;
+      @apply du-btn opacity-50 cursor-not-allowed;
     }
     &.current {
       @apply du-btn du-btn-sm du-btn-primary;
     }
   }
   label {
-    @apply du-form-control w-full;
+    @apply flex flex-col w-full;
     input {
-      @apply du-input du-input-bordered du-input-sm w-16;
+      @apply du-input border border-base-300 rounded-md du-input-sm w-16;
     }
   }
 }
