@@ -1,7 +1,7 @@
 OrderItem.destroy_all
 Order.destroy_all
-Price.destroy_all
-Product.destroy_all
+Price.unscoped.destroy_all
+Product.unscoped.destroy_all
 Account.destroy_all
 Setting.destroy_all
 
@@ -38,7 +38,7 @@ if Stripe::Product.list.empty?
     stripe_product = Stripe::Product.create(name: product_object[:name], images: [ product_object[:image_url] ], description: product_object[:description])
     stripe_price = Stripe::Price.create(product: stripe_product.id, unit_amount: product_object[:price], currency:)
     stripe_product.default_price = stripe_price.id
-    stripe_product.update
+    stripe_product.save
   end
 end
 
