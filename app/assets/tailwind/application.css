@@ -47,13 +47,13 @@
 .pagy {
   @apply flex space-x-1 font-medium text-sm;
   a:not(.gap) {
-    @apply du-btn du-btn-sm du-btn-ghost;
+    @apply du-btn du-btn-sm du-btn-neutral;
     &:hover {
       @apply du-btn-active;
     }
     &:not([href]) {
       /* disabled links */
-      @apply du-btn opacity-50 cursor-not-allowed;
+      @apply du-btn opacity-50 cursor-not-allowed du-btn-sm;
     }
     &.current {
       @apply du-btn du-btn-sm du-btn-primary;
