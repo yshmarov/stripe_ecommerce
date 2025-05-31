@@ -3,9 +3,11 @@
     <% flash.each do |type, message| %>
       <% next if message.blank? %>
       <div
-        class="du-alert du-alert-sm <%= alert_class_for(type) %> shadow-lg max-w-sm pointer-events-auto"
-        data-controller="flash element-remove"
-        data-action="click->element-remove#remove"
+        class="
+          cursor-pointer du-alert du-alert-sm <%= alert_class_for(type) %> shadow-lg max-w-sm pointer-events-auto opacity-0 -translate-y-full transform transition-all duration-300 ease-out
+        "
+        data-controller="flash"
+        data-action="click->flash#dismiss"
         data-flash-target="message"
       >
         <div class="flex items-center gap-2">
