@@ -3,7 +3,9 @@ class ShopController < ApplicationController
     # find or create order
     order = @current_order.presence || @current_account.orders.create(
       status: Order.statuses[:draft],
-      user_id: current_guest_id
+      user_id: current_guest_id,
+      user_agent: request.user_agent,
+      ip_address: request.ip
     )
 
     # add to cart
