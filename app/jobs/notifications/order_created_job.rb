@@ -24,7 +24,8 @@ class Notifications::OrderCreatedJob < ApplicationJob
       • Delivery: #{number_to_currency(order.stripe_checkout_session_object.total_details.amount_shipping.to_f / 100, unit: currency_code_to_symbol(order.currency))}
       • Tax: #{number_to_currency(order.stripe_checkout_session_object.total_details.amount_tax.to_f / 100, unit: currency_code_to_symbol(order.currency))}
       • Discount: #{number_to_currency(-order.stripe_checkout_session_object.total_details.amount_discount.to_f / 100, unit: currency_code_to_symbol(order.currency))}
-      • Total: #{number_to_currency(order.total_amount / 100.0, unit: currency_code_to_symbol(order.currency))}
+      • Subtotal: #{number_to_currency(order.total_amount / 100.0, unit: currency_code_to_symbol(order.currency))}
+      • Total: #{number_to_currency((order.total_amount + order.stripe_checkout_session_object.total_details.amount_shipping.to_f + order.stripe_checkout_session_object.total_details.amount_tax.to_f - order.stripe_checkout_session_object.total_details.amount_discount.to_f) / 100.0, unit: currency_code_to_symbol(order.currency))}
 
       *Delivery Address*
       #{order.stripe_checkout_session_object.collected_information.shipping_details.address.values.compact.join(", ")}
@@ -35,5 +36,6 @@ class Notifications::OrderCreatedJob < ApplicationJob
       • Phone: #{order.stripe_checkout_session_object.customer_details.phone}
     MESSAGE
     Telegrama.send_message(message, parse_mode: "MarkdownV2", disable_web_page_preview: true)
+    # TODO: display delivery option (home/inpost)
   end
 end
