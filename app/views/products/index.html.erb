@@ -1,6 +1,6 @@
 <%= meta_tags(title: t(".title"), description: Setting.description) %>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="max-w-7xl mx-auto px-4 lg:px-8">
   <% if Setting.description.present? %>
     <div class="mb-8 prose dark:prose-invert max-w-none">
       <%= simple_format Setting.description %>
@@ -8,7 +8,7 @@
   <% end %>
 
   <div class="space-y-8">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       <%= render collection: @products, partial: "products/product", as: :product %>
     </div>
 
