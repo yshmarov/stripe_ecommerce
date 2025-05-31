@@ -1,8 +1,13 @@
 <% if flash.any? %>
-  <div class="toast toast-end z-50 fixed top-4 right-4 cursor-pointer" data-controller="element-remove" data-action="click->element-remove#remove">
+  <div class="fixed inset-x-0 top-16 z-40 flex flex-col items-center pointer-events-none space-y-2">
     <% flash.each do |type, message| %>
       <% next if message.blank? %>
-      <div class="du-alert du-alert-sm <%= alert_class_for(type) %> shadow-lg animate-fade-in-right max-w-sm" data-controller="flash" data-flash-target="message">
+      <div
+        class="du-alert du-alert-sm <%= alert_class_for(type) %> shadow-lg max-w-sm pointer-events-auto"
+        data-controller="flash element-remove"
+        data-action="click->element-remove#remove"
+        data-flash-target="message"
+      >
         <div class="flex items-center gap-2">
           <%= alert_icon_for(type) %>
           <span class="text-sm"><%= message %></span>
