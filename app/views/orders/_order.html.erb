@@ -9,15 +9,6 @@
 
         <%= render partial: "orders/status", locals: { order: } %>
       </div>
-
-      <% if !order.draft? && !order.done? %>
-        <div class="block lg:hidden">
-          <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-primary/10 text-primary">
-            <i class="fa-solid fa-box-open mr-2"></i>
-            <%= t(".thank_you") %>
-          </span>
-        </div>
-      <% end %>
     </div>
 
     <%# Order Items Summary %>
