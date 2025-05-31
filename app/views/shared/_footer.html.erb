@@ -10,7 +10,7 @@
           © <%= Time.zone.now.year %>
         </p>
         <!-- Language Selector -->
-        <div class="pt-2">
+        <div>
           <%= form_tag request.path, method: :get, class: "inline-block" do %>
             <%= select_tag :locale,
               options_for_select(I18n.available_locales.map { |l| [flag(l), l] }, I18n.locale),
@@ -18,7 +18,7 @@
               class: "du-select du-select-bordered" %>
           <% end %>
         </div>
-        <div class="pt-2">
+        <div>
           <%= render "shared/social_links" %>
         </div>
       </div>
