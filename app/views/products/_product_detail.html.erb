@@ -1,6 +1,6 @@
-<article id="<%= dom_id product %>" class="du-card bg-base-100 shadow-sm hover:shadow-md transition-shadow">
-  <figure class="w-full aspect-square relative">
-    <%= link_to product, class: "block w-full h-full" do %>
+<article id="<%= dom_id product %>" class="du-card du-card-side bg-base-100 shadow-sm hover:shadow-md transition-shadow">
+  <figure class="md:w-1/2 lg:w-2/5 aspect-square relative">
+    <%= tag.div class: "block w-full h-full" do %>
       <% if product.image_url.present? %>
         <%= image_tag product.image_url, class: "w-full h-full object-cover transition-transform duration-300 hover:scale-105" %>
       <% else %>
@@ -56,6 +56,29 @@
         <i class="fa-solid fa-cart-arrow-down mr-2"></i>
         <%= t(".add_to_cart") %>
       <% end %>
+    <% end %>
+
+    <%# This part is specific to the 'show' view %>
+    <% if product.stripe_product_object.description.present? %>
+      <div class="mt-4 prose dark:prose-invert">
+        <p class="text-base-content/80">
+          <%= product.stripe_product_object.description %>
+        </p>
+      </div>
+    <% end %>
+
+    <% if marketing_features(product).any? %>
+      <div class="mt-6">
+        <h3 class="text-sm font-medium text-base-content">Features</h3>
+        <ul class="mt-2 space-y-2">
+          <% marketing_features(product).each do |feature| %>
+            <li class="flex items-start">
+              <i class="fa-solid fa-check text-success mt-1 mr-2"></i>
+              <span class="text-sm text-base-content/80"><%= feature %></span>
+            </li>
+          <% end %>
+        </ul>
+      </div>
     <% end %>
   </div>
 </article>
