@@ -1,8 +1,8 @@
 class SecuredController < ApplicationController
   before_action :authenticate
 
-  USERNAME = "ewlit".freeze
-  PASSWORD = "123456".freeze
+  USERNAME = ENV["ADMIN_USERNAME"].freeze
+  PASSWORD = ENV["ADMIN_PASSWORD"].freeze
 
   private
 

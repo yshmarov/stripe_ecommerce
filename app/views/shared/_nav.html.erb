@@ -1,26 +1,51 @@
-<nav id="nav">
-  <%= active_link_to products_path do %>
-    <i class="fa-solid fa-list"></i>
-    <%= t("products.index.title") %>
-  <% end %>
+<nav class="px-4 lg:px-8 py-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex items-center justify-between">
+      <%= link_to products_path, class: "flex items-center space-x-3 hover:opacity-75 transition-opacity" do %>
+        <% if @stripe_logo_url.present? %>
+          <div class="flex-shrink-0">
+            <%= image_tag @stripe_logo_url, class: "h-8 w-8 object-contain" %>
+          </div>
+        <% else %>
+          <div class="flex-shrink-0">
+            <i class="fa-solid fa-shop text-xl text-base-content"></i>
+          </div>
+        <% end %>
+        <span class="text-lg font-medium text-base-content"><%= Setting.store_name %></span>
+      <% end %>
 
-  <% if Setting.public_order_queue %>
-    <%= active_link_to queue_path do %>
-      <i class="fa-solid fa-stopwatch"></i>
-      <%= t("queue.index.title") %>
-    <% end %>
-  <% end %>
+      <div class="flex items-center gap-4 lg:flex-1 lg:justify-center">
+        <% if Setting.search %>
+          <div class="relative lg:w-full lg:max-w-xl">
+            <%= render "products/search_dialog" %>
+          </div>
+        <% end %>
 
-  <%= active_link_to orders_path do %>
-    <i class="fa-solid fa-clock-rotate-left"></i>
-    <%= t("orders.index.title") %>
-  <% end %>
+        <div class="flex items-center gap-4 lg:absolute lg:right-8">
+          <% if Setting.public_order_queue %>
+            <%= active_link_to queue_path, class_active: "du-btn-active", class: "du-btn du-btn-outline du-btn-primary" do %>
+              <i class="fa-solid fa-stopwatch"></i>
+              <span class="hidden lg:inline"><%= t("queue.index.title") %></span>
+            <% end %>
+          <% end %>
 
-  <% if @current_order %>
-    <%= active_link_to @current_order do %>
-      <%#= @current_order.id %>
-      <i class="fa-solid fa-cart-shopping"></i>
-      <mark><%= @current_order.order_items_quantity %></mark>
-    <% end %>
-  <% end %>
+          <% if @my_orders.not_draft.any? %>
+            <%= active_link_to orders_path, active: :exact, class_active: "du-btn-active", class: "du-btn du-btn-outline du-btn-primary" do %>
+              <i class="fa-solid fa-clock-rotate-left"></i>
+              <span class="hidden lg:inline"><%= t("orders.index.title") %></span>
+            <% end %>
+          <% end %>
+
+          <% if @current_order %>
+            <%= active_link_to @current_order, class_active: "du-btn-active", class: "du-btn du-btn-outline du-btn-primary" do %>
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span class="du-badge du-badge-sm du-badge-secondary">
+                <%= @current_order.order_items_quantity %>
+              </span>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </nav>

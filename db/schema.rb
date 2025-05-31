@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_12_110025) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_01_210013) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -24,8 +24,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_12_110025) do
     t.datetime "updated_at", null: false
     t.string "slug"
     t.index ["order_id"], name: "index_order_items_on_order_id"
-    t.index ["product_id"], name: "index_order_items_on_product_id"
-    t.index ["slug"], name: "index_order_items_on_slug", unique: true
+    t.index ["price_id"], name: "index_order_items_on_price_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -45,13 +44,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_12_110025) do
 
   create_table "products", force: :cascade do |t|
     t.string "name"
-    t.bigint "price"
-    t.string "image_url"
-    t.string "category", default: "food", null: false
-    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug"
+    t.jsonb "stripe_product"
+    t.string "stripe_product_id"
+    t.bigint "account_id", null: false
+    t.index ["account_id"], name: "index_products_on_account_id"
     t.index ["slug"], name: "index_products_on_slug", unique: true
   end
 
@@ -64,5 +63,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_12_110025) do
   end
 
   add_foreign_key "order_items", "orders"
-  add_foreign_key "order_items", "products"
+  add_foreign_key "order_items", "prices"
+  add_foreign_key "orders", "accounts"
+  add_foreign_key "prices", "products"
+  add_foreign_key "products", "accounts"
 end

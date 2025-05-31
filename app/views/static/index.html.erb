@@ -1,0 +1,9 @@
+<%= meta_tags(title: t("static.#{action_name}.title")) %>
+
+<h1>
+  <%= t("static.#{action_name}.title") %>
+</h1>
+
+<div>
+  <%= markdown Setting.send(action_name) %>
+</div>

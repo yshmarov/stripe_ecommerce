@@ -1,8 +1,12 @@
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
+require "mocha/minitest"
+require_relative "support/stripe_test_helper"
 
 class ActiveSupport::TestCase
+  include StripeTestHelper
+
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
 

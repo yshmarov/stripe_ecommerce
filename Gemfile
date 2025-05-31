@@ -1,5 +1,6 @@
 source "https://rubygems.org"
 
+ruby file: ".ruby-version"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.1"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
@@ -23,11 +24,6 @@ gem "jbuilder"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
-# Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
-gem "solid_cache"
-gem "solid_queue"
-gem "solid_cable"
-
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
@@ -49,6 +45,7 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+  gem "dotenv-rails"
 end
 
 group :development do
@@ -61,6 +58,7 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem "mocha"
 end
 
 gem "chartkick"
@@ -68,3 +66,17 @@ gem "groupdate"
 
 gem "friendly_id", "~> 5.5"
 gem "rails-settings-cached"
+gem "active_link_to"
+gem "stripe"
+
+gem "good_job", "~> 4.9"
+gem "redcarpet"
+
+gem "honeybadger", "~> 5.26"
+
+gem "oj" # json performance
+gem "tailwindcss-rails"
+gem "pagy", "~> 9.3"
+gem "sqids" # for obfuscating IDs
+
+gem "telegrama", "~> 0.1.3"

@@ -16,20 +16,20 @@ module Admin
     test "should update settings" do
       post admin_settings_path, headers: @headers, params: {
         setting: {
-          app_name: "New App Name"
+          description: "Best book store"
         }
       }
 
       assert_redirected_to admin_settings_path
       assert_equal "Settings updated successfully", flash[:notice]
-      assert_equal "New App Name", Setting.app_name
+      assert_equal "Best book store", Setting.description
     end
 
     # Setting.field :user_limit, type: :integer, default: 10, validates: { numericality: true }
     test "should show errors for invalid settings" do
       post admin_settings_path, headers: @headers, params: {
         setting: {
-          app_name: "i"
+          description: "i"
         }
       }
 

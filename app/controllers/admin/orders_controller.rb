@@ -3,7 +3,7 @@ module Admin
     before_action :set_order, only: %i[show update]
 
     def index
-      @orders = Order.queued.order(created_at: :desc)
+      @orders = @current_account.orders.queued.order(created_at: :desc).includes(:order_items)
     end
 
     def show; end
@@ -19,7 +19,7 @@ module Admin
     private
 
     def set_order
-      @order = Order.find(params[:id])
+      @order = @current_account.orders.find(params[:id])
     end
   end
 end

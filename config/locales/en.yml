@@ -1,18 +1,50 @@
 en:
   activerecord:
     attributes:
+      setting:
+        scope:
+          general: General
+          checkout: Checkout
+          legal: Legal documents
+          socials: Social networks
+        default_currency: Default currency
+        address: Address
+        email: Email
+        phone_number: Phone number
+        store_name: Store name
+        automatic_tax: Automatic tax
+        default_language: Default language
+        search: Search engine
+        public_order_queue: Public order queue
+        description: Shop description
+        allow_promotion_codes: Allow promotion codes
+        phone_number_collection: Phone number collection
+        billing_address_collection: Billing address collection
+        shipping_countries: Shipping countries
+        terms_of_service: Terms of service
+        privacy_policy: Privacy policy
+        refund_policy: Refund policy
+      order_item:
+        quantity: Quantity
       product:
         name: Name
         price: Price
-        category: Category
         image_url: Image URL
-        categories:
-          food: Food
-          drinks: Drinks
-          other: Other
       order:
-        delivery_details: Delivery
         status: Status
+        checkout_session:
+          created: Submitted at
+          amount_subtotal: Subtotal
+          total_details:
+            amount_tax: Tax
+            amount_shipping: Shipping
+            amount_discount: Discount
+          amount_total: Total
+          shipping_address: Shipping address
+          shipping_name: Shipping name
+          customer_email: Customer email
+          customer_name: Customer name
+          customer_phone: Customer phone
         statuses:
           draft: Draft
           submitted: Submitted
@@ -27,25 +59,41 @@ en:
     search_form:
       placeholder: Search products...
       submit: Search
+      all: All
+      clear: Clear search
     product:
       add_to_cart: Add to cart
   orders:
     index:
       title: My Orders
     order:
-      items: items
+      items: Shopping cart
       rating: Rate the order
+      complete: Complete order
+      empty: Your cart is empty
     update:
       submitted: Order submitted! We are preparing it for you.
       rating: Thanks for the feedback!
+    show:
+      title: Order №%{name}
+      thank_you: Thank you for your order! 💕
+      rating: Rate the order
   queue:
     index:
       title: Orders in progress
+      track_order_real_time: Track your order in real-time!
+      active_orders: Active Orders
+      no_orders_in_queue: No orders in the queue right now.
+      come_back_soon: Come back soon!
+    queue_item:
+      order_number: "'Order #%{number}'"
+      estimated_wait_placeholder: Placeholder for estimated time or queue position
+      position_placeholder: "'Est. Wait: 5 mins / Position: 3'"
   order_items:
     destroy:
       notice: Item removed from order
     order_item:
-      remove: Remove from order
+      remove: Remove
     update:
       notice: Quantity updated
   admin:
@@ -55,9 +103,18 @@ en:
     stats:
       index:
         title: Stats
+        most_popular_products: Most popular products
+        satisfaction_rate: Satisfaction rate
     products:
       index:
         title: Edit products
     settings:
       index:
         title: Settings
+  static:
+    terms_of_service:
+      title: Terms of Service
+    privacy_policy:
+      title: Privacy Policy
+    refund_policy:
+      title: Refund Policy

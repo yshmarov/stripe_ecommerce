@@ -1,0 +1,37 @@
+<%= turbo_frame_tag :search_results do %>
+  <div class="mt-4 overflow-y-auto max-h-96 rounded-lg bg-base-100 shadow-lg border border-base-300 divide-y divide-base-200">
+    <% if @products.any? %>
+      <% @products.each do |product| %>
+        <%= link_to product_path(product), class: "block p-4 hover:bg-base-200 transition duration-150", data: { turbo_frame: "_top" } do %>
+          <div class="flex items-center gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-base-200 rounded-md overflow-hidden">
+              <% if product.image_url.present? %>
+                <%= image_tag product.image_url, class: "w-full h-full object-cover" %>
+              <% else %>
+                <div class="w-full h-full flex items-center justify-center">
+                  <i class="fa-solid fa-image text-base-content/40"></i>
+                </div>
+              <% end %>
+            </div>
+            <div class="min-w-0 flex-1">
+              <p class="text-sm font-medium text-base-content truncate">
+                <%= highlight(product.name, params[:query]) %>
+              </p>
+              <p class="text-sm text-base-content/60">
+                <%= price_label(product.default_price) %>
+              </p>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% else %>
+      <div class="p-4 text-sm text-base-content/60 text-center">
+        <% if params[:query].length < 2 %>
+          Please enter at least 2 characters to search
+        <% else %>
+          No products found matching "<%= params[:query] %>"
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -9,7 +9,7 @@ test:
   adapter: test
 
 production:
-  adapter: solid_cable
+  adapter: postgresql
   connects_to:
     database:
       writing: cable

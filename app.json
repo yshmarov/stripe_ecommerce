@@ -1,0 +1,74 @@
+{
+  "name": "My store",
+  "description": "Stripe Ecommerce Store",
+  "website": "https://github.com/yshmarov/stripe_ecommerce",
+  "scripts": {
+    "postdeploy": "bundle exec rails db:migrate",
+    "release": "bundle exec rails db:migrate"
+  },
+  "env": {
+    "BUNDLE_WITHOUT": "development:test",
+    "JEMALLOC_ENABLED": "true",
+    "MALLOC_ARENA_MAX": "2",
+    "RAILS_MASTER_KEY": {
+      "description": "Secret key for decrypting Rails credentials. You can find it at: config/master.key",
+      "required": true
+    },
+    "ADMIN_USERNAME": {
+      "description": "Admin username",
+      "value": "admin",
+      "required": true
+    },
+    "ADMIN_PASSWORD": {
+      "description": "Admin password",
+      "required": true
+    },
+    "STRIPE_WEBHOOK_SECRET": {
+      "description": "Stripe webhook secret",
+      "value": "whsec_foo",
+      "required": true
+    },
+    "STRIPE_SECRET_KEY": {
+      "description": "Stripe secret key",
+      "value": "sk_test_foo",
+      "required": true
+    },
+    "HONEYBADGER_API_KEY": {
+      "description": "Honeybadger API key",
+      "value": "hbp_foo"
+    },
+    "SENSIBLE_DEFAULTS": "enabled"
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    },
+    "worker": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "image": "heroku/ruby",
+  "addons": ["heroku-postgresql:essential-0"],
+  "buildpacks": [
+    { "url": "https://github.com/heroku/heroku-buildpack-apt.git" },
+    { "url": "https://github.com/gaffneyc/heroku-buildpack-jemalloc.git" },
+    { "url": "heroku/ruby" }
+  ],
+  "environments": {
+    "test": {
+      "env": {
+        "BUNDLE_WITHOUT": "production"
+      },
+
+      "scripts": {
+        "test": "bundle exec rails test"
+      }
+    }
+  },
+  "stack": "heroku-24",
+  "repository": "https://github.com/yshmarov/stripe_ecommerce",
+  "success_url": "/up",
+  "logo": "https://superails.com/logo.png"
+}

@@ -1,27 +1,41 @@
-<blockquote id="<%= dom_id order_item %>">
-  <%= image_tag order_item.product.image_url, style: "max-width: 100px;" if order_item.product.image_url.present? %>
-
-  <p>
-    <%= order_item.product.name %>,
-    <%= order_item.product.category %>
-  </p>
-
-  <p>
-    <% if @order.draft? %>
-      <%= render "order_items/form", order_item: %>
-    <% else %>
-      <%= order_item.quantity %>
-    <% end %>
-    X
-    <%= order_item.product.price / 100.to_d %>
-    <%= Setting.currency %>
-    =
-    <%= order_item.total_price / 100.to_d %>
-    <%= Setting.currency %>
-  </p>
-
-  <%= button_to [order_item.order, order_item], method: :delete, disabled: !@order.draft? do %>
-    <i class="fa-solid fa-trash"></i>
-    <%= t(".remove") %>
+<div id="<%= dom_id order_item %>" class="flex items-start gap-6 p-6 hover:bg-base-200 transition-colors">
+  <% if order_item.price.product.image_url.present? %>
+    <div class="flex-shrink-0">
+      <%= image_tag order_item.price.product.image_url,
+        class: "w-24 h-24 object-cover rounded-lg shadow-sm" %>
+    </div>
   <% end %>
-</blockquote>
+
+  <div class="flex-grow">
+    <h3 class="text-lg font-medium text-base-content">
+      <%= order_item.price.product.name %>
+    </h3>
+
+    <div class="mt-2 flex items-center gap-2 text-sm text-base-content/60">
+      <div class="flex items-center gap-2">
+        <% if @order.draft? %>
+          <%= render "order_items/form", order_item: %>
+        <% else %>
+          <span class="font-medium"><%= order_item.quantity %></span>
+        <% end %>
+        <span>×</span>
+        <span><%= price_label(order_item.price) %></span>
+      </div>
+      <span>=</span>
+      <span class="font-medium text-base-content">
+        <%= number_to_currency(order_item.total_amount / 100.0, unit: currency_code_to_symbol(order_item.price.product.default_currency)) %>
+      </span>
+    </div>
+
+    <% if @order.draft? %>
+      <div class="mt-4">
+        <%= button_to [order_item.order, order_item],
+          method: :delete,
+          class: "du-btn du-btn-error du-btn-sm" do %>
+          <i class="fa-solid fa-trash text-xs mr-1.5"></i>
+          <%= t(".remove") %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

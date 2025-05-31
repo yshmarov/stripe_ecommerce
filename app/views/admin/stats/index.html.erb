@@ -5,22 +5,14 @@
 
 <section>
   <h3>
-    Most popular products
+    <%= t(".most_popular_products") %>
   </h3>
   <%= pie_chart @most_popular_products %>
 </section>
 
 <section>
   <h3>
-    Satisfaction
+    <%= t(".satisfaction_rate") %>
   </h3>
   <%= column_chart @satisfaction %>
-</section>
-
-<section>
-  <h3>
-    Income per day,
-    <%= Setting.currency %>
-  </h3>
-  <%= line_chart @income_per_day %>
 </section>

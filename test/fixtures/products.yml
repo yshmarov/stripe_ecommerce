@@ -1,13 +1,26 @@
 monster_classic:
+  account: one
   name: Monster classic
-  price: 599
-  category: drinks
-  description: Caffeinated energy drink that contains 160mg of caffeine per 16oz can.
-  image_url: https://i.imgur.com/WEDXcDi.png
-
+  stripe_product_id: prod_RpGK0GkH6oVX4m
+  stripe_product:
+    id: prod_RpGK0GkH6oVX4m
+    default_price:
+      id: price_1QZQZQZQZQZQZQZQZQZQZQZQ
+    description: Caffeinated energy drink that contains 160mg of caffeine per 16oz can.
+    images: ['https://i.imgur.com/WEDXcDi.png']
+    active: true
+    marketing_features: []
+    metadata: {}
 rafaello:
+  account: one
   name: Rafaello
-  price: 99
-  category: food
-  description: Chocolate wafer bar with a crunchy outer layer and a creamy filling.
-  image_url: https://i.imgur.com/XwLtkud.png
+  stripe_product_id: prod_RpGK0GkH6oVX4m
+  stripe_product:
+    id: prod_RpGK0GkH6oVX4m
+    default_price:
+      id: price_1QZQZQZQZQZQZQZQZQZQZQZQ
+    description: Chocolate wafer bar with a crunchy outer layer and a creamy filling.
+    images: ['https://i.imgur.com/XwLtkud.png']
+    active: true
+    marketing_features: []
+    metadata: {}

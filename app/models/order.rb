@@ -5,30 +5,33 @@ class Order < ApplicationRecord
                   delivery: "delivery",
                   done: "done" }
 
+  belongs_to :account
+
   has_many :order_items, dependent: :destroy
-  has_many :products, through: :order_items
+  has_many :prices, through: :order_items
+
+  def products
+    prices.map(&:product).uniq
+  end
+
+  def currency
+    prices.first.stripe_price_object.currency
+  end
 
   validates :user_id, presence: true
   validates :status, presence: true
-  validates :rating, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 10 }, allow_blank: true
+  validates :rating, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }, allow_blank: true
 
   scope :queued, -> { where(status: %w[submitted processing delivery]) }
-
-  extend FriendlyId
-  friendly_id :generate_random_slug, use: [ :finders, :slugged ]
 
   def next_status
     Order.statuses.keys.split(status).last.first
   end
 
   def statuses_for_display
-    if status == "draft"
-      [ status ]
-    elsif status == "done"
-      [ status ]
-    else
-      Order.statuses.reject { |k, _v| %w[draft done].include?(k) }.keys
-    end
+    return [ status ] if %w[draft].include?(status)
+
+    self.class.statuses.reject { |k, _v| %w[draft].include?(k) }.keys
   end
 
   after_update_commit do
@@ -36,8 +39,25 @@ class Order < ApplicationRecord
     broadcast_refresh
   end
 
-  def calculate_total_price
-    update(total_price: order_items.map(&:total_price).sum)
-    update(order_items_quantity: order_items.map(&:quantity).sum)
+  def calculate_total_amount
+    update(
+      total_amount: order_items.sum(&:total_amount),
+      order_items_quantity: order_items.sum(&:quantity)
+    )
+  end
+
+  def stripe_checkout_session_object
+    Stripe::Checkout::Session.construct_from(checkout_session)
+  end
+
+  def validate_order_items
+    return unless draft?
+    order_items.each do |order_item|
+      stripe_price_id = order_item.price.stripe_price_id
+      stripe_price = Stripe::Price.retrieve({ id: stripe_price_id, expand: [ "product" ] })
+      next if stripe_price.present? && stripe_price.active && stripe_price.product.active
+
+      order_items.delete(order_item)
+    end
   end
 end

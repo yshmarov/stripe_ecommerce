@@ -1,52 +1,79 @@
-<%= turbo_stream_from [order, :status] %>
+<article id="<%= dom_id order %>" class="bg-base-100 shadow-sm rounded-lg overflow-hidden">
+  <div class="p-6">
+    <%# Header with Order ID and Status %>
+    <div class="flex items-center justify-between border-b border-base-300 pb-4">
+      <div class="flex items-center gap-4">
+        <h2 class="text-xl font-semibold text-base-content">
+          <%= link_to_unless_current t("orders.show.title", name: order.to_param.upcase), order, class: "hover:text-primary transition-colors" %>
+        </h2>
 
-<article id="<%= dom_id order %>">
-  <strong>
-    #<%= order.id %>
-  </strong>
+        <%= render partial: "orders/status", locals: { order: } %>
+      </div>
 
-  <p>
-    <%= order.created_at.strftime("%d %h %Y, %H:%M") %>
-  </p>
-
-  <p id="order_status">
-    <%= render partial: "orders/status", locals: { order: order } %>
-  </p>
-  <%# TODO: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress#describing_a_particular_region %>
-
-  <p>
-    <strong><%= t("activerecord.attributes.order.delivery_details") %></strong>
-    <kbd><%= order.delivery_details %></kbd>
-  </p>
-
-  <% if action_name != "show" %>
-    <p>
-      <%= link_to order do %>
-        <mark><%= order.order_items_quantity %></mark>
-        <strong><%= t(".items") %></strong>
-      <% end %>
-    </p>
-  <% end %>
-
-  <%= button_to order_path(order), params: {order: { id: order.id, status: Order.statuses[:submitted] }}, method: :put, disabled: !order.draft? do %>
-    <i class="fa-solid fa-credit-card"></i>
-    <%= order_pay_label(order) %>
-    <%= order.total_price / 100.to_d %>
-    <%= Setting.currency %>
-  <% end %>
-
-  <% if order.done? %>
-    <hr>
-    <p>
-      <%= t(".rating") %>
-    </p>
-    <div style="display: flex; justify-content: space-between;">
-      <%= button_to order_path(order), params: {order: { id: order.id, rating: 1 }}, method: :put, disabled: order.rating.equal?(1) do %>
-        <i class="fa-solid fa-face-dizzy"></i>
-      <% end %>
-      <%= button_to order_path(order), params: {order: { id: order.id, rating: 10 }}, method: :put, disabled: order.rating.equal?(10) do %>
-        <i class="fa-solid fa-face-grin-stars"></i>
+      <% if !order.draft? && !order.done? %>
+        <div class="block lg:hidden">
+          <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-primary/10 text-primary">
+            <i class="fa-solid fa-box-open mr-2"></i>
+            <%= t(".thank_you") %>
+          </span>
+        </div>
       <% end %>
     </div>
-  <% end %>
+
+    <%# Order Items Summary %>
+    <% if action_name != "show" %>
+      <div class="mt-4">
+        <%= link_to order, class: "inline-flex items-center text-sm text-base-content/60 hover:text-base-content" do %>
+          <strong class="mr-2"><%= t(".items") %></strong>
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
+            <%= order.order_items_quantity %>
+          </span>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%# Checkout Details %>
+    <div class="mt-6">
+      <%= render partial: "orders/checkout_details", locals: { order: } %>
+    </div>
+
+    <%# Action Buttons %>
+    <% if order.draft? %>
+      <div class="mt-6">
+        <%= button_to order_checkout_index_path(order),
+          method: :post,
+          data: { turbo: false },
+          disabled: order.order_items.empty?,
+          class: "du-btn du-btn-primary w-full" do %>
+          <i class="fa-solid fa-credit-card mr-2"></i>
+          <% if order.order_items.any? %>
+            <%= t(".complete") %>
+            <%= number_to_currency(order.total_amount / 100.0, unit: currency_code_to_symbol(order.currency)) %>
+          <% else %>
+            <%= t(".empty") %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%# Rating Section %>
+    <% if order.done? %>
+      <div class="mt-6 pt-6 border-t border-base-300">
+        <h3 class="text-sm font-medium text-base-content mb-4">
+          <%= t(".rating") %>
+        </h3>
+        <div class="flex justify-between gap-2">
+          <% rating_emojis.each do |rating, emoji| %>
+            <%= button_to order_path(order),
+              params: {order: { id: order.id, rating: rating }},
+              method: :put,
+              disabled: order.rating.equal?(rating),
+              class: "flex-1 p-2 text-2xl rounded-md #{order.rating.equal?(rating) ? 'bg-primary/10' : 'hover:bg-base-200'} disabled:cursor-not-allowed transition-colors" do %>
+              <%= emoji %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </article>

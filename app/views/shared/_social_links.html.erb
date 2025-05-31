@@ -1,4 +1,4 @@
-<% Setting.socials.each do |platform, url| %>
+<% Setting.get_scope(:socials).each do |platform, url| %>
   <% next if url.blank? %>
   <%= link_to url, target: '_blank', rel: 'noopener noreferrer', style: 'text-decoration: none;' do %>
     <i class="fa-brands fa-<%= platform %>"></i>

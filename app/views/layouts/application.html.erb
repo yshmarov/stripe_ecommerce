@@ -1,12 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html class="h-full">
   <head>
-    <title><%= Setting.app_name %></title>
+    <title><%= content_for?(:title) ? "#{content_for(:title)} | #{Setting.store_name}" : Setting.store_name %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <% if @stripe_logo_url.present? %>
+      <%= favicon_link_tag @stripe_logo_url %>
+    <% end %>
+
+    <% if @stripe_account&.settings&.branding&.primary_color.present? %>
+      <style>
+        :root {
+          --accent: <%= @stripe_account.settings.branding.primary_color %>;
+          --accent-hover: <%= @stripe_account.settings.branding.secondary_color %>;
+        }
+        @media (prefers-color-scheme: dark) {
+          :root {
+            --accent: <%= @stripe_account.settings.branding.primary_color %>;
+            --accent-hover: <%= @stripe_account.settings.branding.secondary_color %>;
+          }
+        }
+      </style>
+    <% end %>
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
@@ -14,30 +32,26 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     >
+
+    <script defer data-domain="warszawabooks.pl" src="https://plausible.io/js/script.js"></script>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
     <%= yield :head %>
   </head>
 
-  <body>
-    <header style="position: sticky; top: 0; z-index: 100;">
-      <h1>
-        <i class="fa-solid fa-utensils"></i>
-        <%= Setting.app_name %>
-      </h1>
-      <p>
-        <%= Setting.description %>
-        <%# TODO: display table delivery %>
-        <%#= session[:table_delivery] %>
-      </p>
+  <body class="bg-base-100 text-base-content flex flex-col min-h-screen">
+    <header class="sticky top-0 z-50 bg-base-100/95 backdrop-blur-sm border-b border-base-300 shadow-sm">
       <%= render "shared/nav" %>
     </header>
-    <main>
+
+    <main class="flex-grow container mx-auto px-4 lg:px-8 py-8">
       <%= render "shared/flash" %>
       <%= yield %>
     </main>
-    <footer>
+
+    <footer class="bg-base-200 border-t border-base-300">
       <%= render "shared/footer" %>
     </footer>
   </body>

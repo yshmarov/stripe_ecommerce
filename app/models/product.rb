@@ -1,24 +1,56 @@
 class Product < ApplicationRecord
   validates :name, presence: true
-  validates :price, presence: true
-  validates :category, presence: true
-  validates :image_url, presence: true
+  validates :stripe_product_id, presence: true, uniqueness: true
+  validates :stripe_product, presence: true
 
-  has_many :order_items, dependent: :restrict_with_error
-  has_many :orders, through: :order_items
+  belongs_to :account
 
-  scope :search, ->(query) { where("name ILIKE ?", "%#{query}%") }
+  has_many :prices, dependent: :destroy
+
+  scope :sellable, -> { joins(:prices).merge(Price.sellable).where.not(stripe_product: nil).where("(stripe_product->>'active')::boolean = true") }
+
+  default_scope { sellable }
+
+  scope :search, ->(query) {
+    if ActiveRecord::Base.connection.adapter_name.downcase == "postgresql"
+      where("name ILIKE ?", "%#{query}%")
+    else
+      where("LOWER(name) LIKE ?", "%#{query.downcase}%")
+    end
+  }
 
   extend FriendlyId
-  friendly_id :name, use: [ :finders, :slugged ]
+  friendly_id :name, use: [ :slugged ]
 
-  def self.categories
-    I18n.t("activerecord.attributes.product.categories")
+  def image_url
+    stripe_product_object.images.first
   end
 
-  validates :category, inclusion: { in: categories.stringify_keys.keys }
+  def default_price
+    default_price_id = if stripe_product_object.default_price.nil?
+      nil
+    elsif stripe_product_object.default_price.is_a?(String)
+      stripe_product_object.default_price
+    else
+      stripe_product_object.default_price.id
+    end
 
-  def items_in_cart(current_order)
-    order_items.find_by(order: current_order)&.quantity
+    if default_price_id.nil?
+      prices.first
+    else
+      prices.detect { |price| price.stripe_price_id == default_price_id } || prices.first
+    end
+  end
+
+  def default_unit_amount
+    default_price.stripe_price_object.unit_amount
+  end
+
+  def default_currency
+    default_price.stripe_price_object.currency
+  end
+
+  def stripe_product_object
+    Stripe::Product.construct_from(stripe_product)
   end
 end

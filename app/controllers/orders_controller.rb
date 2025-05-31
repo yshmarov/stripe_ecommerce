@@ -1,44 +1,29 @@
 class OrdersController < ApplicationController
-  # current_user orders
   before_action :set_order, only: %i[show update]
 
   def index
-    @orders = @my_orders.order(created_at: :desc)
+    @orders = @my_orders.order(created_at: :desc).includes(:order_items)
   end
 
   def show
     @order_items = @order.order_items.order(created_at: :desc)
+    @order.validate_order_items
   end
 
+  # add rating to order
   def update
-    return redirect_to @order, notice: "Order must have at least one item" if @order.order_items.empty?
-    return redirect_to @order, notice: "Order is not in draft or done status" unless @order.draft? || @order.done?
+    return redirect_to @order, notice: "Order is not completed yet" unless @order.done?
 
-    case @order.status
-    when "draft"
-      notice = handle_payment
-    when "done"
-      notice = handle_rating
-    end
-
-    redirect_to @order, notice:
+    @order.update(order_params)
+    redirect_back fallback_location: @order, notice: t(".rating")
   end
 
   private
 
-  def handle_payment
-    # TODO: implement payment
-    @order.submitted!
-    t(".submitted")
-  end
-
-  def handle_rating
-    @order.update(order_params)
-    t(".rating")
-  end
-
   def set_order
     @order = @my_orders.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to orders_path
   end
 
   def order_params

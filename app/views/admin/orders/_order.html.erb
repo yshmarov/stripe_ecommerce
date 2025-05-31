@@ -1,35 +1,30 @@
 <article id="<%= dom_id order %>">
   <strong>
-    #<%= order.id %>
+    <%= link_to_unless_current t("orders.show.title", name: order.to_param.upcase), order %>
   </strong>
 
   <p>
-    <%= order.created_at.strftime("%d %h %Y, %H:%M") %>
-  </p>
-
-  <p id="order_status">
-    <%= render partial: "orders/status", locals: { order: order } %>
+    <%= render partial: "orders/checkout_details", locals: { order: } %>
   </p>
 
   <p>
-    <strong><%= t("activerecord.attributes.order.delivery_details") %></strong>
-    <kbd><%= order.delivery_details %></kbd>
+    <%= render partial: "orders/status", locals: { order: order } %>
   </p>
 
   <% if action_name != "show" %>
     <p>
       <%= link_to [:admin, order] do %>
-        <strong>Items ordered:</strong>
+        <strong><%= t("orders.order.items") %></strong>
         <%= order.order_items_quantity %>
       <% end %>
     </p>
   <% end %>
 
   <% if order.next_status.present? %>
-    <%= button_to admin_order_path(order.id), method: :put do %>
-      <%= order.status %>
+    <%= button_to admin_order_path(order.id), method: :put, class: "du-btn du-btn-primary" do %>
+      <%= t("activerecord.attributes.order.statuses.#{order.status}") %>
       ->
-      <%= order.next_status %>
+      <%= t("activerecord.attributes.order.statuses.#{order.next_status}") %>
     <% end %>
   <% end %>
 </article>

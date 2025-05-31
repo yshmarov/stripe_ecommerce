@@ -1,11 +1,32 @@
-<%= turbo_stream_from :orders %>
+<div class="container mx-auto px-4 py-8">
+  <%= meta_tags(title: t(".title"), description: Setting.description) %>
 
-<h1>
-  <i class="fa-solid fa-stopwatch"></i>
-  <%= t(".title") %>
-  <mark id="queue_count"><%= @orders.count %></mark>
-</h1>
+  <%= turbo_stream_from :orders %>
 
-<div id="queue">
-  <%= render collection: @orders, partial: "queue/queue_item", as: :order %>
+  <div class="text-center mb-12">
+    <h1 class="text-5xl font-extrabold text-gray-800 mb-3">
+      <i class="fa-solid fa-stopwatch mr-3 text-purple-600"></i>
+      <%= t(".title") %>
+    </h1>
+    <p class="text-xl text-gray-600"><%= t(".track_order_real_time") %></p>
+    <div id="queue_count_wrapper" class="mt-4 text-lg font-semibold text-indigo-600">
+      <i class="fa-solid fa-spinner fa-spin mr-2"></i>
+      <!-- Loading spinner -->
+      <%= t(".active_orders") %>:
+      <mark id="queue_count" class="bg-purple-100 text-purple-700 px-3 py-1 rounded-md"><%= @orders.count %></mark>
+    </div>
+  </div>
+
+  <div id="queue" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <%= render collection: @orders, partial: "queue/queue_item", as: :order %>
+  </div>
+
+  <%# Placeholder for when the queue is empty %>
+  <% if @orders.empty? %>
+    <div id="empty_queue_message" class="text-center py-12">
+      <i class="fa-solid fa-mug-saucer fa-4x text-gray-400 mb-4"></i>
+      <p class="text-2xl text-gray-500"><%= t(".no_orders_in_queue") %></p>
+      <p class="text-gray-400"><%= t(".come_back_soon") %></p>
+    </div>
+  <% end %>
 </div>

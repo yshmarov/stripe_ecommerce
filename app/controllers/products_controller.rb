@@ -1,15 +1,18 @@
 class ProductsController < ApplicationController
+  include Pagy::Backend
+
   before_action :set_product, only: %i[show]
 
   def index
-    @categories = Product.distinct.pluck(:category).sort
-    products = if params[:category].present?
-                    Product.where(category: params[:category]).order(name: :asc)
+    @pagy, @products = pagy(@current_account.products.order(name: :asc), limit: 25)
+  end
+
+  def search
+    @products = if params[:query].length > 2
+                  @current_account.products.search(params[:query]).limit(5)
     else
-                    Product.order(category: :asc, name: :asc)
+                  @current_account.products.none
     end
-    products = products.search(params[:query]) if params[:query].present?
-    @grouped_products = products.group_by(&:category)
   end
 
   def show; end
@@ -17,6 +20,6 @@ class ProductsController < ApplicationController
   private
 
   def set_product
-    @product = Product.find(params[:id])
+    @product = @current_account.products.friendly.find(params[:id])
   end
 end
