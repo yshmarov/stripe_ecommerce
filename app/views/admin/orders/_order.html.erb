@@ -21,7 +21,7 @@
   <% end %>
 
   <% if order.next_status.present? %>
-    <%= button_to admin_order_path(order.id), method: :put do %>
+    <%= button_to admin_order_path(order.id), method: :put, class: "du-btn du-btn-primary" do %>
       <%= t("activerecord.attributes.order.statuses.#{order.status}") %>
       ->
       <%= t("activerecord.attributes.order.statuses.#{order.next_status}") %>
