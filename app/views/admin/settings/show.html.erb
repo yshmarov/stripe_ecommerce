@@ -1,10 +1,10 @@
-<div>
-  <h2>Application Settings</h2>
+<div class="max-w-4xl mx-auto px-4 py-8">
+  <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-8">Application Settings</h2>
 
-  <%= form_with(model: Setting.new, url: admin_settings_path) do |f| %>
+  <%= form_with(model: Setting.new, url: admin_settings_path, class: "space-y-6") do |f| %>
     <% if @errors&.any? %>
-      <div>
-        <ul>
+      <div class="rounded-md bg-red-50 dark:bg-red-900/50 p-4 mb-6">
+        <ul class="list-disc list-inside text-sm text-red-600 dark:text-red-400">
           <% @errors.full_messages.each do |msg| %>
             <li><%= msg %></li>
           <% end %>
@@ -13,46 +13,89 @@
     <% end %>
 
     <% Setting.defined_fields.group_by { |f| f[:scope] }.each do |scope, fields| %>
-      <details open>
-        <summary><%= t("activerecord.attributes.setting.scope.#{scope}", default: scope.to_s.titleize) %></summary>
-        <div>
+      <details
+        open class="group rounded-lg border border-gray-200 dark:border-gray-700">
+        <summary
+          class="
+            px-4 py-3 font-medium text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors rounded-lg group-open:border-gray-200
+            dark:group-open:border-gray-700
+          "
+        ><%= t("activerecord.attributes.setting.scope.#{scope}", default: scope.to_s.titleize) %></summary>
+        <div class="p-4 space-y-4">
           <% fields.each do |field| %>
-            <div>
+            <div class="space-y-1">
               <% field_name = field[:key] %>
               <% field_type = field[:type] %>
               <% readonly = field[:readonly] %>
 
-              <label for="setting_<%= field_name %>"><%= t("activerecord.attributes.setting.#{field_name}", default: field_name.humanize) %></label>
-
-              <% case field_type %>
-              <% when :boolean %>
-                <div>
-                  <%= f.check_box field_name, checked: Setting.send(field_name), disabled: readonly %>
+              <% if field_type == :boolean %>
+                <div class="flex items-center gap-2">
+                  <%= f.check_box field_name,
+                              checked: Setting.send(field_name),
+                              disabled: readonly,
+                              class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed" %>
+                  <label for="setting_<%= field_name %>" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <%= t("activerecord.attributes.setting.#{field_name}", default: field_name.humanize) %>
+                  </label>
                 </div>
-              <% when :array %>
-                <%= f.text_area field_name, value: Setting.send(field_name)&.join("\n"), rows: 3, disabled: readonly %>
-              <% when :hash %>
-                <%= f.text_area field_name, value: YAML.dump(Setting.send(field_name).to_hash.transform_keys(&:to_s)), rows: 5, disabled: readonly %>
-                <small>Use YAML format</small>
-              <% when :text %>
-                <%= f.text_area field_name, value: Setting.send(field_name), rows: 5, disabled: readonly %>
               <% else %>
-                <% if field[:options]&.dig(:option_values).present? %>
-                  <%= f.select field_name, options_for_select(field[:options][:option_values], Setting.send(field_name)), {}, disabled: readonly %>
+                <label for="setting_<%= field_name %>" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <%= t("activerecord.attributes.setting.#{field_name}", default: field_name.humanize) %>
+                </label>
+
+                <% case field_type %>
+                <% when :array %>
+                  <%= f.text_area field_name,
+                              value: Setting.send(field_name)&.join("\n"),
+                              rows: 3,
+                              disabled: readonly,
+                              class:
+                                "mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed" %>
+                <% when :hash %>
+                  <%= f.text_area field_name,
+                              value: YAML.dump(Setting.send(field_name).to_hash.transform_keys(&:to_s)),
+                              rows: 5,
+                              disabled: readonly,
+                              class:
+                                "mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed font-mono" %>
+                  <small class="text-sm text-gray-500 dark:text-gray-400">Use YAML format</small>
+                <% when :text %>
+                  <%= f.text_area field_name,
+                              value: Setting.send(field_name),
+                              rows: 5,
+                              disabled: readonly,
+                              class:
+                                "mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed" %>
                 <% else %>
-                  <%= f.text_field field_name, value: Setting.send(field_name), disabled: readonly, style: "width: 100%;", placeholder: field[:options]&.dig(:placeholder) %>
+                  <% if field[:options]&.dig(:option_values).present? %>
+                    <%= f.select field_name,
+                             options_for_select(field[:options][:option_values], Setting.send(field_name)),
+                             {},
+                             {
+                               class:
+                                 "mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed",
+                               disabled: readonly,
+                             } %>
+                  <% else %>
+                    <%= f.text_field field_name,
+                                 value: Setting.send(field_name),
+                                 disabled: readonly,
+                                 placeholder: field[:options]&.dig(:placeholder),
+                                 class:
+                                   "mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed" %>
+                  <% end %>
                 <% end %>
               <% end %>
 
               <% if field[:options]&.dig(:help_text).present? %>
-                <small>
+                <small class="mt-1 block text-sm text-gray-500 dark:text-gray-400">
                   <%= field[:options][:help_text] %>
                 </small>
               <% end %>
 
               <% if readonly %>
-                <small>
-                  <em>This setting is readonly</em>
+                <small class="mt-1 block text-sm text-gray-500 dark:text-gray-400 italic">
+                  This setting is readonly
                 </small>
               <% end %>
             </div>
@@ -61,8 +104,10 @@
       </details>
     <% end %>
 
-    <div>
-      <%= f.submit "Save Settings" %>
+    <div class="pt-6">
+      <%= f.submit "Save Settings",
+               class:
+                 "inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors" %>
     </div>
   <% end %>
 </div>

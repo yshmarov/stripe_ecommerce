@@ -335,6 +335,15 @@ GEM
     stripe (15.1.0)
     syntax_tree (6.2.0)
       prettier_print (>= 1.2.0)
+    tailwindcss-rails (4.2.0)
+      railties (>= 7.0.0)
+      tailwindcss-ruby (~> 4.0)
+    tailwindcss-ruby (4.0.12)
+    tailwindcss-ruby (4.0.12-aarch64-linux-gnu)
+    tailwindcss-ruby (4.0.12-aarch64-linux-musl)
+    tailwindcss-ruby (4.0.12-arm64-darwin)
+    tailwindcss-ruby (4.0.12-x86_64-linux-gnu)
+    tailwindcss-ruby (4.0.12-x86_64-linux-musl)
     telegrama (0.1.3)
       rails (>= 6.0.0)
     thor (1.3.2)
@@ -407,6 +416,7 @@ DEPENDENCIES
   sqids
   stimulus-rails
   stripe
+  tailwindcss-rails
   telegrama (~> 0.1.3)
   thruster
   turbo-rails
