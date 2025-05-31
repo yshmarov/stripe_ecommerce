@@ -3,30 +3,30 @@
     <%= t("activerecord.attributes.order.statuses.draft") %>
   </span>
 <% else %>
-  <div class="flex items-center gap-2 text-sm">
-    <% order.statuses_for_display.each do |status| %>
-      <% if order.status == status %>
-        <span
-          class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <%= case status
-              when 'submitted'
-                'bg-info/10 text-info'
-              when 'processing'
-                'bg-warning/10 text-warning'
-              when 'delivery'
-                'bg-secondary/10 text-secondary'
-              when 'done'
-                'bg-success/10 text-success'
-              end %>"
-        >
-          <%= t("activerecord.attributes.order.statuses.#{status}") %>
-        </span>
-      <% else %>
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-base-200 text-base-content/60">
-          <%= t("activerecord.attributes.order.statuses.#{status}") %>
-        </span>
-      <% end %>
-      <% unless status == order.statuses_for_display.last %>
-        <i class="fa-solid fa-chevron-right text-base-content/40 text-xs"></i>
+  <div class="flex flex-wrap items-center gap-2 text-sm">
+    <% order.statuses_for_display.each_with_index do |status_in_sequence, index| %>
+      <% is_current_status = (order.status == status_in_sequence) %>
+      <span
+        class="
+          inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold <% if is_current_status %> <%= case status_in_sequence
+                     when 'submitted'
+                       'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 ring-2 ring-blue-500 ring-offset-1 ring-offset-white dark:ring-offset-gray-800'
+                     when 'processing'
+                       'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 ring-2 ring-yellow-500 ring-offset-1 ring-offset-white dark:ring-offset-gray-800'
+                     when 'delivery'
+                       'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 ring-2 ring-purple-500 ring-offset-1 ring-offset-white dark:ring-offset-gray-800'
+                     when 'done'
+                       'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 ring-2 ring-green-500 ring-offset-1 ring-offset-white dark:ring-offset-gray-800'
+                     else
+                       'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 ring-2 ring-gray-500 ring-offset-1 ring-offset-white dark:ring-offset-gray-800'
+                     end %> <% else %> bg-gray-200
+          text-gray-500 dark:bg-gray-700 dark:text-gray-400 <% end %>
+        "
+      >
+        <%= t("activerecord.attributes.order.statuses.#{status_in_sequence}") %>
+      </span>
+      <% unless index == order.statuses_for_display.size - 1 %>
+        <i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-500 text-xs"></i>
       <% end %>
     <% end %>
   </div>
