@@ -1,17 +1,17 @@
-<div class="max-w-3xl mx-auto">
-  <h2 class="text-2xl font-bold mb-8">
+<div class="max-w-3xl mx-auto space-y-4">
+  <h2 class="text-2xl font-bold">
     <%= t(".title") %>
   </h2>
 
   <section>
-    <h3>
+    <h3 class="text-lg font-semibold">
       <%= t(".most_popular_products") %>
     </h3>
     <%= pie_chart @most_popular_products %>
   </section>
 
   <section>
-    <h3>
+    <h3 class="text-lg font-semibold">
       <%= t(".satisfaction_rate") %>
     </h3>
     <%= column_chart @satisfaction %>

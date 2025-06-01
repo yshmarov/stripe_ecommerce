@@ -1,5 +1,7 @@
-<div class="max-w-3xl mx-auto">
-  <h2 class="text-2xl font-bold mb-8">Application Settings</h2>
+<div class="max-w-3xl mx-auto space-y-4">
+  <h2 class="text-2xl font-bold">
+    <%= t(".title") %>
+  </h2>
 
   <%= form_with(model: Setting.new, url: admin_settings_path, class: "space-y-6") do |f| %>
     <% if @errors&.any? %>

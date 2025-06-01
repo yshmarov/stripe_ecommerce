@@ -109,8 +109,11 @@ en:
       index:
         title: Edit products
     settings:
+      show:
+        title: Application settings
+    analytics:
       index:
-        title: Settings
+        title: Analytics
   static:
     terms_of_service:
       title: Terms of Service
