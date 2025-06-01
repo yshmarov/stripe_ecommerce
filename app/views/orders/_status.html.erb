@@ -6,7 +6,7 @@
   <div class="flex flex-wrap items-center gap-2 text-sm">
     <% order.statuses_for_display.each_with_index do |status_in_sequence, index| %>
       <% is_current_status = (order.status == status_in_sequence) %>
-      <span class="<%= status_badge_classes(status_in_sequence, is_current_status) %>">
+      <span class="<%= status_badge_classes(is_current_status) %>">
         <%= t("activerecord.attributes.order.statuses.#{status_in_sequence}") %>
       </span>
       <% unless index == order.statuses_for_display.size - 1 %>
