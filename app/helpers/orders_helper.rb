@@ -6,22 +6,20 @@ module OrdersHelper
       # Determine status-specific color and ring-color classes
       status_specific_classes = case status_in_sequence
       when "submitted"
-                                  "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 ring-blue-500"
+                                  "du-badge du-badge-primary"
       when "processing"
-                                  "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 ring-yellow-500"
+                                  "du-badge du-badge-warning"
       when "delivery"
-                                  "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 ring-purple-500"
+                                  "du-badge du-badge-secondary"
       when "done"
-                                  "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 ring-green-500"
+                                  "du-badge du-badge-success"
       else
-                                  "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 ring-gray-500"
+                                  "du-badge du-badge-neutral"
       end
 
-      common_active_ring_classes = "ring-2 ring-offset-1 ring-offset-white dark:ring-offset-gray-800"
-      "#{base_classes} #{status_specific_classes} #{common_active_ring_classes}"
+      "#{base_classes} #{status_specific_classes}"
     else
-      inactive_classes = "bg-gray-200 text-gray-500 dark:bg-gray-700 dark:text-gray-400"
-      "#{base_classes} #{inactive_classes}"
+      "du-badge du-badge-neutral"
     end
   end
 end

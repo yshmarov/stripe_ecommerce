@@ -1,5 +1,5 @@
 <% if order.draft? %>
-  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-base-200 text-base-content">
+  <span class="du-badge du-badge-neutral">
     <%= t("activerecord.attributes.order.statuses.draft") %>
   </span>
 <% else %>
@@ -10,7 +10,7 @@
         <%= t("activerecord.attributes.order.statuses.#{status_in_sequence}") %>
       </span>
       <% unless index == order.statuses_for_display.size - 1 %>
-        <i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-500 text-xs"></i>
+        <i class="fa-solid fa-chevron-right text-base-content text-xs"></i>
       <% end %>
     <% end %>
   </div>
