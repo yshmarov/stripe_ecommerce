@@ -16,8 +16,8 @@ class ShopController < ApplicationController
     # balance calculation
     order_item.calculate_total_amount
 
-    notice = t(".added_to_cart", product: price.product.name)
+    flash[:notice] = t(".added_to_cart", product: price.product.name)
 
-    redirect_back(fallback_location: products_path, notice:)
+    redirect_back(fallback_location: products_path)
   end
 end
