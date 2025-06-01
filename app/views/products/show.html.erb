@@ -13,7 +13,7 @@
   </ul>
 </div>
 
-<article id="<%= dom_id @product %>" class="bg-base-100 shadow-sm hover:shadow-md transition-shadow flex flex-col md:flex-row">
+<article id="<%= dom_id @product %>" class="bg-base-100 flex flex-col md:flex-row rounded-3xl">
   <figure class="md:w-1/2 lg:w-2/5 aspect-square relative overflow-hidden rounded">
     <%= tag.div class: "block w-full h-full" do %>
       <% if @product.image_url.present? %>
@@ -26,18 +26,18 @@
     <% end %>
   </figure>
 
-  <div class="du-card-body p-6">
+  <div class="p-4 lg:p-8 space-y-4">
     <div>
-      <h2 class="du-card-title text-2xl font-semibold mb-1">
+      <h2 class="text-2xl font-semibold mb-1">
         <%= link_to_unless_current highlight(@product.name, params[:query]), @product, class: "hover:text-primary transition-colors" %>
       </h2>
 
-      <div class="mt-1 text-xl font-medium text-primary mb-4">
+      <div class="text-xl font-medium text-primary mb-4">
         <%= price_label(@product.default_price) %>
       </div>
     </div>
 
-    <div class="my-6">
+    <div class="">
       <% if (order_item = @product.default_price.order_item_in_cart(@current_order)) %>
         <div class="flex items-center gap-2">
           <% if order_item.quantity == 1 %>
@@ -75,22 +75,19 @@
       <% end %>
     </div>
 
-    <%# This part is specific to the 'show' view %>
     <% if @product.stripe_product_object.description.present? %>
-      <div class="mt-4 prose dark:prose-invert">
-        <p class="text-base-content/80">
-          <%= @product.stripe_product_object.description %>
-        </p>
+      <div class="prose dark:prose-invert">
+        <%= @product.stripe_product_object.description %>
       </div>
     <% end %>
 
     <% if marketing_features(@product).any? %>
-      <div class="mt-6">
-        <h3 class="text-base font-semibold text-base-content mb-2">Features</h3>
-        <ul class="mt-2 space-y-2">
+      <div class="space-y-2">
+        <h3 class="text-base font-semibold text-base-content">Features</h3>
+        <ul class="space-y-2">
           <% marketing_features(@product).each do |feature| %>
-            <li class="flex items-start">
-              <i class="fa-solid fa-check text-success mt-1 mr-2"></i>
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-check text-success"></i>
               <span class="text-sm text-base-content/80"><%= feature %></span>
             </li>
           <% end %>
