@@ -1,5 +1,5 @@
 <div class="max-w-3xl mx-auto">
-  <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-8">Application Settings</h2>
+  <h2 class="text-2xl font-bold mb-8">Application Settings</h2>
 
   <%= form_with(model: Setting.new, url: admin_settings_path, class: "space-y-6") do |f| %>
     <% if @errors&.any? %>
@@ -17,8 +17,7 @@
         open class="group rounded-lg border border-gray-200 dark:border-gray-700">
         <summary
           class="
-            px-4 py-3 font-medium text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors rounded-lg group-open:border-gray-200
-            dark:group-open:border-gray-700
+            px-4 py-3 font-medium bg-gray-50 dark:bg-gray-800 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors rounded-lg group-open:border-gray-200 dark:group-open:border-gray-700
           "
         ><%= t("activerecord.attributes.setting.scope.#{scope}", default: scope.to_s.titleize) %></summary>
         <div class="p-4 space-y-4">
