@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-full">
   <head>
     <title><%= content_for?(:title) ? "#{content_for(:title)} | #{Setting.store_name}" : Setting.store_name %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -10,7 +10,6 @@
       <%= favicon_link_tag @stripe_logo_url %>
     <% end %>
 
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
     <% if @stripe_account&.settings&.branding&.primary_color.present? %>
       <style>
         :root {
@@ -35,22 +34,24 @@
     >
 
     <script defer data-domain="warszawabooks.pl" src="https://plausible.io/js/script.js"></script>
-
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
     <%= yield :head %>
   </head>
 
-  <body>
-    <header style="position: sticky; top: 0; z-index: 100;">
+  <body class="bg-base-100 text-base-content flex flex-col min-h-screen">
+    <header class="sticky top-0 z-50 bg-base-100/95 backdrop-blur-sm border-b border-base-300 shadow-sm">
       <%= render "shared/nav" %>
     </header>
-    <main>
-      <%#= render "shared/flash" %>
+
+    <main class="flex-grow container mx-auto px-4 lg:px-8 py-8">
+      <%= render "shared/flash" %>
       <%= yield %>
     </main>
-    <footer>
+
+    <footer class="bg-base-200 border-t border-base-300">
       <%= render "shared/footer" %>
     </footer>
   </body>

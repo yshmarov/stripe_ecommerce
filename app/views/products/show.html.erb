@@ -1,59 +1,26 @@
 <%= meta_tags(title: @product.name, description: @product.stripe_product_object.description, image: @product.image_url) %>
 
-<nav aria-label="navigation">
-  <%= link_to products_path do %>
-    <i class="fa-solid fa-chevron-left"></i>
-    <%= t("products.index.title") %>
-  <% end %>
-</nav>
-
 <% content_for :head do %>
   <script type="application/ld+json">
     <%= product_schema_json(@product) %>
   </script>
 <% end %>
 
-<article id="<%= dom_id @product %>" style="display: flex; flex-direction: row; gap: 1rem;">
-  <div style="width: 256px; flex-shrink: 0;">
-    <%= image_tag @product.image_url, style: "height: 256px; object-fit: cover;" if @product.image_url.present? %>
-  </div>
+<nav class="flex mb-8" aria-label="Breadcrumb">
+  <ol class="inline-flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+    <li>
+      <%= link_to products_path, class: "hover:text-gray-700 dark:hover:text-gray-300" do %>
+        <i class="fa-solid fa-shop"></i>
+        <span class="sr-only">Home</span>
+      <% end %>
+    </li>
+    <li>
+      <div class="flex items-center">
+        <i class="fa-solid fa-chevron-right text-xs mx-2"></i>
+        <span class="text-gray-700 dark:text-gray-300"><%= @product.name %></span>
+      </div>
+    </li>
+  </ol>
+</nav>
 
-  <div>
-    <b>
-      <%= @product.name %>
-    </b>
-
-    <p>
-      <%= price_label(@product.default_price) %>
-    </p>
-
-    <%= button_to add_to_cart_path(@product.default_price) do %>
-      <i class="fa-solid fa-cart-arrow-down"></i>
-      <%= t(".add_to_cart") %>
-      <mark><%= @product.default_price.items_in_cart(@current_order) %></mark>
-    <% end %>
-
-    <p>
-      <%= @product.stripe_product_object.description %>
-    </p>
-
-    <% if @product.stripe_product_object.metadata.present? %>
-      <dl style="display: grid; grid-template-columns: auto 1fr;">
-        <% @product.stripe_product_object.metadata.each do |key, value| %>
-          <dt><%= key %></dt>
-          <dd><%= value %></dd>
-        <% end %>
-      </dl>
-    <% end %>
-
-    <% if marketing_features(@product).any? %>
-      <ul>
-        <% marketing_features(@product).each do |feature| %>
-          <li>
-            <small><%= feature %></small>
-          </li>
-        <% end %>
-      </ul>
-    <% end %>
-  </div>
-</article>
+<%= render "products/product_detail", product: @product %>

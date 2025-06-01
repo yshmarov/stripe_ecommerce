@@ -68,4 +68,34 @@ module ApplicationHelper
 
     markdown.render(text).html_safe
   end
+
+  def alert_class_for(type)
+    case type.to_sym
+    when :notice, :success
+      "du-alert-success"
+    when :error, :alert
+      "du-alert-error"
+    when :warning
+      "du-alert-warning"
+    when :info
+      "du-alert-info"
+    else
+      "du-alert"
+    end
+  end
+
+  def alert_icon_for(type)
+    case type.to_sym
+    when :notice, :success
+      '<i class="fa-solid fa-circle-check"></i>'
+    when :error, :alert
+      '<i class="fa-solid fa-circle-exclamation"></i>'
+    when :warning
+      '<i class="fa-solid fa-triangle-exclamation"></i>'
+    when :info
+      '<i class="fa-solid fa-circle-info"></i>'
+    else
+      '<i class="fa-solid fa-bell"></i>'
+    end.html_safe
+  end
 end

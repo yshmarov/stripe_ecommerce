@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     resources :orders, only: %i[index show update]
     resources :stats, only: :index
     mount GoodJob::Engine, at: "good_job"
+    mount ActiveAnalytics::Engine, at: "analytics"
   end
 
   resources :webhooks, only: [ :create ]

@@ -1,4 +1,26 @@
-<article id="<%= dom_id(order) %>">
-  <strong>#<%= order.to_param %></strong>
-  <%= render partial: "orders/status", locals: { order: } %>
+<article id="<%= dom_id(order) %>" class="bg-white shadow-md rounded-lg p-6 mb-4 hover:shadow-lg transition-shadow duration-200 ease-in-out">
+  <div class="flex justify-between items-center mb-3">
+    <h2 class="text-2xl font-bold text-gray-800">
+      <i class="fa-solid fa-receipt mr-2 text-indigo-600"></i>
+      <%= t(".order_number", number: order.to_param) %>
+    </h2>
+    <div class="text-sm font-semibold text-gray-600">
+      <!--
+      <%= t(".estimated_wait_placeholder") %>
+      --> <!--
+      <%= t(".position_placeholder") %>
+      -->
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <%= render partial: "orders/status", locals: { order: order } %>
+  </div>
+  <!-- Optional: Add a visual progress bar if status allows --> <!--
+  <% if order.status == "processing" %>
+    <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+      <div class="bg-blue-600 h-2.5 rounded-full" style="width: 45%"></div>
+    </div>
+  <% end %>
+  -->
 </article>

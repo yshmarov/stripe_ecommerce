@@ -1,1 +1,20 @@
-<aside class="notice" id="flash"><%= notice %></aside>
+<% if flash.any? %>
+  <div class="fixed inset-x-0 top-16 z-40 flex flex-col items-center pointer-events-none space-y-2">
+    <% flash.each do |type, message| %>
+      <% next if message.blank? %>
+      <div
+        class="
+          cursor-pointer du-alert du-alert-sm <%= alert_class_for(type) %> shadow-lg max-w-sm pointer-events-auto opacity-0 -translate-y-full transform transition-all duration-300 ease-out
+        "
+        data-controller="flash"
+        data-action="click->flash#dismiss"
+        data-flash-target="message"
+      >
+        <div class="flex items-center gap-2">
+          <%= alert_icon_for(type) %>
+          <span class="text-sm"><%= message %></span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
