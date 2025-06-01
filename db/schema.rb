@@ -159,6 +159,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_31_215847) do
     t.bigint "account_id", null: false
     t.string "user_agent"
     t.string "ip_address"
+    t.bigint "subtotal_amount", default: 0, null: false
     t.index ["account_id"], name: "index_orders_on_account_id"
   end
 

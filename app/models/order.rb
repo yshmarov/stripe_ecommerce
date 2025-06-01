@@ -39,11 +39,29 @@ class Order < ApplicationRecord
     broadcast_refresh
   end
 
-  def calculate_total_amount
+  def calculate_subtotal_amount
     update(
-      total_amount: order_items.sum(&:total_amount),
+      subtotal_amount: order_items.sum(&:total_amount),
       order_items_quantity: order_items.sum(&:quantity)
     )
+    calculate_total_amount
+  end
+
+  def calculate_total_amount
+    total_amount = 0
+    return total_amount if draft?
+    return total_amount if stripe_checkout_session_object.nil?
+
+    total_amount = subtotal_amount +
+      stripe_checkout_session_object.total_details.amount_shipping +
+      stripe_checkout_session_object.total_details.amount_tax -
+      stripe_checkout_session_object.total_details.amount_discount
+
+    update(
+      total_amount: total_amount
+    )
+
+    total_amount
   end
 
   def stripe_checkout_session_object
