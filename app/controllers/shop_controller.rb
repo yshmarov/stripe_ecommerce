@@ -16,7 +16,7 @@ class ShopController < ApplicationController
     # balance calculation
     order_item.calculate_total_amount
 
-    notice = "#{price.product.name} added to cart"
+    notice = t(".added_to_cart", product: price.product.name)
 
     redirect_back(fallback_location: products_path, notice:)
   end

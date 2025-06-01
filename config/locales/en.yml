@@ -63,6 +63,9 @@ en:
       clear: Clear search
     product:
       add_to_cart: Add to cart
+  shop:
+    add_to_cart:
+      added_to_cart: '%{product} added to cart'
   orders:
     index:
       title: My Orders

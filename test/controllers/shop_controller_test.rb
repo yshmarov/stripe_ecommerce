@@ -13,7 +13,7 @@ class ShopControllerTest < ActionDispatch::IntegrationTest
       end
     end
     assert_redirected_to products_path
-    assert_equal "#{product.name} added to cart", flash[:notice]
+    assert_equal t("shop.add_to_cart.added_to_cart", product: product.name), flash[:notice]
 
     order = Order.last
     assert_equal product, order.products.first
@@ -26,7 +26,7 @@ class ShopControllerTest < ActionDispatch::IntegrationTest
     price2 = product2.default_price
     post add_to_cart_path(price2)
     assert_redirected_to products_path
-    assert_equal "#{product2.name} added to cart", flash[:notice]
+    assert_equal t("shop.add_to_cart.added_to_cart", product: product2.name), flash[:notice]
     assert_equal 2, order.reload.order_items_quantity
     assert_equal 2, order.order_items.count
 
