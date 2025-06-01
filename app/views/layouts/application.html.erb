@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="h-full bg-base-300 text-base-content">
+<html class="h-full bg-base-200 text-base-content">
   <head>
     <title><%= content_for?(:title) ? "#{content_for(:title)} | #{Setting.store_name}" : Setting.store_name %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -41,17 +41,17 @@
     <%= yield :head %>
   </head>
 
-  <body class="bg-base-100 text-base-content flex flex-col min-h-screen">
-    <header class="sticky top-0 z-50 bg-base-100/95 backdrop-blur-sm border-b border-base-300 shadow-sm">
+  <body class="flex flex-col min-h-screen">
+    <header class="sticky top-0 z-50 bg-base-100 border-b border-base-300">
       <%= render "shared/nav" %>
     </header>
 
-    <main class="flex-grow container mx-auto px-4 lg:px-8 py-8">
+    <main class="flex-grow container mx-auto max-w-7xl p-4 lg:p-8 space-y-4 lg:space-y-8">
       <%= render "shared/flash" %>
       <%= yield %>
     </main>
 
-    <footer class="bg-base-200 border-t border-base-300">
+    <footer class="bg-base-100 border-t border-base-300">
       <%= render "shared/footer" %>
     </footer>
   </body>

@@ -14,7 +14,7 @@
 </div>
 
 <article id="<%= dom_id @product %>" class="bg-base-100 shadow-sm hover:shadow-md transition-shadow flex flex-col md:flex-row">
-  <figure class="md:w-1/2 lg:w-2/5 aspect-square relative">
+  <figure class="md:w-1/2 lg:w-2/5 aspect-square relative overflow-hidden rounded">
     <%= tag.div class: "block w-full h-full" do %>
       <% if @product.image_url.present? %>
         <%= image_tag @product.image_url, class: "w-full h-full object-cover transition-transform duration-300 hover:scale-105 rounded" %>

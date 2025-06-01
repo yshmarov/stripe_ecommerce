@@ -1,21 +1,17 @@
 <%= meta_tags(title: t(".title"), description: Setting.description) %>
 
-<div class="max-w-7xl mx-auto px-4 lg:px-8">
-  <% if Setting.description.present? %>
-    <div class="my-8 p-6 bg-primary text-primary-content rounded-lg shadow-xl prose prose-invert text-lg lg:text-xl">
-      <%= simple_format Setting.description %>
-    </div>
-  <% end %>
-
-  <div class="space-y-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      <%= render collection: @products, partial: "products/product", as: :product %>
-    </div>
-
-    <% if @pagy.pages > 1 %>
-      <div class="flex justify-center">
-        <%== pagy_nav(@pagy) %>
-      </div>
-    <% end %>
+<% if Setting.description.present? %>
+  <div class="p-12 bg-primary text-primary-content rounded-lg shadow-xl prose prose-invert text-lg lg:text-xl">
+    <%= simple_format Setting.description %>
   </div>
+<% end %>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+  <%= render collection: @products, partial: "products/product", as: :product %>
 </div>
+
+<% if @pagy.pages > 1 %>
+  <div class="flex justify-center">
+    <%== pagy_nav(@pagy) %>
+  </div>
+<% end %>
