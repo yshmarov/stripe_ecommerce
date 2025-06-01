@@ -6,21 +6,96 @@
   </script>
 <% end %>
 
-<nav class="flex mb-8" aria-label="Breadcrumb">
-  <ol class="inline-flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
-    <li>
-      <%= link_to products_path, class: "hover:text-gray-700 dark:hover:text-gray-300" do %>
-        <i class="fa-solid fa-shop"></i>
-        <span class="sr-only">Home</span>
-      <% end %>
-    </li>
-    <li>
-      <div class="flex items-center">
-        <i class="fa-solid fa-chevron-right text-xs mx-2"></i>
-        <span class="text-gray-700 dark:text-gray-300"><%= @product.name %></span>
-      </div>
-    </li>
-  </ol>
-</nav>
+<div class="du-breadcrumbs text-sm">
+  <ul>
+    <li><%= link_to t("products.index.title"), products_path %></li>
+    <li><%= @product.name %></li>
+  </ul>
+</div>
 
-<%= render "products/product_detail", product: @product %>
+<article id="<%= dom_id @product %>" class="bg-base-100 shadow-sm hover:shadow-md transition-shadow flex flex-col md:flex-row">
+  <figure class="md:w-1/2 lg:w-2/5 aspect-square relative overflow-hidden rounded">
+    <%= tag.div class: "block w-full h-full" do %>
+      <% if @product.image_url.present? %>
+        <%= image_tag @product.image_url, class: "w-full h-full object-cover transition-transform duration-300 hover:scale-105 rounded" %>
+      <% else %>
+        <div class="w-full h-full flex items-center justify-center bg-base-200">
+          <i class="fa-solid fa-image text-4xl text-base-content/40"></i>
+        </div>
+      <% end %>
+    <% end %>
+  </figure>
+
+  <div class="du-card-body p-6">
+    <div>
+      <h2 class="du-card-title text-2xl font-semibold mb-1">
+        <%= link_to_unless_current highlight(@product.name, params[:query]), @product, class: "hover:text-primary transition-colors" %>
+      </h2>
+
+      <div class="mt-1 text-xl font-medium text-primary mb-4">
+        <%= price_label(@product.default_price) %>
+      </div>
+    </div>
+
+    <div class="my-6">
+      <% if (order_item = @product.default_price.order_item_in_cart(@current_order)) %>
+        <div class="flex items-center gap-2">
+          <% if order_item.quantity == 1 %>
+            <%= button_to order_order_item_path(@current_order, order_item),
+              method: :delete,
+              class: "du-btn du-btn-sm du-btn-outline du-btn-primary" do %>
+              <i class="fa-solid fa-minus"></i>
+            <% end %>
+          <% else %>
+            <%= button_to order_order_item_path(@current_order, order_item),
+              method: :patch,
+              params: { order_item: { quantity: order_item.quantity - 1 } },
+              class: "du-btn du-btn-sm du-btn-outline du-btn-primary" do %>
+              <i class="fa-solid fa-minus"></i>
+            <% end %>
+          <% end %>
+
+          <div class="du-badge du-badge-xl du-badge-outline du-badge-primary">
+            <%= order_item.quantity %>
+          </div>
+
+          <%= button_to order_order_item_path(@current_order, order_item),
+            method: :patch,
+            params: { order_item: { quantity: order_item.quantity + 1 } },
+            class: "du-btn du-btn-sm du-btn-outline du-btn-primary" do %>
+            <i class="fa-solid fa-plus"></i>
+          <% end %>
+        </div>
+      <% else %>
+        <%= button_to add_to_cart_path(@product.default_price),
+          class: "du-btn du-btn-primary" do %>
+          <i class="fa-solid fa-cart-arrow-down mr-2"></i>
+          <%= t(".add_to_cart") %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <%# This part is specific to the 'show' view %>
+    <% if @product.stripe_product_object.description.present? %>
+      <div class="mt-4 prose dark:prose-invert">
+        <p class="text-base-content/80">
+          <%= @product.stripe_product_object.description %>
+        </p>
+      </div>
+    <% end %>
+
+    <% if marketing_features(@product).any? %>
+      <div class="mt-6">
+        <h3 class="text-base font-semibold text-base-content mb-2">Features</h3>
+        <ul class="mt-2 space-y-2">
+          <% marketing_features(@product).each do |feature| %>
+            <li class="flex items-start">
+              <i class="fa-solid fa-check text-success mt-1 mr-2"></i>
+              <span class="text-sm text-base-content/80"><%= feature %></span>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+</article>

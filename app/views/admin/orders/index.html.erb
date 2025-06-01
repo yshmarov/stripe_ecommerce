@@ -1,12 +1,12 @@
-<div class="max-w-3xl mx-auto">
-  <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-8">
+<div class="max-w-3xl mx-auto space-y-4">
+  <h2 class="text-2xl font-bold">
     <%= t("admin.orders.index.title") %>
     <span class="du-badge du-badge-primary">
       <%= @orders.count %>
     </span>
   </h2>
 
-  <div id="orders">
+  <div id="orders" class="space-y-4">
     <%= render collection: @orders, partial: "admin/orders/order", as: :order %>
   </div>
 </div>

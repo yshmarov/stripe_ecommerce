@@ -86,6 +86,13 @@
           </div>
 
           <div>
+            <%= active_link_to admin_active_analytics_path, class: "inline-block text-base-content/60 hover:text-base-content transition-colors" do %>
+              <i class="fa fa-lock"></i>
+              <%= t("admin.analytics.index.title") %>
+            <% end %>
+          </div>
+
+          <div>
             <%= active_link_to [:admin, :settings], class: "inline-block text-base-content/60 hover:text-base-content transition-colors" do %>
               <i class="fa fa-lock"></i>
               <%= t("admin.settings.index.title") %>

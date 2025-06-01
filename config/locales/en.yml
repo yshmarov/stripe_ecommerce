@@ -63,6 +63,9 @@ en:
       clear: Clear search
     product:
       add_to_cart: Add to cart
+  shop:
+    add_to_cart:
+      added_to_cart: '%{product} added to cart'
   orders:
     index:
       title: My Orders
@@ -109,8 +112,11 @@ en:
       index:
         title: Edit products
     settings:
+      show:
+        title: Application settings
+    analytics:
       index:
-        title: Settings
+        title: Analytics
   static:
     terms_of_service:
       title: Terms of Service
