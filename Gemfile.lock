@@ -133,7 +133,7 @@ GEM
       fugit (>= 1.11.0)
       railties (>= 6.1.0)
       thor (>= 1.0.0)
-    groupdate (6.6.0)
+    groupdate (6.7.0)
       activesupport (>= 7.1)
     honeybadger (5.28.0)
       logger
