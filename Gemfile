@@ -72,7 +72,7 @@ gem "stripe"
 gem "good_job", "~> 4.9"
 gem "redcarpet"
 
-gem "honeybadger", "~> 5.26"
+gem "honeybadger", "~> 5.29"
 
 gem "oj" # json performance
 gem "tailwindcss-rails"
