@@ -215,7 +215,7 @@ GEM
       bigdecimal (>= 3.0)
       ostruct (>= 0.2)
     ostruct (0.6.1)
-    pagy (9.3.4)
+    pagy (9.4.0)
     parallel (1.27.0)
     parser (3.3.8.0)
       ast (~> 2.4.1)
@@ -411,7 +411,7 @@ DEPENDENCIES
   kamal
   mocha
   oj
-  pagy (~> 9.3)
+  pagy (~> 9.4)
   pg (~> 1.1)
   propshaft
   puma (>= 5.0)
