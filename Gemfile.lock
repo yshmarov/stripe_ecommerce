@@ -135,7 +135,7 @@ GEM
       thor (>= 1.0.0)
     groupdate (6.6.0)
       activesupport (>= 7.1)
-    honeybadger (5.28.0)
+    honeybadger (6.1.0)
       logger
       ostruct
     i18n (1.14.7)
@@ -214,7 +214,7 @@ GEM
     oj (3.16.11)
       bigdecimal (>= 3.0)
       ostruct (>= 0.2)
-    ostruct (0.6.1)
+    ostruct (0.6.3)
     pagy (9.3.4)
     parallel (1.27.0)
     parser (3.3.8.0)
@@ -405,7 +405,7 @@ DEPENDENCIES
   friendly_id (~> 5.5)
   good_job (~> 4.9)
   groupdate
-  honeybadger (~> 5.26)
+  honeybadger (~> 6.1)
   importmap-rails
   jbuilder
   kamal
