@@ -79,6 +79,6 @@ gem "tailwindcss-rails"
 gem "pagy", "~> 9.3"
 gem "sqids" # for obfuscating IDs
 
-gem "telegrama", "~> 0.1.3"
+gem "telegrama", "~> 0.2.0"
 
 gem "active_analytics"
