@@ -69,7 +69,7 @@ gem "rails-settings-cached"
 gem "active_link_to"
 gem "stripe"
 
-gem "good_job", "~> 4.9"
+gem "good_job", "~> 4.13"
 gem "redcarpet"
 
 gem "honeybadger", "~> 5.26"
