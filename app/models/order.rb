@@ -1,9 +1,12 @@
 class Order < ApplicationRecord
+  include InpostDelivery
   enum :status, { draft: "draft",
                   submitted: "submitted",
                   processing: "processing",
                   delivery: "delivery",
                   done: "done" }
+
+  enum :delivery_type, { home_delivery: "home_delivery", in_post: "in_post" }, default: :home_delivery
 
   belongs_to :account
 

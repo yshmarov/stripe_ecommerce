@@ -28,6 +28,19 @@ class Notifications::OrderCreatedJob < ApplicationJob
       • Total: #{number_to_currency(order.total_amount / 100.0, unit: currency_code_to_symbol(order.currency))}
 
       *Delivery Address*
+#{order.inpost_delivery? ? "• InPost Pickup: #{order.inpost_pickup_point_name}\n• Address: #{order.inpost_pickup_point_address}\n• Tracking: #{order.inpost_tracking_url}" : order.shipping_address}
+
+*Customer*
+• Email: #{order.email}
+• Phone: #{order.phone}
+    MESSAGE
+
+    # Send to Slack or other notification service
+    # Slack::Notifier.post(message) if Rails.env.production?
+
+    logger.info "Order #{order.obfuscated_id} notification sent"
+  end
+endss*
       #{order.stripe_checkout_session_object.collected_information.shipping_details.address.values.compact.join(", ")}
 
       *Customer Details*
