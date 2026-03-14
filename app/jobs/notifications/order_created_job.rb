@@ -27,6 +27,9 @@ class Notifications::OrderCreatedJob < ApplicationJob
       • Discount: #{number_to_currency(-order.stripe_checkout_session_object.total_details.amount_discount.to_f / 100, unit: currency_code_to_symbol(order.currency))}
       • Total: #{number_to_currency(order.total_amount / 100.0, unit: currency_code_to_symbol(order.currency))}
 
+      *Delivery Type*
+      #{order.delivery_type.humanize}#{order.delivery_in_post? ? " (#{order.inpost_point_name} - #{order.inpost_point_address})" : ""}
+
       *Delivery Address*
       #{order.stripe_checkout_session_object.collected_information.shipping_details.address.values.compact.join(", ")}
 

@@ -23,6 +23,7 @@ class Setting < RailsSettings::Base
     field :billing_address_collection, default: "required", type: :string, validates: { presence: true, inclusion: { in: BILLING_ADDRESS_COLLECTION_OPTIONS } }, option_values: BILLING_ADDRESS_COLLECTION_OPTIONS
     field :shipping_countries, default: [ "FR", "PL" ], type: :array
     field :automatic_tax, default: false, type: :boolean
+    field :inpost_api_token, default: "", type: :string, placeholder: "InPost GeoWidget API token"
   end
 
   scope :legal do

@@ -10,8 +10,16 @@ class OrdersController < ApplicationController
     @order.validate_order_items
   end
 
-  # add rating to order
   def update
+    if @order.draft?
+      @order.update(delivery_params)
+      respond_to do |format|
+        format.turbo_stream { head :ok }
+        format.html { redirect_back fallback_location: @order }
+      end
+      return
+    end
+
     return redirect_to @order, notice: "Order is not completed yet" unless @order.done?
 
     @order.update(order_params)
@@ -28,5 +36,9 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:rating)
+  end
+
+  def delivery_params
+    params.require(:order).permit(:delivery_type, :inpost_point_name, :inpost_point_address)
   end
 end

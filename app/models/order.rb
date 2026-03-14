@@ -5,6 +5,8 @@ class Order < ApplicationRecord
                   delivery: "delivery",
                   done: "done" }
 
+  enum :delivery_type, { home_delivery: "home_delivery", in_post: "in_post" }, prefix: :delivery
+
   belongs_to :account
 
   has_many :order_items, dependent: :destroy
@@ -21,6 +23,8 @@ class Order < ApplicationRecord
   validates :user_id, presence: true
   validates :status, presence: true
   validates :rating, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }, allow_blank: true
+  validates :inpost_point_name, presence: true, if: :delivery_in_post?
+  validates :inpost_point_address, presence: true, if: :delivery_in_post?
 
   scope :queued, -> { where(status: %w[submitted processing delivery]) }
 
@@ -77,5 +81,11 @@ class Order < ApplicationRecord
 
       order_items.delete(order_item)
     end
+  end
+
+  def delivery_ready?
+    return true if delivery_home_delivery?
+
+    delivery_in_post? && inpost_point_name.present?
   end
 end

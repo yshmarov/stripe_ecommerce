@@ -1,0 +1,44 @@
+<% if order.draft? %>
+  <div data-controller="delivery" class="mt-6 p-4 bg-base-200 rounded-lg">
+    <h3 class="text-sm font-semibold text-base-content mb-3">
+      <%= t("orders.delivery.title") %>
+    </h3>
+
+    <div class="flex gap-6">
+      <label class="du-label cursor-pointer flex items-center gap-2">
+        <input type="radio" name="delivery_type" value="home_delivery"
+               data-delivery-target="radio" data-action="delivery#select"
+               class="du-radio du-radio-primary"
+               <%= "checked" if order.delivery_home_delivery? %>>
+        <span><%= t("orders.delivery.home_delivery") %></span>
+      </label>
+
+      <label class="du-label cursor-pointer flex items-center gap-2">
+        <input type="radio" name="delivery_type" value="in_post"
+               data-delivery-target="radio" data-action="delivery#select"
+               class="du-radio du-radio-primary"
+               <%= "checked" if order.delivery_in_post? %>>
+        <span><%= t("orders.delivery.in_post") %></span>
+      </label>
+    </div>
+
+    <div data-delivery-target="inpostWidget" class="mt-4 <%= "hidden" unless order.delivery_in_post? %>"
+         style="height: 400px;">
+      <inpost-geowidget
+        onpoint="window.handleInpostPointSelected"
+        token="<%= Setting.inpost_api_token %>"
+        language="<%= I18n.locale %>">
+      </inpost-geowidget>
+    </div>
+
+    <div data-delivery-target="selectedPoint"
+         class="mt-3 p-3 bg-base-100 rounded-md <%= "hidden" unless order.inpost_point_name.present? %>">
+      <% if order.inpost_point_name.present? %>
+        <p class="text-sm font-medium"><%= order.inpost_point_name %></p>
+        <p class="text-xs text-base-content/60"><%= order.inpost_point_address %></p>
+      <% end %>
+    </div>
+
+    <input type="hidden" data-delivery-target="orderUrl" value="<%= order_path(order) %>">
+  </div>
+<% end %>

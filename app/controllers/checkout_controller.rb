@@ -28,7 +28,12 @@ class CheckoutController < ApplicationController
       mode: "payment",
       success_url: order_url(@order),
       cancel_url: order_url(@order),
-      client_reference_id: @order.id
+      client_reference_id: @order.id,
+      metadata: {
+        delivery_type: @order.delivery_type,
+        inpost_point_name: @order.inpost_point_name,
+        inpost_point_address: @order.inpost_point_address
+      }.compact
     )
 
     redirect_to session.url, allow_other_host: true, status: :see_other

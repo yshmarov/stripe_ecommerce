@@ -28,13 +28,16 @@
       <%= render partial: "orders/checkout_details", locals: { order: } %>
     </div>
 
+    <%# Delivery Selector %>
+    <%= render partial: "orders/delivery_selector", locals: { order: } %>
+
     <%# Action Buttons %>
     <% if order.draft? %>
       <div class="mt-6">
         <%= button_to order_checkout_index_path(order),
           method: :post,
           data: { turbo: false },
-          disabled: order.order_items.empty?,
+          disabled: order.order_items.empty? || !order.delivery_ready?,
           class: "du-btn du-btn-primary w-full" do %>
           <i class="fa-solid fa-credit-card mr-2"></i>
           <% if order.order_items.any? %>
