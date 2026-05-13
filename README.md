@@ -42,6 +42,7 @@ heroku config:set STRIPE_SECRET_KEY='sk_foo'
 heroku config:set ADMIN_USERNAME='admin'
 heroku config:set ADMIN_PASSWORD='password'
 heroku config:set HONEYBADGER_API_KEY='hbp_foo'
+heroku config:set INPOST_GEOWIDGET_TOKEN='inpost_geowidget_token'
 ```
 
 [Create a stripe webhook endpoint](https://dashboard.stripe.com/webhooks/create?events=product.created%2Cproduct.deleted%2Cproduct.updated%2Cprice.created%2Cprice.deleted%2Cprice.updated%2Ccheckout.session.completed%2Caccount.updated)

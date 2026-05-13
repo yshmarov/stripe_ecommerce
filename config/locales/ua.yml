@@ -32,6 +32,11 @@ ua:
         image_url: URL зображення
       order:
         status: Статус
+        delivery_method: Спосіб доставки
+        delivery_details: Деталі доставки
+        delivery_methods:
+          home_delivery: Доставка додому
+          inpost: Поштомат InPost
         checkout_session:
           created: Замовлено
           amount_subtotal: Сума
@@ -70,9 +75,19 @@ ua:
       rating: Оцінити замовлення
       complete: Замовити
       empty: Ваш кошик порожній
+    delivery:
+      title: Доставка
+      home_delivery_description: Вкажіть адресу доставки під час оплати Stripe Checkout.
+      inpost_description: Виберіть поштомат InPost перед переходом до оплати.
+      no_inpost_point: Пункт InPost ще не вибрано.
+      inpost_point_name: ID поштомата
+      inpost_point_address: Адреса поштомата
+      save: Зберегти спосіб доставки
     update:
       submitted: Замовлення відправлено! Ми готуємо його для вас.
       rating: Дякуємо за відгук!
+      delivery_saved: Спосіб доставки збережено.
+      delivery_required: Виберіть спосіб доставки перед оплатою.
     show:
       title: Замовлення №%{name}
       thank_you: Дякуємо за ваше замовлення! 💕

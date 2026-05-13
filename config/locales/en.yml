@@ -32,6 +32,11 @@ en:
         image_url: Image URL
       order:
         status: Status
+        delivery_method: Delivery method
+        delivery_details: Delivery details
+        delivery_methods:
+          home_delivery: Home delivery
+          inpost: InPost parcel locker
         checkout_session:
           created: Submitted at
           amount_subtotal: Subtotal
@@ -74,9 +79,19 @@ en:
       rating: Rate the order
       complete: Complete order
       empty: Your cart is empty
+    delivery:
+      title: Delivery
+      home_delivery_description: Enter the shipping address during Stripe Checkout.
+      inpost_description: Select an InPost parcel locker before continuing to checkout.
+      no_inpost_point: No InPost point selected yet.
+      inpost_point_name: Locker ID
+      inpost_point_address: Locker address
+      save: Save delivery selection
     update:
       submitted: Order submitted! We are preparing it for you.
       rating: Thanks for the feedback!
+      delivery_saved: Delivery selection saved.
+      delivery_required: Select a delivery method before checkout.
     show:
       title: Order №%{name}
       thank_you: Thank you for your order! 💕

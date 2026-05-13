@@ -37,6 +37,9 @@
       "description": "Honeybadger API key",
       "value": "hbp_foo"
     },
+    "INPOST_GEOWIDGET_TOKEN": {
+      "description": "Optional token for rendering the InPost Geowidget parcel locker selector"
+    },
     "SENSIBLE_DEFAULTS": "enabled"
   },
   "formation": {
