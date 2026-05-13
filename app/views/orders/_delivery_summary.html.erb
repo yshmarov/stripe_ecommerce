@@ -1,0 +1,6 @@
+<% if order.delivery_summary.present? %>
+  <div class="mt-4 rounded-md border border-base-300 bg-base-200/40 p-3 text-sm">
+    <strong><%= t("orders.delivery.title") %>:</strong>
+    <%= order.delivery_summary %>
+  </div>
+<% end %>

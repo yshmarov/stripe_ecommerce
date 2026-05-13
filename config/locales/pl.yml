@@ -32,6 +32,11 @@ pl:
         image_url: URL obrazu
       order:
         status: Status
+        delivery_method: Metoda dostawy
+        delivery_details: Szczegóły dostawy
+        delivery_methods:
+          home_delivery: Dostawa do domu
+          inpost: Paczkomat InPost
         checkout_session:
           created: Zamówiono
           amount_subtotal: Suma
@@ -70,9 +75,19 @@ pl:
       rating: Oceń zamówienie
       complete: Zamów
       empty: Twój koszyk jest pusty
+    delivery:
+      title: Dostawa
+      home_delivery_description: Podaj adres dostawy podczas płatności Stripe Checkout.
+      inpost_description: Wybierz paczkomat InPost przed przejściem do płatności.
+      no_inpost_point: Nie wybrano jeszcze punktu InPost.
+      inpost_point_name: ID paczkomatu
+      inpost_point_address: Adres paczkomatu
+      save: Zapisz metodę dostawy
     update:
       submitted: Zamówienie złożone! Przygotowujemy je dla Ciebie.
       rating: Dziękujemy za opinię!
+      delivery_saved: Metoda dostawy została zapisana.
+      delivery_required: Wybierz metodę dostawy przed płatnością.
     show:
       title: Zamówienie №%{name}
       thank_you: Dziękujemy za Twoje zamówienie! 💕

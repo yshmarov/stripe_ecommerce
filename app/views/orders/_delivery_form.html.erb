@@ -1,0 +1,72 @@
+<% if ENV["INPOST_GEOWIDGET_TOKEN"].present? %>
+  <% content_for :head do %>
+    <link rel="stylesheet" href="https://geowidget.inpost.pl/inpost-geowidget.css">
+    <script src="https://geowidget.inpost.pl/inpost-geowidget.js" defer></script>
+  <% end %>
+<% end %>
+
+<section class="mt-6 rounded-lg border border-base-300 bg-base-200/40 p-4" data-controller="delivery-selection">
+  <h3 class="font-semibold text-base-content"><%= t("orders.delivery.title") %></h3>
+
+  <%= form_with model: order, method: :patch, class: "mt-4 space-y-4" do |form| %>
+    <label class="flex cursor-pointer items-start gap-3 rounded-md border border-base-300 bg-base-100 p-3">
+      <%= form.radio_button :delivery_method,
+        "home_delivery",
+        checked: order.home_delivery?,
+        class: "du-radio du-radio-primary mt-1",
+        data: { action: "delivery-selection#toggle" } %>
+      <span>
+        <span class="block font-medium"><%= t("activerecord.attributes.order.delivery_methods.home_delivery") %></span>
+        <span class="text-sm text-base-content/70"><%= t("orders.delivery.home_delivery_description") %></span>
+      </span>
+    </label>
+
+    <label class="flex cursor-pointer items-start gap-3 rounded-md border border-base-300 bg-base-100 p-3">
+      <%= form.radio_button :delivery_method,
+        "inpost",
+        checked: order.inpost_delivery?,
+        class: "du-radio du-radio-primary mt-1",
+        data: { action: "delivery-selection#toggle" } %>
+      <span>
+        <span class="block font-medium"><%= t("activerecord.attributes.order.delivery_methods.inpost") %></span>
+        <span class="text-sm text-base-content/70"><%= t("orders.delivery.inpost_description") %></span>
+      </span>
+    </label>
+
+    <div class="<%= "hidden" unless order.inpost_delivery? %> space-y-3 rounded-md border border-base-300 bg-base-100 p-3" data-delivery-selection-target="inpostFields">
+      <% if ENV["INPOST_GEOWIDGET_TOKEN"].present? %>
+        <inpost-geowidget
+          data-delivery-selection-target="geowidget"
+          token="<%= ENV["INPOST_GEOWIDGET_TOKEN"] %>"
+          language="<%= I18n.locale == :pl ? "pl" : "en" %>"
+          config="parcelCollect">
+        </inpost-geowidget>
+      <% end %>
+
+      <p class="text-sm text-base-content/70" data-delivery-selection-target="pointSummary">
+        <%= [ order.inpost_point_name, order.inpost_point_address ].compact.join(" - ").presence || t("orders.delivery.no_inpost_point") %>
+      </p>
+
+      <div class="grid gap-3 md:grid-cols-2">
+        <div>
+          <%= label_tag "order_delivery_details_point_name", t("orders.delivery.inpost_point_name"), class: "du-label" %>
+          <%= text_field_tag "order[delivery_details][point_name]",
+            order.inpost_point_name,
+            id: "order_delivery_details_point_name",
+            class: "du-input du-input-bordered w-full",
+            data: { delivery_selection_target: "pointName" } %>
+        </div>
+        <div>
+          <%= label_tag "order_delivery_details_point_address", t("orders.delivery.inpost_point_address"), class: "du-label" %>
+          <%= text_field_tag "order[delivery_details][point_address]",
+            order.inpost_point_address,
+            id: "order_delivery_details_point_address",
+            class: "du-input du-input-bordered w-full",
+            data: { delivery_selection_target: "pointAddress" } %>
+        </div>
+      </div>
+    </div>
+
+    <%= form.submit t("orders.delivery.save"), class: "du-btn du-btn-outline du-btn-primary w-full" %>
+  <% end %>
+</section>

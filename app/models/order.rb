@@ -1,4 +1,6 @@
 class Order < ApplicationRecord
+  DELIVERY_METHODS = %w[home_delivery inpost].freeze
+
   enum :status, { draft: "draft",
                   submitted: "submitted",
                   processing: "processing",
@@ -20,6 +22,7 @@ class Order < ApplicationRecord
 
   validates :user_id, presence: true
   validates :status, presence: true
+  validates :delivery_method, inclusion: { in: DELIVERY_METHODS }, allow_blank: true
   validates :rating, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }, allow_blank: true
 
   scope :queued, -> { where(status: %w[submitted processing delivery]) }
@@ -32,6 +35,41 @@ class Order < ApplicationRecord
     return [ status ] if %w[draft].include?(status)
 
     self.class.statuses.reject { |k, _v| %w[draft].include?(k) }.keys
+  end
+
+  def delivery_selected?
+    home_delivery? || (inpost_delivery? && inpost_point_name.present?)
+  end
+
+  def home_delivery?
+    delivery_method == "home_delivery"
+  end
+
+  def inpost_delivery?
+    delivery_method == "inpost"
+  end
+
+  def delivery_details
+    super || {}
+  end
+
+  def inpost_point_name
+    delivery_details["point_name"].presence
+  end
+
+  def inpost_point_address
+    delivery_details["point_address"].presence
+  end
+
+  def delivery_summary
+    return nil if delivery_method.blank?
+    return I18n.t("activerecord.attributes.order.delivery_methods.home_delivery") if home_delivery?
+
+    [
+      I18n.t("activerecord.attributes.order.delivery_methods.inpost"),
+      inpost_point_name,
+      inpost_point_address
+    ].compact.join(" - ")
   end
 
   after_update_commit do
