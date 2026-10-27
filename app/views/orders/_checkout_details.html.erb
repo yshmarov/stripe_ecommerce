@@ -30,7 +30,28 @@
       <%= number_to_currency(order.stripe_checkout_session_object.amount_total.to_f / 100, unit: currency_code_to_symbol(order.currency)) %>
     </p>
 
-    <% if order.stripe_checkout_session_object.collected_information.shipping_details.present? %>
+    <% if order.delivery_method.present? %>
+      <hr>
+
+      <p>
+        <strong><%= t("activerecord.attributes.order.delivery_method") %>:</strong>
+        <%= order.delivery_method_label %>
+      </p>
+
+      <% if order.inpost_delivery? && order.inpost_point_summary.present? %>
+        <p>
+          <strong><%= t("activerecord.attributes.order.inpost_locker") %>:</strong>
+          <%= order.inpost_point_summary %>
+        </p>
+      <% elsif order.home_delivery? && order.delivery_address.present? %>
+        <p>
+          <strong><%= t("activerecord.attributes.order.delivery_address") %>:</strong>
+          <%= order.delivery_address %>
+        </p>
+      <% end %>
+    <% end %>
+
+    <% if order.stripe_checkout_session_object.collected_information&.shipping_details.present? %>
       <hr>
 
       <p>

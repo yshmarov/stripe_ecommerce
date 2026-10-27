@@ -1,3 +1,8 @@
+<% content_for :head do %>
+  <link rel="stylesheet" href="https://geowidget.inpost.pl/inpost-geowidget.css">
+  <script src="https://geowidget.inpost.pl/inpost-geowidget.js" defer></script>
+<% end %>
+
 <article id="<%= dom_id order %>" class="bg-base-100 shadow-sm rounded-lg overflow-hidden">
   <div class="p-6">
     <%# Header with Order ID and Status %>
@@ -28,18 +33,122 @@
       <%= render partial: "orders/checkout_details", locals: { order: } %>
     </div>
 
-    <%# Action Buttons %>
+    <%# Delivery Selection & Action Buttons %>
     <% if order.draft? %>
+      <% if order.order_items.any? %>
+        <div class="mt-6 border border-base-300 rounded-lg p-4 space-y-4" data-controller="inpost-delivery">
+          <div>
+            <h3 class="text-base font-semibold text-base-content"><%= t(".delivery_method") %></h3>
+            <p class="text-sm text-base-content/70"><%= t(".delivery_method_hint") %></p>
+          </div>
+
+          <%= form_with model: order, url: order_path(order), method: :patch, class: "space-y-4" do |form| %>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <% Order::DELIVERY_METHODS.each do |method_key| %>
+                <label class="flex items-center gap-3 p-3 border border-base-300 rounded-lg cursor-pointer hover:bg-base-200/60 transition-colors">
+                  <%= form.radio_button :delivery_method,
+                    method_key,
+                    checked: order.delivery_method == method_key,
+                    class: "du-radio du-radio-primary",
+                    data: {
+                      inpost_delivery_target: "methodRadio",
+                      action: "change->inpost-delivery#toggleMethod"
+                    } %>
+                  <span class="font-medium text-sm text-base-content">
+                    <%= t("activerecord.attributes.order.delivery_methods.#{method_key}") %>
+                  </span>
+                </label>
+              <% end %>
+            </div>
+
+            <div data-inpost-delivery-target="homePanel" class="<%= 'hidden' unless order.home_delivery? %> space-y-2">
+              <label for="order_delivery_details_address" class="block text-sm font-medium text-base-content">
+                <%= t(".home_address_label") %>
+              </label>
+              <%= text_field_tag "order[delivery_details][address]",
+                order.delivery_address,
+                id: "order_delivery_details_address",
+                placeholder: t(".home_address_placeholder"),
+                disabled: !order.home_delivery?,
+                data: { inpost_delivery_target: "homeInput" },
+                class: "du-input du-input-bordered w-full" %>
+              <p class="text-xs text-base-content/60"><%= t(".home_address_hint") %></p>
+            </div>
+
+            <div data-inpost-delivery-target="inpostPanel" class="<%= 'hidden' unless order.inpost_delivery? %> space-y-3">
+              <div data-inpost-delivery-target="pointPreview" class="<%= 'hidden' if order.inpost_point_summary.blank? %> p-3 rounded-md bg-primary/10 text-sm">
+                <strong class="block text-primary"><%= t(".selected_inpost_point") %>:</strong>
+                <span data-inpost-delivery-target="pointSummaryText" class="text-base-content"><%= order.inpost_point_summary %></span>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label for="order_delivery_details_point_name" class="block text-sm font-medium text-base-content">
+                    <%= t(".inpost_point_name_label") %>
+                  </label>
+                  <%= text_field_tag "order[delivery_details][point_name]",
+                    order.delivery_point_name,
+                    id: "order_delivery_details_point_name",
+                    placeholder: "WAW01A",
+                    disabled: !order.inpost_delivery?,
+                    data: { inpost_delivery_target: "inpostInput pointNameInput" },
+                    class: "du-input du-input-bordered w-full" %>
+                </div>
+
+                <div>
+                  <label for="order_delivery_details_point_address" class="block text-sm font-medium text-base-content">
+                    <%= t(".inpost_point_address_label") %>
+                  </label>
+                  <%= text_field_tag "order[delivery_details][point_address]",
+                    order.delivery_point_address,
+                    id: "order_delivery_details_point_address",
+                    placeholder: t(".inpost_point_address_placeholder"),
+                    disabled: !order.inpost_delivery?,
+                    data: { inpost_delivery_target: "inpostInput pointAddressInput" },
+                    class: "du-input du-input-bordered w-full" %>
+                </div>
+              </div>
+
+              <% if ENV["INPOST_GEOWIDGET_TOKEN"].present? %>
+                <div class="w-full h-96 border border-base-300 rounded-lg overflow-hidden">
+                  <inpost-geowidget
+                    data-inpost-delivery-target="widget"
+                    onpoint="afterPointSelected"
+                    token="<%= ENV["INPOST_GEOWIDGET_TOKEN"] %>"
+                    language="<%= I18n.locale == :ua ? :uk : I18n.locale %>"
+                    config="parcelCollect">
+                  </inpost-geowidget>
+                </div>
+              <% else %>
+                <p class="text-xs text-base-content/60"><%= t(".inpost_manual_hint") %></p>
+              <% end %>
+            </div>
+
+            <div class="flex items-center justify-between gap-3 pt-2">
+              <% if order.delivery_summary.present? %>
+                <span class="text-xs text-base-content/70">
+                  <strong><%= t(".saved_delivery") %>:</strong> <%= order.delivery_summary %>
+                </span>
+              <% else %>
+                <span class="text-xs text-warning"><%= t(".select_delivery_before_checkout") %></span>
+              <% end %>
+
+              <%= form.submit t(".save_delivery"), class: "du-btn du-btn-outline du-btn-sm" %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
       <div class="mt-6">
         <%= button_to order_checkout_index_path(order),
           method: :post,
           data: { turbo: false },
-          disabled: order.order_items.empty?,
+          disabled: order.order_items.empty? || !order.delivery_selection_complete?,
           class: "du-btn du-btn-primary w-full" do %>
           <i class="fa-solid fa-credit-card mr-2"></i>
           <% if order.order_items.any? %>
             <%= t(".complete") %>
-            <%= number_to_currency(order.total_amount / 100.0, unit: currency_code_to_symbol(order.currency)) %>
+            <%= number_to_currency(order.subtotal_amount / 100.0, unit: currency_code_to_symbol(order.currency)) %>
           <% else %>
             <%= t(".empty") %>
           <% end %>

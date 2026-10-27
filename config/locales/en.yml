@@ -1,5 +1,12 @@
 en:
   activerecord:
+    errors:
+      models:
+        order:
+          attributes:
+            delivery_details:
+              inpost_point_blank: InPost parcel locker is required
+              inpost_address_blank: InPost parcel locker address is required
     attributes:
       setting:
         scope:
@@ -32,6 +39,11 @@ en:
         image_url: Image URL
       order:
         status: Status
+        subtotal_amount: Subtotal
+        delivery_method: Delivery method
+        delivery_methods:
+          home_delivery: Home delivery
+          inpost: InPost
         checkout_session:
           created: Submitted at
           amount_subtotal: Subtotal
@@ -71,9 +83,31 @@ en:
       title: My Orders
     order:
       items: Shopping cart
+      total: Total
       rating: Rate the order
       complete: Complete order
       empty: Your cart is empty
+      view_details: View Order Details
+    delivery:
+      heading: Delivery method
+      description: Choose how your order should be delivered before continuing to payment.
+      save: Save delivery method
+      saved: Delivery method saved
+      locked: Delivery method can only be changed on draft orders
+      selection_required: Select a delivery method before proceeding to checkout
+      checkout_hint: Save your delivery selection to enable checkout.
+      methods:
+        home_delivery_hint: Enter your delivery address or provide it during Stripe checkout.
+        inpost_hint: Pick an InPost parcel locker for collection.
+      home:
+        address_label: Delivery address (optional before checkout)
+        address_placeholder: ul. Marszałkowska 1/2, 00-001 Warszawa
+      inpost:
+        title: Select an InPost parcel locker
+        instructions: Use the InPost map to pick a locker or confirm the locker details below.
+        manual_fallback: Set INPOST_GEOWIDGET_TOKEN to load the interactive InPost map, or enter the locker code and address below.
+        point_name: Locker code
+        point_address: Locker address
     update:
       submitted: Order submitted! We are preparing it for you.
       rating: Thanks for the feedback!
@@ -81,6 +115,7 @@ en:
       title: Order №%{name}
       thank_you: Thank you for your order! 💕
       rating: Rate the order
+      checkout: Checkout
   queue:
     index:
       title: Orders in progress

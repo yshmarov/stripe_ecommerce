@@ -1,5 +1,12 @@
 ua:
   activerecord:
+    errors:
+      models:
+        order:
+          attributes:
+            delivery_details:
+              inpost_point_blank: Потрібно обрати поштомат InPost
+              inpost_address_blank: Потрібно вказати адресу поштомату InPost
     attributes:
       setting:
         scope:
@@ -32,6 +39,11 @@ ua:
         image_url: URL зображення
       order:
         status: Статус
+        subtotal_amount: Проміжна сума
+        delivery_method: Спосіб доставки
+        delivery_methods:
+          home_delivery: Доставка додому
+          inpost: InPost
         checkout_session:
           created: Замовлено
           amount_subtotal: Сума
@@ -67,9 +79,31 @@ ua:
       title: Мої замовлення
     order:
       items: Кошик
+      total: Загальна сума
       rating: Оцінити замовлення
       complete: Замовити
       empty: Ваш кошик порожній
+      view_details: Переглянути деталі замовлення
+    delivery:
+      heading: Спосіб доставки
+      description: Оберіть спосіб доставки замовлення перед переходом до оплати.
+      save: Зберегти спосіб доставки
+      saved: Спосіб доставки збережено
+      locked: Спосіб доставки можна змінити лише для чернетки замовлення
+      selection_required: Оберіть спосіб доставки перед переходом до оплати
+      checkout_hint: Збережіть спосіб доставки, щоб розблокувати перехід до оплати.
+      methods:
+        home_delivery_hint: Вкажіть адресу доставки тут або під час оплати в Stripe.
+        inpost_hint: Оберіть поштомат InPost для отримання замовлення.
+      home:
+        address_label: Адреса доставки (необов'язково перед оплатою)
+        address_placeholder: ul. Marszałkowska 1/2, 00-001 Warszawa
+      inpost:
+        title: Оберіть поштомат InPost
+        instructions: Скористайтеся картою InPost або підтвердьте дані поштомату нижче.
+        manual_fallback: Встановіть INPOST_GEOWIDGET_TOKEN для завантаження карти InPost або введіть код і адресу поштомату вручну.
+        point_name: Код поштомату
+        point_address: Адреса поштомату
     update:
       submitted: Замовлення відправлено! Ми готуємо його для вас.
       rating: Дякуємо за відгук!
@@ -77,6 +111,7 @@ ua:
       title: Замовлення №%{name}
       thank_you: Дякуємо за ваше замовлення! 💕
       rating: Оцінити замовлення
+      checkout: Перейти до оплати
   queue:
     index:
       title: Замовлення в процесі

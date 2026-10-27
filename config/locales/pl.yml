@@ -1,5 +1,12 @@
 pl:
   activerecord:
+    errors:
+      models:
+        order:
+          attributes:
+            delivery_details:
+              inpost_point_blank: Wybór paczkomatu InPost jest wymagany
+              inpost_address_blank: Adres paczkomatu InPost jest wymagany
     attributes:
       setting:
         scope:
@@ -32,6 +39,11 @@ pl:
         image_url: URL obrazu
       order:
         status: Status
+        subtotal_amount: Suma częściowa
+        delivery_method: Sposób dostawy
+        delivery_methods:
+          home_delivery: Dostawa do domu
+          inpost: InPost
         checkout_session:
           created: Zamówiono
           amount_subtotal: Suma
@@ -67,9 +79,31 @@ pl:
       title: Moje zamówienia
     order:
       items: Koszyk
+      total: Łącznie
       rating: Oceń zamówienie
       complete: Zamów
       empty: Twój koszyk jest pusty
+      view_details: Zobacz szczegóły zamówienia
+    delivery:
+      heading: Sposób dostawy
+      description: Wybierz sposób dostawy zamówienia przed przejściem do płatności.
+      save: Zapisz sposób dostawy
+      saved: Zapisano sposób dostawy
+      locked: Sposób dostawy można zmienić tylko dla szkicu zamówienia
+      selection_required: Wybierz sposób dostawy przed przejściem do płatności
+      checkout_hint: Zapisz wybór dostawy, aby odblokować przejście do płatności.
+      methods:
+        home_delivery_hint: Podaj adres dostawy tutaj lub podczas płatności w Stripe.
+        inpost_hint: Wybierz paczkomat InPost do odbioru zamówienia.
+      home:
+        address_label: Adres dostawy (opcjonalnie przed płatnością)
+        address_placeholder: ul. Marszałkowska 1/2, 00-001 Warszawa
+      inpost:
+        title: Wybierz paczkomat InPost
+        instructions: Wybierz punkt na mapie InPost lub potwierdź dane paczkomatu poniżej.
+        manual_fallback: Ustaw INPOST_GEOWIDGET_TOKEN, aby wczytać mapę InPost, lub wpisz kod i adres paczkomatu poniżej.
+        point_name: Kod paczkomatu
+        point_address: Adres paczkomatu
     update:
       submitted: Zamówienie złożone! Przygotowujemy je dla Ciebie.
       rating: Dziękujemy za opinię!
@@ -77,6 +111,7 @@ pl:
       title: Zamówienie №%{name}
       thank_you: Dziękujemy za Twoje zamówienie! 💕
       rating: Oceń zamówienie
+      checkout: Przejdź do płatności
   queue:
     index:
       title: Zamówienia w toku

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_31_215847) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_09_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -160,6 +160,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_31_215847) do
     t.string "user_agent"
     t.string "ip_address"
     t.bigint "subtotal_amount", default: 0, null: false
+    t.string "delivery_method"
+    t.jsonb "delivery_details", default: {}, null: false
     t.index ["account_id"], name: "index_orders_on_account_id"
   end
 
